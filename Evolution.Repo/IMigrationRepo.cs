@@ -8,5 +8,6 @@ namespace Evolution.Repo
         IEnumerable<IMigration> GetExecutedMigrations();
         void AddMigration(IMigration migration);
         void RemoveMigration(IMigration migration);
+        void SaveChanges();
     }
 }

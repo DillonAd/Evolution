@@ -6,5 +6,6 @@ namespace Evolution.Data
     public interface IMigrationContext
     {
         DbSet<IMigration> Migrations { get; set; }
+        int SaveChanges();
     }
 }

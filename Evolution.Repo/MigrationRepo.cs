@@ -28,5 +28,10 @@ namespace Evolution.Repo
         {
             _Context.Migrations.Remove(migration);
         }
+
+        public void SaveChanges()
+        {
+            _Context.SaveChanges();
+        }
     }
 }
