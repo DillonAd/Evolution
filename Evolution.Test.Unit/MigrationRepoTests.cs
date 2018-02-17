@@ -29,6 +29,20 @@ namespace Evolution.Test.Unit
             Assert.Equal(migrations.Count, executedMigrations.Count());
         }
 
+        [Fact]
+        public void AddMigration()
+        {
+            var migration = new Migration("Migration1");
+
+            var migrations = new List<IMigration>();
+            var context = SetupMigrationContext(migrations);
+            var repo = new MigrationRepo(context);
+            
+            repo.AddMigration(migration);
+
+            Assert.Contains(migration, migrations);
+        }
+
         private IMigrationContext SetupMigrationContext(List<IMigration> migrations)
         {
             var queryableMigrations = migrations.AsQueryable();
