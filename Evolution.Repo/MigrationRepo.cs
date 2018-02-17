@@ -1,5 +1,7 @@
 ﻿using Evolution.Data;
 using Evolution.Domain;
+using Evolution.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -32,6 +34,11 @@ namespace Evolution.Repo
         public void SaveChanges()
         {
             _Context.SaveChanges();
+        }
+
+        public void ExecuteMigration(string content)
+        {
+            _Context.ExecuteMigration(content);
         }
     }
 }

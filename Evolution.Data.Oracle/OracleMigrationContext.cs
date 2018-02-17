@@ -1,15 +1,24 @@
 ﻿using Evolution.Domain;
-using Microsoft.EntityFrameworkCore;
+using System.Data.Entity;
+using System;
+using System.Data.Common;
 
 namespace Evolution.Data.Oracle
 {
     public class OracleMigrationContext : DbContext, IMigrationContext
     {
-        DbSet<IMigration> IMigrationContext.Migrations { get; set; }
+        public virtual DbSet<IMigration> Migrations { get; set; }
 
-        public override int SaveChanges()
+        public OracleMigrationContext(DbConnection connection) : base(connection.ConnectionString) { }
+        
+        public void ExecuteMigration(string content)
         {
-            return base.SaveChanges();
+            Database.ExecuteSqlCommand(content);
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Migration>();
         }
     }
 }

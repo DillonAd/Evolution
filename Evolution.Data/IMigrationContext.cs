@@ -1,5 +1,5 @@
 ﻿using Evolution.Domain;
-using Microsoft.EntityFrameworkCore;
+using System.Data.Entity;
 
 namespace Evolution.Data
 {
@@ -7,5 +7,6 @@ namespace Evolution.Data
     {
         DbSet<IMigration> Migrations { get; set; }
         int SaveChanges();
+        void ExecuteMigration(string content);
     }
 }

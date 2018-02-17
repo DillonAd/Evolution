@@ -9,5 +9,6 @@ namespace Evolution.Repo
         void AddMigration(IMigration migration);
         void RemoveMigration(IMigration migration);
         void SaveChanges();
+        void ExecuteMigration(string content);
     }
 }
