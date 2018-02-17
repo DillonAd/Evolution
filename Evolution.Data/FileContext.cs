@@ -31,5 +31,10 @@ namespace Evolution.Data
 
             return string.Empty;
         }
+
+        public string[] GetMigrationFileNames()
+        {
+            return Directory.GetFiles("./", "*.sql");
+        }
     }
 }

@@ -4,6 +4,7 @@ using Evolution.Exceptions;
 using Evolution.Repo;
 using Moq;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace Evolution.Test.Unit
@@ -64,7 +65,7 @@ namespace Evolution.Test.Unit
             var content = "migration file content";
 
             var mockContext = new Mock<IFileContext>();
-            mockContext.Setup(c => c.GetMigrationFileContent(It.Is<string>(f => f == sfileName))).Returns(content);
+            mockContext.Setup(c => c.GetMigrationFileContent(It.Is<string>(f => f == fileName))).Returns(content);
 
             var repo = new FileRepo(mockContext.Object);
             var contentResult = repo.GetMigrationFileContent(fileName);
@@ -103,13 +104,13 @@ namespace Evolution.Test.Unit
                 "Migration3.up.sql",
                 "Migration3.down.sql"
             };
-            migrationFileNames.AddRange(unexecutedMigrations);
+            migrationFileNames.AddRange(unexecutedMigrationFiles);
 
             var mockContext = new Mock<IFileContext>();
-            mockContext.Setup(mc => mc.GetMigrationFileNames()).Returns(migrationFileNames);
+            mockContext.Setup(mc => mc.GetMigrationFileNames()).Returns(migrationFileNames.ToArray());
 
             var repo = new FileRepo(mockContext.Object);
-            string[] unexecutedMigrationFilesResult = repo.GetUnexecutedMigrations(executedMigrations);
+            string[] unexecutedMigrationFilesResult = repo.GetUnexecutedMigrations(executedMigrations).ToArray();
 
             Assert.NotEmpty(unexecutedMigrationFilesResult);
             Assert.Equal(unexecutedMigrationFiles, unexecutedMigrationFilesResult);
