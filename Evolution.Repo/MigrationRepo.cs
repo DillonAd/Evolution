@@ -18,5 +18,10 @@ namespace Evolution.Repo
         {
             return _Context.Migrations.AsEnumerable();
         }
+
+        public void AddMigration(IMigration migration)
+        {
+            _Context.Migrations.Add(migration);
+        }
     }
 }
