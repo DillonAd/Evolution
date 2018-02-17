@@ -23,5 +23,10 @@ namespace Evolution.Repo
         {
             _Context.Migrations.Add(migration);
         }
+
+        public void RemoveMigration(IMigration migration)
+        {
+            _Context.Migrations.Remove(migration);
+        }
     }
 }
