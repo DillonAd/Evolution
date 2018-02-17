@@ -37,5 +37,10 @@ namespace Evolution.Repo
                 throw;
             }
         }
+
+        public string GetMigrationFileContent(string fileName)
+        {
+            return _Context.GetMigrationFileContent(fileName);
+        }
     }
 }

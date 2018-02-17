@@ -21,5 +21,15 @@ namespace Evolution.Data
         {
             File.Delete(fileName);
         }
+
+        public string GetMigrationFileContent(string fileName)
+        {
+            if(File.Exists(fileName))
+            {
+                return File.ReadAllText(fileName);
+            }
+
+            return string.Empty;
+        }
     }
 }

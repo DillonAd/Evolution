@@ -64,10 +64,10 @@ namespace Evolution.Test.Unit
             var content = "migration file content";
 
             var mockContext = new Mock<IFileContext>();
-            mockContext.Setup(c => c.GetMigrationFileContent(It.IsAny<string>())).Returns(content);
+            mockContext.Setup(c => c.GetMigrationFileContent(It.Is<string>(f => f == fileName))).Returns(content);
 
             var repo = new FileRepo(mockContext.Object);
-            var contentResult = repo.GetMigrationFileContent(direction);
+            var contentResult = repo.GetMigrationFileContent(fileName);
 
             Assert.NotNull(contentResult);
             Assert.NotEmpty(contentResult);
