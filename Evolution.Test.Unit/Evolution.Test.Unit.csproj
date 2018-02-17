@@ -14,4 +14,10 @@
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Evolution.Data\Evolution.Data.csproj" />
+    <ProjectReference Include="..\Evolution.Domain\Evolution.Domain.csproj" />
+    <ProjectReference Include="..\Evolution.Repo\Evolution.Repo.csproj" />
+  </ItemGroup>
+
 </Project>
