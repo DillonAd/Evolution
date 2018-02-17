@@ -14,8 +14,10 @@ namespace Evolution.Test.Unit
             var migrationName = "migration1";
             var fileList = new List<string>();
 
-            var context = SetupFileContext(fileList);
-            var repo = new FileRepo(context);
+            var mockContext = new Mock<IFileContext>();
+            mockContext.Setup(c => c.CreateFile(It.IsAny<string>())).Callback<string>(fileName => fileList.Add(fileName));
+
+            var repo = new FileRepo(mockContext.Object);
             repo.CreateMigrationFiles(migrationName);
 
             Assert.NotEmpty(fileList);
@@ -24,12 +26,32 @@ namespace Evolution.Test.Unit
             Assert.Contains(migrationName, fileList[1]);
         }
 
-        public IFileContext SetupFileContext(List<string> fileList)
+        [Fact]
+        public void CreateMigrationFiles_FileExists()
         {
-            var mockContext = new Mock<IFileContext>();
-            mockContext.Setup(c => c.CreateFile(It.IsAny<string>())).Callback<string>(fileName => fileList.Add(fileName));
+            var migrationName = "migration1";
+            var fileList = new List<string>();
+            var count = 0;
 
-            return mockContext.Object;
+            var mockContext = new Mock<IFileContext>();
+            mockContext.Setup(c => c.CreateFile(It.IsAny<string>())).Callback<string>((fileName) =>
+            {
+                count++;
+
+                if (count > 1)
+                {
+                    throw new MigrationFileException("Migration file already exists");
+                }
+                else
+                {
+                    fileList.Add(fileName);
+                }
+            });
+
+            var repo = new FileRepo(mockContext.Object);
+
+            Assert.Throws<MigrationFileException>(() => repo.CreateMigrationFiles(migrationName));
+            Assert.Empty(fileList);
         }
     }
 }
