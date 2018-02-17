@@ -1,8 +1,8 @@
 ﻿using Evolution.Data;
+using Evolution.Domain;
 using Evolution.Exceptions;
 using Evolution.Repo;
 using Moq;
-using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -64,7 +64,7 @@ namespace Evolution.Test.Unit
             var content = "migration file content";
 
             var mockContext = new Mock<IFileContext>();
-            mockContext.Setup(c => c.GetMigrationFileContent(It.Is<string>(f => f == fileName))).Returns(content);
+            mockContext.Setup(c => c.GetMigrationFileContent(It.Is<string>(f => f == sfileName))).Returns(content);
 
             var repo = new FileRepo(mockContext.Object);
             var contentResult = repo.GetMigrationFileContent(fileName);
@@ -72,6 +72,47 @@ namespace Evolution.Test.Unit
             Assert.NotNull(contentResult);
             Assert.NotEmpty(contentResult);
             Assert.Equal(content, contentResult);
+        }
+
+        [Fact]
+        public void GetUnexecutedMigrations()
+        {
+            var executedMigrations = new Migration[]
+            {
+                new Migration("Migration1"),
+                new Migration("Migration2"),
+                new Migration("Migration3")
+            };
+
+            var unexecutedMigrationFiles = new string[]
+            {
+                "Migration4.up.sql",
+                "Migration4.down.sql",
+                "Migration5.up.sql",
+                "Migration5.down.sql",
+                "Migration6.up.sql",
+                "Migration6.down.sql"
+            };
+
+            var migrationFileNames = new List<string>()
+            {
+                "Migration1.up.sql",
+                "Migration1.down.sql",
+                "Migration2.up.sql",
+                "Migration2.down.sql",
+                "Migration3.up.sql",
+                "Migration3.down.sql"
+            };
+            migrationFileNames.AddRange(unexecutedMigrations);
+
+            var mockContext = new Mock<IFileContext>();
+            mockContext.Setup(mc => mc.GetMigrationFileNames()).Returns(migrationFileNames);
+
+            var repo = new FileRepo(mockContext.Object);
+            string[] unexecutedMigrationFilesResult = repo.GetUnexecutedMigrations(executedMigrations);
+
+            Assert.NotEmpty(unexecutedMigrationFilesResult);
+            Assert.Equal(unexecutedMigrationFiles, unexecutedMigrationFilesResult);
         }
     }
 }
