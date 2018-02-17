@@ -43,6 +43,24 @@ namespace Evolution.Test.Unit
             Assert.Contains(migration, migrations);
         }
 
+        [Fact]
+        public void RemoveMigration()
+        {
+            var migration = new Migration("Migration1");
+
+            var migrations = new List<IMigration>()
+            {
+                migration
+            };
+
+            var context = SetupMigrationContext(migrations);
+            var repo = new MigrationRepo(context);
+
+            repo.RemoveMigration(migration);
+
+            Assert.Empty(migrations);
+        }
+
         private IMigrationContext SetupMigrationContext(List<IMigration> migrations)
         {
             var queryableMigrations = migrations.AsQueryable();
