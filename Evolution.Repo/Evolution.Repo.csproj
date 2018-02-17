@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Evolution.Data\Evolution.Data.csproj" />
     <ProjectReference Include="..\Evolution.Domain\Evolution.Domain.csproj" />
+    <ProjectReference Include="..\Evolution.Exceptions\Evolution.Exceptions.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
 ﻿using Evolution.Data;
+using Evolution.Exceptions;
 
 namespace Evolution.Repo
 {
@@ -13,11 +14,28 @@ namespace Evolution.Repo
         
         public void CreateMigrationFiles(string migrationName)
         {
-            string fileName = string.Format("{0}.{1}.sql", migrationName, "up");
-            _Context.CreateFile(fileName);
+            string[] fileNames = new string[]
+            {
+                string.Format("{0}.{1}.sql", migrationName, "up"),
+                string.Format("{0}.{1}.sql", migrationName, "down")
+            };
 
-            fileName = string.Format("{0}.{1}.sql", migrationName, "down");
-            _Context.CreateFile(fileName);
+            try
+            {
+                foreach (string fileName in fileNames)
+                {
+                    _Context.CreateFile(fileName);
+                }
+            }
+            catch(MigrationFileException)
+            {
+                foreach (string fileName in fileNames)
+                {
+                    _Context.DeleteFile(fileName);
+                }
+
+                throw;
+            }
         }
     }
 }

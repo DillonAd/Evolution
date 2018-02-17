@@ -1,4 +1,5 @@
 ﻿using Evolution.Data;
+using Evolution.Exceptions;
 using Evolution.Repo;
 using Moq;
 using System.Collections.Generic;
@@ -47,6 +48,7 @@ namespace Evolution.Test.Unit
                     fileList.Add(fileName);
                 }
             });
+            mockContext.Setup(c => c.DeleteFile(It.IsAny<string>())).Callback<string>(fileName => fileList.Remove(fileName));
 
             var repo = new FileRepo(mockContext.Object);
 

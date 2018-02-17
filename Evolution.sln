@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evolution.Domain", "Evoluti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evolution.Repo", "Evolution.Repo\Evolution.Repo.csproj", "{714067F9-FA4A-4B9E-9B9E-24BC58B84A66}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evolution.Exceptions", "Evolution.Exceptions\Evolution.Exceptions.csproj", "{F4F26C4C-732B-48F1-9712-CA097D963F48}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{714067F9-FA4A-4B9E-9B9E-24BC58B84A66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{714067F9-FA4A-4B9E-9B9E-24BC58B84A66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{714067F9-FA4A-4B9E-9B9E-24BC58B84A66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4F26C4C-732B-48F1-9712-CA097D963F48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4F26C4C-732B-48F1-9712-CA097D963F48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4F26C4C-732B-48F1-9712-CA097D963F48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4F26C4C-732B-48F1-9712-CA097D963F48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
