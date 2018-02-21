@@ -5,17 +5,19 @@ VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Evolution", "Evolution\Evolution.csproj", "{41425E7A-CCAE-4C33-89FA-68AEAD131D80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evolution.Test.Unit", "Evolution.Test.Unit\Evolution.Test.Unit.csproj", "{02AD3771-41A7-45CF-99D1-58135225C474}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Evolution.Test.Unit", "Evolution.Test.Unit\Evolution.Test.Unit.csproj", "{02AD3771-41A7-45CF-99D1-58135225C474}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evolution.Data", "Evolution.Data\Evolution.Data.csproj", "{74F503EB-C591-4D34-AEB1-6BCF38DEB5A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Evolution.Data", "Evolution.Data\Evolution.Data.csproj", "{74F503EB-C591-4D34-AEB1-6BCF38DEB5A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evolution.Data.Oracle", "Evolution.Data.Oracle\Evolution.Data.Oracle.csproj", "{D6C8B97A-63E9-412F-8163-ED1839EB43FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Evolution.Data.Oracle", "Evolution.Data.Oracle\Evolution.Data.Oracle.csproj", "{D6C8B97A-63E9-412F-8163-ED1839EB43FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evolution.Domain", "Evolution.Domain\Evolution.Domain.csproj", "{A95F9959-5226-4646-B189-0C506BE0A103}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Evolution.Domain", "Evolution.Domain\Evolution.Domain.csproj", "{A95F9959-5226-4646-B189-0C506BE0A103}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evolution.Repo", "Evolution.Repo\Evolution.Repo.csproj", "{714067F9-FA4A-4B9E-9B9E-24BC58B84A66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Evolution.Repo", "Evolution.Repo\Evolution.Repo.csproj", "{714067F9-FA4A-4B9E-9B9E-24BC58B84A66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evolution.Exceptions", "Evolution.Exceptions\Evolution.Exceptions.csproj", "{F4F26C4C-732B-48F1-9712-CA097D963F48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Evolution.Exceptions", "Evolution.Exceptions\Evolution.Exceptions.csproj", "{F4F26C4C-732B-48F1-9712-CA097D963F48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evolution.Model", "Evolution.Model\Evolution.Model.csproj", "{4B58250D-C28F-4964-8B10-1921801B55BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{F4F26C4C-732B-48F1-9712-CA097D963F48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4F26C4C-732B-48F1-9712-CA097D963F48}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4F26C4C-732B-48F1-9712-CA097D963F48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B58250D-C28F-4964-8B10-1921801B55BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B58250D-C28F-4964-8B10-1921801B55BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B58250D-C28F-4964-8B10-1921801B55BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B58250D-C28F-4964-8B10-1921801B55BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,6 +1,6 @@
 ﻿using Evolution.Data;
-using Evolution.Domain;
 using Evolution.Exceptions;
+using Evolution.Model;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -16,12 +16,12 @@ namespace Evolution.Repo
             _Context = context;
         }
         
-        public void CreateMigrationFiles(string migrationName)
+        public void CreateEvolutionFile(string evolutionName)
         {
             string[] fileNames = new string[]
             {
-                string.Format("{0}.{1}.sql", migrationName, "up"),
-                string.Format("{0}.{1}.sql", migrationName, "down")
+                string.Format("{0}.{1}.sql", evolutionName, "up"),
+                string.Format("{0}.{1}.sql", evolutionName, "down")
             };
 
             try
@@ -31,7 +31,7 @@ namespace Evolution.Repo
                     _Context.CreateFile(fileName);
                 }
             }
-            catch(MigrationFileException)
+            catch(EvolutionFileException)
             {
                 foreach (string fileName in fileNames)
                 {
@@ -42,23 +42,28 @@ namespace Evolution.Repo
             }
         }
 
-        public string GetMigrationFileContent(string fileName)
+        public string GetEvolutionFileContent(string fileName)
         {
             return _Context.GetMigrationFileContent(fileName);
         }
 
-        public IEnumerable<string> GetUnexecutedMigrations(Migration[] executedMigrations)
+        public IEnumerable<IProgression> GetUnexecutedEvolutions(IProgression[] executedEvolutions)
         {
-            var migrationFileNames = _Context.GetMigrationFileNames();
+            var evolutionFileNames = _Context.GetMigrationFileNames();
             var executedMigrationFiles = new List<string>();
 
-            foreach (Migration migration in executedMigrations)
+            //Get executed evolutions
+            foreach (IProgression evolution in executedEvolutions)
             {
-                executedMigrationFiles.AddRange(migrationFileNames.Where(m => 
-                    Regex.IsMatch(m, migration.Name + ".[A-Za-z]{2,4}.sql")));
+                executedMigrationFiles.AddRange(evolutionFileNames.Where(m =>
+                    Regex.IsMatch(m, evolution.Name + ".[A-Za-z]{2,4}.sql")));
             }
             
-            return migrationFileNames.Where(m => !executedMigrationFiles.Contains(m));
+            //Use list of executed evolutions to get the list of unexecuted migrations
+            var unexecutedEvolutionFiles = evolutionFileNames.Where(m => !executedMigrationFiles.Contains(m));
+
+
+            return null;
         }
     }
 }

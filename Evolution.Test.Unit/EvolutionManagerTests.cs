@@ -1,4 +1,5 @@
 ﻿using Evolution.Domain;
+using Evolution.Model;
 using Evolution.Repo;
 using Moq;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Evolution.Test.Unit
         [Fact]
         public void Evolve_Success()
         {
-            var executedMigrations = new Migration[] { };
+            var executedMigrations = new IProgression[] { };
 
             var migrationFileNames = new string[]
             {
@@ -29,18 +30,18 @@ namespace Evolution.Test.Unit
                 "Migration6.down.sql"
             };
 
-            var mockMigrationRepo = new Mock<IMigrationRepo>();
-            mockMigrationRepo.Setup(r => r.GetExecutedMigrations()).Returns(executedMigrations.AsEnumerable());
-            mockMigrationRepo.Setup(r => r.ExecuteMigration(It.IsAny<string>()));
+            var mockMigrationRepo = new Mock<IEvolutionRepo>();
+            mockMigrationRepo.Setup(r => r.GetExecutedEvolutions()).Returns(executedMigrations);
+            mockMigrationRepo.Setup(r => r.ExecuteEvolution(It.IsAny<string>()));
 
             var mockFileRepo = new Mock<IFileRepo>();
-            mockFileRepo.Setup(r => r.GetUnexecutedMigrations(It.Is<Migration[]>(x => x == executedMigrations)))
-                .Returns(migrationFileNames);
+            //mockFileRepo.Setup(r => r.GetUnexecutedEvolutions(It.Is<Model.Evolution[]>(x => x == executedMigrations)))
+            //    .Returns(migrationFileNames);
 
             var manager = new EvolutionManager(mockMigrationRepo.Object, mockFileRepo.Object);
             manager.Evolve();
 
-            mockMigrationRepo.Verify(r => r.ExecuteMigration(It.IsAny<string>()), Times.Exactly(migrationFileNames.Length / 2));
+            mockMigrationRepo.Verify(r => r.ExecuteEvolution(It.IsAny<string>()), Times.Exactly(migrationFileNames.Length / 2));
         }
     }
 }

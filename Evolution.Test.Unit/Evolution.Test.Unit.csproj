@@ -18,6 +18,7 @@
     <ProjectReference Include="..\Evolution.Data\Evolution.Data.csproj" />
     <ProjectReference Include="..\Evolution.Domain\Evolution.Domain.csproj" />
     <ProjectReference Include="..\Evolution.Exceptions\Evolution.Exceptions.csproj" />
+    <ProjectReference Include="..\Evolution.Model\Evolution.Model.csproj" />
     <ProjectReference Include="..\Evolution.Repo\Evolution.Repo.csproj" />
   </ItemGroup>
 

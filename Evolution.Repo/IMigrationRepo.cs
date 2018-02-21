@@ -1,14 +1,13 @@
-﻿using Evolution.Domain;
-using System.Collections.Generic;
+﻿using Evolution.Model;
 
 namespace Evolution.Repo
 {
-    public interface IMigrationRepo
+    public interface IEvolutionRepo
     {
-        IEnumerable<IMigration> GetExecutedMigrations();
-        void AddMigration(IMigration migration);
-        void RemoveMigration(IMigration migration);
+        IProgression[] GetExecutedEvolutions();
+        void AddEvolution(IProgression evolution);
+        void RemoveEvolution(IProgression evolution);
         void SaveChanges();
-        void ExecuteMigration(string content);
+        void ExecuteEvolution(string content);
     }
 }

@@ -10,8 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Evolution.Domain\Evolution.Domain.csproj" />
     <ProjectReference Include="..\Evolution.Exceptions\Evolution.Exceptions.csproj" />
+    <ProjectReference Include="..\Evolution.Model\Evolution.Model.csproj" />
   </ItemGroup>
 
 </Project>

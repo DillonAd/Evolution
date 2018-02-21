@@ -1,12 +1,12 @@
-﻿using Evolution.Domain;
+﻿using Evolution.Model;
 using System.Collections.Generic;
 
 namespace Evolution.Repo
 {
     public interface IFileRepo
     {
-        void CreateMigrationFiles(string migrationName);
-        string GetMigrationFileContent(string fileName);
-        IEnumerable<string> GetUnexecutedMigrations(Migration[] executedMigrations);
+        void CreateEvolutionFile(string evolutionName);
+        string GetEvolutionFileContent(string fileName);
+        IEnumerable<IProgression> GetUnexecutedEvolutions(IProgression[] executedEvolutions);
     }
 }

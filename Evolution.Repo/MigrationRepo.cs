@@ -1,34 +1,38 @@
 ﻿using Evolution.Data;
-using Evolution.Domain;
-using Evolution.Exceptions;
-using System;
+using Evolution.Model;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Evolution.Repo
 {
-    public class MigrationRepo : IMigrationRepo
+    public class EvolutionRepo : IEvolutionRepo
     {
-        private readonly IMigrationContext _Context;
+        private readonly IEvolutionContext _Context;
 
-        public MigrationRepo(IMigrationContext context)
+        public EvolutionRepo(IEvolutionContext context)
         {
             _Context = context;
         }
 
-        public IEnumerable<IMigration> GetExecutedMigrations()
+        public IProgression[] GetExecutedEvolutions()
         {
-            return _Context.Migrations.AsEnumerable();
+            var evolutions = new List<IProgression>();
+
+            foreach(var evolution in _Context.Evolutions)
+            {
+                evolutions.Add(evolution);
+            }
+
+            return evolutions.ToArray();
         }
 
-        public void AddMigration(IMigration migration)
+        public void AddEvolution(IProgression evolution)
         {
-            _Context.Migrations.Add(migration);
+            _Context.Evolutions.Add(evolution);
         }
 
-        public void RemoveMigration(IMigration migration)
+        public void RemoveEvolution(IProgression evolution)
         {
-            _Context.Migrations.Remove(migration);
+            _Context.Evolutions.Remove(evolution);
         }
 
         public void SaveChanges()
@@ -36,9 +40,9 @@ namespace Evolution.Repo
             _Context.SaveChanges();
         }
 
-        public void ExecuteMigration(string content)
+        public void ExecuteEvolution(string content)
         {
-            _Context.ExecuteMigration(content);
+            _Context.ExecuteEvolution(content);
         }
     }
 }

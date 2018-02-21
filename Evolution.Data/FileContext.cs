@@ -13,7 +13,7 @@ namespace Evolution.Data
             }
             else
             {
-                throw new MigrationFileException("Migration file already exists : " + fileName);
+                throw new EvolutionFileException("Migration file already exists : " + fileName);
             }
         }
 
@@ -34,7 +34,7 @@ namespace Evolution.Data
 
         public string[] GetMigrationFileNames()
         {
-            return Directory.GetFiles("./", "*.sql");
+            return Directory.GetFiles("./", "*.evo.sql");
         }
     }
 }
