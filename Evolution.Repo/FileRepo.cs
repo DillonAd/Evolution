@@ -62,8 +62,19 @@ namespace Evolution.Repo
             //Use list of executed evolutions to get the list of unexecuted migrations
             var unexecutedEvolutionFiles = evolutionFileNames.Where(m => !executedMigrationFiles.Contains(m));
 
+            var unexecutedEvolutions = new List<IProgression>();
 
-            return null;
+            int suffixIdx;
+            string evolutionName;
+
+            foreach(var unexecutedEvolutionFile in unexecutedEvolutionFiles)
+            {
+                suffixIdx = unexecutedEvolutionFile.LastIndexOf(".evo.sql");
+                evolutionName = unexecutedEvolutionFile.Substring(0, unexecutedEvolutionFile.Length - suffixIdx);
+                unexecutedEvolutions.Add(new Progression() { Name = evolutionName});
+            }
+
+            return unexecutedEvolutions;
         }
     }
 }

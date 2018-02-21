@@ -85,22 +85,16 @@ namespace Evolution.Test.Unit
 
             var unexecutedMigrationFiles = new string[]
             {
-                "Migration4.up.sql",
-                "Migration4.down.sql",
-                "Migration5.up.sql",
-                "Migration5.down.sql",
-                "Migration6.up.sql",
-                "Migration6.down.sql"
+                "Migration4.evo.sql",
+                "Migration5.evo.sql",
+                "Migration6.evo.sql"
             };
 
             var migrationFileNames = new List<string>()
             {
-                "Migration1.up.sql",
-                "Migration1.down.sql",
-                "Migration2.up.sql",
-                "Migration2.down.sql",
-                "Migration3.up.sql",
-                "Migration3.down.sql"
+                "Migration1.evo.sql",
+                "Migration2.evo.sql",
+                "Migration3.evo.sql",
             };
             migrationFileNames.AddRange(unexecutedMigrationFiles);
 
