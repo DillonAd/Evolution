@@ -13,7 +13,7 @@ namespace Evolution.Data
             }
             else
             {
-                throw new EvolutionFileException("Migration file already exists : " + fileName);
+                throw new EvolutionFileException("Evolution file already exists : " + fileName);
             }
         }
 
@@ -22,7 +22,7 @@ namespace Evolution.Data
             File.Delete(fileName);
         }
 
-        public string GetMigrationFileContent(string fileName)
+        public string GetEvolutionFileContent(string fileName)
         {
             if(File.Exists(fileName))
             {
@@ -32,7 +32,7 @@ namespace Evolution.Data
             return string.Empty;
         }
 
-        public string[] GetMigrationFileNames()
+        public string[] GetEvolutionFileNames()
         {
             return Directory.GetFiles("./", "*.evo.sql");
         }

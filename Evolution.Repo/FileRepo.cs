@@ -44,23 +44,23 @@ namespace Evolution.Repo
 
         public string GetEvolutionFileContent(string fileName)
         {
-            return _Context.GetMigrationFileContent(fileName);
+            return _Context.GetEvolutionFileContent(fileName);
         }
 
         public IEnumerable<IProgression> GetUnexecutedEvolutions(IProgression[] executedEvolutions)
         {
-            var evolutionFileNames = _Context.GetMigrationFileNames();
-            var executedMigrationFiles = new List<string>();
+            var evolutionFileNames = _Context.GetEvolutionFileNames();
+            var executedEvolutionFiles = new List<string>();
 
             //Get executed evolutions
             foreach (IProgression evolution in executedEvolutions)
             {
-                executedMigrationFiles.AddRange(evolutionFileNames.Where(m =>
+                executedEvolutionFiles.AddRange(evolutionFileNames.Where(m =>
                     Regex.IsMatch(m, evolution.Name + ".[A-Za-z]{2,4}.sql")));
             }
-            
-            //Use list of executed evolutions to get the list of unexecuted migrations
-            var unexecutedEvolutionFiles = evolutionFileNames.Where(m => !executedMigrationFiles.Contains(m));
+
+            //Use list of executed evolutions to get the list of unexecuted evolutions
+            var unexecutedEvolutionFiles = evolutionFileNames.Where(m => !executedEvolutionFiles.Contains(m));
 
             var unexecutedEvolutions = new List<IProgression>();
 

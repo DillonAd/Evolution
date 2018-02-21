@@ -4,7 +4,7 @@
     {
         void CreateFile(string fileName);
         void DeleteFile(string fileName);
-        string GetMigrationFileContent(string fileName);
-        string[] GetMigrationFileNames();
+        string GetEvolutionFileContent(string fileName);
+        string[] GetEvolutionFileNames();
     }
 }

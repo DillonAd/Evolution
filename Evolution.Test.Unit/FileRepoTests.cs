@@ -12,25 +12,25 @@ namespace Evolution.Test.Unit
     public class FileRepoTests
     {
         [Fact]
-        public void CreateMigrationFile_Success()
+        public void CreateEvolutionFile_Success()
         {
-            var migrationName = "migration1";
+            var evolutionName = "Evolution1";
             var fileList = new List<string>();
 
             var mockContext = new Mock<IFileContext>();
             mockContext.Setup(c => c.CreateFile(It.IsAny<string>())).Callback<string>(fileName => fileList.Add(fileName));
 
             var repo = new FileRepo(mockContext.Object);
-            repo.CreateEvolutionFile(migrationName);
+            repo.CreateEvolutionFile(evolutionName);
 
             Assert.NotEmpty(fileList);
-            Assert.Contains(migrationName, fileList[0]);
+            Assert.Contains(evolutionName, fileList[0]);
         }
 
         [Fact]
-        public void CreateMigrationFiles_FileExists()
+        public void CreateEvolutionFiles_FileExists()
         {
-            var migrationName = "migration1";
+            var evolutionName = "Evolution1";
             var fileList = new List<string>();
             var count = 0;
 
@@ -41,7 +41,7 @@ namespace Evolution.Test.Unit
 
                 if (count > 1)
                 {
-                    throw new EvolutionFileException("Migration file already exists");
+                    throw new EvolutionFileException("Evolution file already exists");
                 }
                 else
                 {
@@ -52,18 +52,18 @@ namespace Evolution.Test.Unit
 
             var repo = new FileRepo(mockContext.Object);
 
-            Assert.Throws<EvolutionFileException>(() => repo.CreateEvolutionFile(migrationName));
+            Assert.Throws<EvolutionFileException>(() => repo.CreateEvolutionFile(evolutionName));
             Assert.Empty(fileList);
         }
 
         [Fact]
-        public void GetMigrationFileContents()
+        public void GetEvolutionFileContents()
         {
-            var fileName = "migration1.up.sql";
-            var content = "migration file content";
+            var fileName = "evolution1.up.sql";
+            var content = "evolution file content";
 
             var mockContext = new Mock<IFileContext>();
-            mockContext.Setup(c => c.GetMigrationFileContent(It.Is<string>(f => f == fileName))).Returns(content);
+            mockContext.Setup(c => c.GetEvolutionFileContent(It.Is<string>(f => f == fileName))).Returns(content);
 
             var repo = new FileRepo(mockContext.Object);
             var contentResult = repo.GetEvolutionFileContent(fileName);
@@ -74,38 +74,38 @@ namespace Evolution.Test.Unit
         }
 
         [Fact]
-        public void GetUnexecutedMigrations()
+        public void GetUnexecutedEvolutions()
         {
-            var executedMigrations = new IProgression[]
+            var executedEvolutions = new IProgression[]
             {
-                new Progression() { Name = "Migration1" },
-                new Progression() { Name = "Migration2" },
-                new Progression() { Name = "Migration3" }
+                new Progression() { Name = "Evolution1" },
+                new Progression() { Name = "Evolution2" },
+                new Progression() { Name = "Evolution3" }
             };
 
-            var unexecutedMigrationFiles = new string[]
+            var unexecutedEvolutionFiles = new string[]
             {
-                "Migration4.evo.sql",
-                "Migration5.evo.sql",
-                "Migration6.evo.sql"
+                "Evolution4.evo.sql",
+                "Evolution5.evo.sql",
+                "Evolution6.evo.sql"
             };
 
-            var migrationFileNames = new List<string>()
+            var evolutionFileNames = new List<string>()
             {
-                "Migration1.evo.sql",
-                "Migration2.evo.sql",
-                "Migration3.evo.sql",
+                "Evolution1.evo.sql",
+                "Evolution2.evo.sql",
+                "Evolution3.evo.sql",
             };
-            migrationFileNames.AddRange(unexecutedMigrationFiles);
+            evolutionFileNames.AddRange(unexecutedEvolutionFiles);
 
             var mockContext = new Mock<IFileContext>();
-            mockContext.Setup(mc => mc.GetMigrationFileNames()).Returns(migrationFileNames.ToArray());
+            mockContext.Setup(mc => mc.GetEvolutionFileNames()).Returns(evolutionFileNames.ToArray());
 
             var repo = new FileRepo(mockContext.Object);
-            var unexecutedMigrationFilesResult = repo.GetUnexecutedEvolutions(executedMigrations).ToArray();
+            var unexecutedEvolutionFilesResult = repo.GetUnexecutedEvolutions(executedEvolutions).ToArray();
 
-            Assert.NotEmpty(unexecutedMigrationFilesResult);
-            //Assert.Equal(unexecutedMigrationFiles, unexecutedMigrationFilesResult);
+            Assert.NotEmpty(unexecutedEvolutionFilesResult);
+            Assert.Equal(unexecutedEvolutionFiles.Length, unexecutedEvolutionFilesResult.Length);
         }
     }
 }

@@ -15,33 +15,33 @@ namespace Evolution.Test.Unit
         [Fact]
         public void GetExecutedEvolutions()
         {
-            var migrations = new List<IProgression>()
+            var evolutions = new List<IProgression>()
             {
-                new Progression() { Name = "Migration1" },
-                new Progression() { Name = "Migration2" },
-                new Progression() { Name = "Migration3" }
+                new Progression() { Name = "Evolution1" },
+                new Progression() { Name = "Evolution2" },
+                new Progression() { Name = "Evolution3" }
             };
 
-            var context = SetupEvolutionContext(migrations);
+            var context = SetupEvolutionContext(evolutions);
 
             var repo = new EvolutionRepo(context);
-            var executedMigrations = repo.GetExecutedEvolutions();
+            var executedEvolutions = repo.GetExecutedEvolutions();
 
-            Assert.Equal(migrations.Count, executedMigrations.Length);
+            Assert.Equal(evolutions.Count, executedEvolutions.Length);
         }
 
         [Fact]
         public void AddEvolution()
         {
-            var migration = new Model.Progression() { Name = "Migration1" };
+            var evolution = new Model.Progression() { Name = "Migration1" };
 
-            var migrations = new List<IProgression>();
-            var context = SetupEvolutionContext(migrations);
+            var evolutions = new List<IProgression>();
+            var context = SetupEvolutionContext(evolutions);
             var repo = new EvolutionRepo(context);
             
-            repo.AddEvolution(migration);
+            repo.AddEvolution(evolution);
 
-            Assert.Contains(migration, migrations);
+            Assert.Contains(evolution, evolutions);
         }
 
         [Fact]
@@ -63,7 +63,7 @@ namespace Evolution.Test.Unit
         }
 
         [Fact]
-        public void ExecuteMigration_Success()
+        public void ExecuteEvolution_Success()
         {
             var success = false;
             const string evolutionContent = "select sysdate from dual;";
