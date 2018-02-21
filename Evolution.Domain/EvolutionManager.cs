@@ -1,4 +1,5 @@
-﻿using Evolution.Repo;
+﻿using Evolution.Model;
+using Evolution.Repo;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,10 +21,13 @@ namespace Evolution.Domain
         {
             var executedEvolutions = _EvolutionRepo.GetExecutedEvolutions();
             var unexecutedEvolutions = _FileRepo.GetUnexecutedEvolutions(executedEvolutions);
+            string evolutionContent;
 
             foreach(var evolution in unexecutedEvolutions)
             {
-                
+                evolutionContent = _FileRepo.GetEvolutionFileContent(evolution.FileName);
+                _EvolutionRepo.ExecuteEvolution(evolutionContent);
+                _EvolutionRepo.AddEvolution(evolution);
             }
         }
     }

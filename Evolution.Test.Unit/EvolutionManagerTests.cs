@@ -37,6 +37,7 @@ namespace Evolution.Test.Unit
 
             mockFileRepo.Verify(r => r.GetEvolutionFileContent(It.IsAny<string>()), Times.Exactly(evolutionsToExecute.Length));
             mockEvolutionRepo.Verify(r => r.ExecuteEvolution(It.IsAny<string>()), Times.Exactly(evolutionsToExecute.Length));
+            mockEvolutionRepo.Verify(r => r.AddEvolution(It.IsAny<IProgression>()), Times.Exactly(evolutionsToExecute.Length));
         }
     }
 }
