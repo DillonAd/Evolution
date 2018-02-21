@@ -14,14 +14,14 @@ namespace Evolution.Test.Unit
         {
             var executedEvolutions = new IProgression[] { };
 
-            var evolutionFileNames = new string[]
+            var evolutionsToExecute = new IProgression[]
             {
-                "Evolution1.up.sql",
-                "Evolution2.up.sql",
-                "Evolution3.up.sql",
-                "Evolution4.up.sql",
-                "Evolution5.up.sql",
-                "Evolution6.up.sql"
+                new Progression() { Name = "Evolution1", FileName = "Evolution1.evo.sql" },
+                new Progression() { Name = "Evolution2", FileName = "Evolution2.evo.sql" },
+                new Progression() { Name = "Evolution3", FileName = "Evolution3.evo.sql" },
+                new Progression() { Name = "Evolution4", FileName = "Evolution4.evo.sql" },
+                new Progression() { Name = "Evolution5", FileName = "Evolution5.evo.sql" },
+                new Progression() { Name = "Evolution6", FileName = "Evolution6.evo.sql" },
             };
 
             var mockEvolutionRepo = new Mock<IEvolutionRepo>();
@@ -29,13 +29,14 @@ namespace Evolution.Test.Unit
             mockEvolutionRepo.Setup(r => r.ExecuteEvolution(It.IsAny<string>()));
 
             var mockFileRepo = new Mock<IFileRepo>();
-            //mockFileRepo.Setup(r => r.GetUnexecutedEvolutions(It.Is<Model.Evolution[]>(x => x == executedEvolutions)))
-            //    .Returns(evolutionFileNames);
+            mockFileRepo.Setup(r => r.GetUnexecutedEvolutions(It.Is<IProgression[]>(x => x == executedEvolutions)))
+                .Returns(evolutionsToExecute);
 
             var manager = new EvolutionManager(mockEvolutionRepo.Object, mockFileRepo.Object);
             manager.Evolve();
 
-            mockEvolutionRepo.Verify(r => r.ExecuteEvolution(It.IsAny<string>()), Times.Exactly(evolutionFileNames.Length / 2));
+            mockFileRepo.Verify(r => r.GetEvolutionFileContent(It.IsAny<string>()), Times.Exactly(evolutionsToExecute.Length));
+            mockEvolutionRepo.Verify(r => r.ExecuteEvolution(It.IsAny<string>()), Times.Exactly(evolutionsToExecute.Length));
         }
     }
 }
