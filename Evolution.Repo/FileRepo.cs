@@ -71,7 +71,11 @@ namespace Evolution.Repo
             {
                 suffixIdx = unexecutedEvolutionFile.LastIndexOf(".evo.sql");
                 evolutionName = unexecutedEvolutionFile.Substring(0, unexecutedEvolutionFile.Length - suffixIdx);
-                unexecutedEvolutions.Add(new Progression() { Name = evolutionName});
+                unexecutedEvolutions.Add(new Progression()
+                {
+                    Name = evolutionName,
+                    FileName = unexecutedEvolutionFile
+                });
             }
 
             return unexecutedEvolutions;

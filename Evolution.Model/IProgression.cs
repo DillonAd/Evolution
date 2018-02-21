@@ -3,5 +3,6 @@
     public interface IProgression
     {
         string Name { get; set; }
+        string FileName { get; set; }
     }
 }
