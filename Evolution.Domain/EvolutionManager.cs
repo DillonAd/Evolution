@@ -20,14 +20,20 @@ namespace Evolution.Domain
         public void Evolve()
         {
             var executedEvolutions = _EvolutionRepo.GetExecutedEvolutions();
-            var unexecutedEvolutions = _FileRepo.GetUnexecutedEvolutions(executedEvolutions);
+            var unexecutedEvolutionFiles = _FileRepo.GetUnexecutedEvolutionFiles(executedEvolutions);
             string evolutionContent;
 
-            foreach(var evolution in unexecutedEvolutions)
+            foreach(var evolutionFile in unexecutedEvolutionFiles)
             {
-                evolutionContent = _FileRepo.GetEvolutionFileContent(evolution.FileName);
+                evolutionContent = _FileRepo.GetEvolutionFileContent(evolutionFile);
                 _EvolutionRepo.ExecuteEvolution(evolutionContent);
-                _EvolutionRepo.AddEvolution(evolution);
+                _EvolutionRepo.AddEvolution(
+                    new Progression()
+                    {
+                        Name = evolutionFile.Replace(".evo.sql", ""),
+                        FileName = evolutionFile
+                    }
+                );
             }
         }
     }

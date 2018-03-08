@@ -29,8 +29,8 @@ namespace Evolution.Test.Unit
             mockEvolutionRepo.Setup(r => r.ExecuteEvolution(It.IsAny<string>()));
 
             var mockFileRepo = new Mock<IFileRepo>();
-            mockFileRepo.Setup(r => r.GetUnexecutedEvolutions(It.Is<IProgression[]>(x => x == executedEvolutions)))
-                .Returns(evolutionsToExecute);
+            mockFileRepo.Setup(r => r.GetUnexecutedEvolutionFiles(It.Is<IProgression[]>(x => x == executedEvolutions)))
+                .Returns(evolutionsToExecute.Select(e => e.FileName));
 
             var manager = new EvolutionManager(mockEvolutionRepo.Object, mockFileRepo.Object);
             manager.Evolve();

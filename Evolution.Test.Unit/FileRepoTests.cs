@@ -102,11 +102,11 @@ namespace Evolution.Test.Unit
             mockContext.Setup(mc => mc.GetEvolutionFileNames()).Returns(evolutionFileNames.ToArray());
 
             var repo = new FileRepo(mockContext.Object);
-            var unexecutedEvolutions = repo.GetUnexecutedEvolutions(executedEvolutions).ToArray();
+            var unexecutedEvolutions = repo.GetUnexecutedEvolutionFiles(executedEvolutions).ToArray();
 
             Assert.NotEmpty(unexecutedEvolutions);
             Assert.Equal(unexecutedEvolutionFiles.Length, unexecutedEvolutions.Length);
-            Assert.All(unexecutedEvolutions, e => unexecutedEvolutionFiles.Contains(e.FileName));
+            Assert.All(unexecutedEvolutions, e => unexecutedEvolutionFiles.Contains(e));
         }
     }
 }

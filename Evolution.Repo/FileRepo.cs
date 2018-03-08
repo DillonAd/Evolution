@@ -47,25 +47,12 @@ namespace Evolution.Repo
             return _Context.GetEvolutionFileContent(fileName);
         }
 
-        public IEnumerable<IProgression> GetUnexecutedEvolutions(IProgression[] executedEvolutions)
+        public IEnumerable<string> GetUnexecutedEvolutionFiles(IProgression[] executedEvolutions)
         {
             var evolutionFileNames = _Context.GetEvolutionFileNames();
 
             //Use list of executed evolutions to get the list of unexecuted evolutions
-            var unexecutedEvolutionFiles = evolutionFileNames.Except(executedEvolutions.Select(e => e.FileName));
-
-            var unexecutedEvolutions = new List<IProgression>();
-            
-            foreach(var unexecutedEvolutionFile in unexecutedEvolutionFiles)
-            {
-                unexecutedEvolutions.Add(new Progression()
-                {
-                    Name = unexecutedEvolutionFile.Replace(".evo.sql", ""),
-                    FileName = unexecutedEvolutionFile
-                });
-            }
-
-            return unexecutedEvolutions;
+            return evolutionFileNames.Except(executedEvolutions.Select(e => e.FileName));
         }
     }
 }
