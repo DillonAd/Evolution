@@ -50,30 +50,17 @@ namespace Evolution.Repo
         public IEnumerable<IProgression> GetUnexecutedEvolutions(IProgression[] executedEvolutions)
         {
             var evolutionFileNames = _Context.GetEvolutionFileNames();
-            var executedEvolutionFiles = new List<string>();
-
-            //Get executed evolutions
-            foreach (IProgression evolution in executedEvolutions)
-            {
-                executedEvolutionFiles.AddRange(evolutionFileNames.Where(m =>
-                    Regex.IsMatch(m, evolution.Name + ".[A-Za-z]{2,4}.sql")));
-            }
 
             //Use list of executed evolutions to get the list of unexecuted evolutions
-            var unexecutedEvolutionFiles = evolutionFileNames.Where(m => !executedEvolutionFiles.Contains(m));
+            var unexecutedEvolutionFiles = evolutionFileNames.Except(executedEvolutions.Select(e => e.FileName));
 
             var unexecutedEvolutions = new List<IProgression>();
-
-            int suffixIdx;
-            string evolutionName;
-
+            
             foreach(var unexecutedEvolutionFile in unexecutedEvolutionFiles)
             {
-                suffixIdx = unexecutedEvolutionFile.LastIndexOf(".evo.sql");
-                evolutionName = unexecutedEvolutionFile.Substring(0, unexecutedEvolutionFile.Length - suffixIdx);
                 unexecutedEvolutions.Add(new Progression()
                 {
-                    Name = evolutionName,
+                    Name = unexecutedEvolutionFile.Replace(".evo.sql", ""),
                     FileName = unexecutedEvolutionFile
                 });
             }
