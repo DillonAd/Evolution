@@ -32,6 +32,9 @@ namespace Evolution.Domain
                     {
                         Name = evolutionFile.Replace(".evo.sql", ""),
                         FileName = evolutionFile
+
+                        //TODO Assign file hash and new GUID
+                        // Checkpoint should be null until set by command line
                     }
                 );
             }

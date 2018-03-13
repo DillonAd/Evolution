@@ -30,6 +30,23 @@ namespace Evolution.Test.Unit
             Assert.Equal(evolutions.Count, executedEvolutions.Length);
         }
 
+        public void GetExecutedEvolutionsSinceCheckPoint()
+        {
+            var evolutions = new List<IProgression>()
+            {
+                new Progression() { Name = "Evolution1" },
+                new Progression() { Name = "Evolution2" },
+                new Progression() { Name = "Evolution3" }
+            };
+
+            var context = SetupEvolutionContext(evolutions);
+
+            var repo = new EvolutionRepo(context);
+            var executedEvolutions = repo.GetExecutedEvolutions();
+
+            Assert.Equal(evolutions.Count, executedEvolutions.Length);
+        }
+
         [Fact]
         public void AddEvolution()
         {
@@ -44,6 +61,7 @@ namespace Evolution.Test.Unit
             Assert.Contains(evolution, evolutions);
         }
 
+        //TODO Is this necessary with the current direction?
         [Fact]
         public void RemoveEvolution()
         {
