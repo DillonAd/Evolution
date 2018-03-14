@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Evolution.CommandLineOptions
+namespace Evolution.Options
 {
     public class ExecuteOptions
     {
