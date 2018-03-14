@@ -32,22 +32,22 @@ namespace Evolution.Test.Unit
 
         //TODO Create Tests for Checkpoints
         //[Fact]
-        public void GetExecutedEvolutionsSinceCheckPoint()
-        {
-            var evolutions = new List<IProgression>()
-            {
-                new Progression() { Name = "Evolution1" },
-                new Progression() { Name = "Evolution2" },
-                new Progression() { Name = "Evolution3" }
-            };
+        //public void GetExecutedEvolutionsSinceCheckPoint()
+        //{
+        //    var evolutions = new List<IProgression>()
+        //    {
+        //        new Progression() { Name = "Evolution1" },
+        //        new Progression() { Name = "Evolution2" },
+        //        new Progression() { Name = "Evolution3" }
+        //    };
 
-            var context = SetupEvolutionContext(evolutions);
+        //    var context = SetupEvolutionContext(evolutions);
 
-            var repo = new EvolutionRepo(context);
-            var executedEvolutions = repo.GetExecutedEvolutions();
+        //    var repo = new EvolutionRepo(context);
+        //    var executedEvolutions = repo.GetExecutedEvolutions();
 
-            Assert.Equal(evolutions.Count, executedEvolutions.Length);
-        }
+        //    Assert.Equal(evolutions.Count, executedEvolutions.Length);
+        //}
 
         [Fact]
         public void AddEvolution()
