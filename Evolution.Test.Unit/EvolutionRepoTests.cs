@@ -15,11 +15,11 @@ namespace Evolution.Test.Unit
         [Fact]
         public void GetExecutedEvolutions()
         {
-            var evolutions = new List<IProgression>()
+            var evolutions = new string[]
             {
-                new Progression() { Name = "Evolution1" },
-                new Progression() { Name = "Evolution2" },
-                new Progression() { Name = "Evolution3" }
+                "Evolution1",
+                "Evolution2",
+                "Evolution3"
             };
 
             var context = SetupEvolutionContext(evolutions);
@@ -27,9 +27,10 @@ namespace Evolution.Test.Unit
             var repo = new EvolutionRepo(context);
             var executedEvolutions = repo.GetExecutedEvolutions();
 
-            Assert.Equal(evolutions.Count, executedEvolutions.Length);
+            Assert.Equal(evolutions.Length, executedEvolutions.Length);
         }
 
+        [Fact]
         public void GetExecutedEvolutionsSinceCheckPoint()
         {
             var evolutions = new List<IProgression>()
@@ -59,25 +60,6 @@ namespace Evolution.Test.Unit
             repo.AddEvolution(evolution);
 
             Assert.Contains(evolution, evolutions);
-        }
-
-        //TODO Is this necessary with the current direction?
-        [Fact]
-        public void RemoveEvolution()
-        {
-            var evolution = new Progression() { Name = "Evolution1" };
-
-            var evolutions = new List<IProgression>()
-            {
-                evolution
-            };
-
-            var context = SetupEvolutionContext(evolutions);
-            var repo = new EvolutionRepo(context);
-
-            repo.RemoveEvolution(evolution);
-
-            Assert.Empty(evolutions);
         }
 
         [Fact]
