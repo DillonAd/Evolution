@@ -3,7 +3,7 @@
 namespace Evolution.Options
 {
     [Verb("exec")]
-    public class ExecuteOptions
+    public class ExecuteOptions : IDatabaseAuthenticationOptions, ITargetEvolutionOptions
     {
         [Option("user", HelpText = "Database UserName")]
         public string UserName { get; set; }
