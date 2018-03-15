@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Evolution.Model
+namespace Evolution.Data.Entity
 {
     public interface IProgression
     {

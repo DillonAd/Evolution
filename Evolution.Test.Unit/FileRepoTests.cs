@@ -1,6 +1,6 @@
 ﻿using Evolution.Data;
+using Evolution.Data.Entity;
 using Evolution.Exceptions;
-using Evolution.Model;
 using Evolution.Repo;
 using Moq;
 using System.Collections.Generic;

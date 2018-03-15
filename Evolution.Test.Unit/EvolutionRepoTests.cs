@@ -1,5 +1,5 @@
 ﻿using Evolution.Data;
-using Evolution.Model;
+using Evolution.Data.Entity;
 using Evolution.Repo;
 using Moq;
 using System;
@@ -52,7 +52,7 @@ namespace Evolution.Test.Unit
         [Fact]
         public void AddEvolution()
         {
-            var evolution = new Model.Progression() { Name = "Evolution1" };
+            var evolution = new Progression() { Name = "Evolution1" };
 
             var evolutions = new List<IProgression>();
             var context = SetupEvolutionContext(evolutions);

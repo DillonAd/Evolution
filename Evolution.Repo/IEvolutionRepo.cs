@@ -1,4 +1,4 @@
-﻿using Evolution.Model;
+﻿using Evolution.Data.Entity;
 
 namespace Evolution.Repo
 {

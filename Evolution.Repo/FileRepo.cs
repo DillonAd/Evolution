@@ -1,6 +1,6 @@
 ﻿using Evolution.Data;
+using Evolution.Data.Entity;
 using Evolution.Exceptions;
-using Evolution.Model;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;

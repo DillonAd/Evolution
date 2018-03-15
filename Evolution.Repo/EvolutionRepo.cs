@@ -1,5 +1,5 @@
 ﻿using Evolution.Data;
-using Evolution.Model;
+using Evolution.Data.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;

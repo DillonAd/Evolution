@@ -1,4 +1,4 @@
-﻿using Evolution.Model;
+﻿using Evolution.Data.Entity;
 using System.Data.Entity;
 
 namespace Evolution.Data
