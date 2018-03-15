@@ -11,15 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Evolution.Data", "Evolution
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Evolution.Data.Oracle", "Evolution.Data.Oracle\Evolution.Data.Oracle.csproj", "{D6C8B97A-63E9-412F-8163-ED1839EB43FB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Evolution.Domain", "Evolution.Domain\Evolution.Domain.csproj", "{A95F9959-5226-4646-B189-0C506BE0A103}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Evolution.Repo", "Evolution.Repo\Evolution.Repo.csproj", "{714067F9-FA4A-4B9E-9B9E-24BC58B84A66}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Evolution.Exceptions", "Evolution.Exceptions\Evolution.Exceptions.csproj", "{F4F26C4C-732B-48F1-9712-CA097D963F48}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Evolution.Model", "Evolution.Model\Evolution.Model.csproj", "{4B58250D-C28F-4964-8B10-1921801B55BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evolution.IoC", "Evolution.IoC\Evolution.IoC.csproj", "{4FED8A1B-74C0-4AD4-BBC5-474AF3279EBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Evolution.IoC", "Evolution.IoC\Evolution.IoC.csproj", "{4FED8A1B-74C0-4AD4-BBC5-474AF3279EBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,10 +41,6 @@ Global
 		{D6C8B97A-63E9-412F-8163-ED1839EB43FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6C8B97A-63E9-412F-8163-ED1839EB43FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6C8B97A-63E9-412F-8163-ED1839EB43FB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A95F9959-5226-4646-B189-0C506BE0A103}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A95F9959-5226-4646-B189-0C506BE0A103}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A95F9959-5226-4646-B189-0C506BE0A103}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A95F9959-5226-4646-B189-0C506BE0A103}.Release|Any CPU.Build.0 = Release|Any CPU
 		{714067F9-FA4A-4B9E-9B9E-24BC58B84A66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{714067F9-FA4A-4B9E-9B9E-24BC58B84A66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{714067F9-FA4A-4B9E-9B9E-24BC58B84A66}.Release|Any CPU.ActiveCfg = Release|Any CPU
