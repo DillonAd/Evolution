@@ -15,31 +15,12 @@ namespace Evolution.Repo
         {
             _Context = context;
         }
-        
-        public void CreateEvolutionFile(string evolutionName)
+
+        public void CreateEvolutionFile(string evolutionName, string sourceFile)
         {
-            string[] fileNames = new string[]
-            {
-                string.Format("{0}.{1}.sql", evolutionName, "up"),
-                string.Format("{0}.{1}.sql", evolutionName, "down")
-            };
-
-            try
-            {
-                foreach (string fileName in fileNames)
-                {
-                    _Context.CreateFile(fileName);
-                }
-            }
-            catch(EvolutionFileException)
-            {
-                foreach (string fileName in fileNames)
-                {
-                    _Context.DeleteFile(fileName);
-                }
-
-                throw;
-            }
+            var fileName = string.Format("{0}.evo.sql", evolutionName);
+            var contents = _Context.ReadFile(sourceFile);
+            _Context.CreateFile(fileName, contents);
         }
 
         public string GetEvolutionFileContent(string fileName)

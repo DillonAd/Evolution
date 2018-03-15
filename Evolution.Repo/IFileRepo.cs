@@ -5,7 +5,7 @@ namespace Evolution.Repo
 {
     public interface IFileRepo
     {
-        void CreateEvolutionFile(string evolutionName);
+        void CreateEvolutionFile(string evolutionName, string sourceFile);
         string GetEvolutionFileContent(string fileName);
         IEnumerable<string> GetUnexecutedEvolutionFiles(IProgression[] executedEvolutions);
     }

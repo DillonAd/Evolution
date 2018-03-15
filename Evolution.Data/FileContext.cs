@@ -5,11 +5,12 @@ namespace Evolution.Data
 {
     public class FileContext : IFileContext
     {
-        public void CreateFile(string fileName)
+        public void CreateFile(string fileName, string contents)
         {
             if (!File.Exists(fileName))
             {
-                File.Create(fileName);
+                //TODO Need to drop .evoconfig file to determine folder structure
+                File.WriteAllText(fileName, contents);
             }
             else
             {
@@ -35,6 +36,11 @@ namespace Evolution.Data
         public string[] GetEvolutionFileNames()
         {
             return Directory.GetFiles("./", "*.evo.sql");
+        }
+
+        public string ReadFile(string fileName)
+        {
+            return File.ReadAllText(fileName);
         }
     }
 }

@@ -15,13 +15,14 @@ namespace Evolution.Test.Unit
         public void CreateEvolutionFile_Success()
         {
             var evolutionName = "Evolution1";
+            var evolutionContents = "Programatic awesomeness";
             var fileList = new List<string>();
 
             var mockContext = new Mock<IFileContext>();
-            mockContext.Setup(c => c.CreateFile(It.IsAny<string>())).Callback<string>(fileName => fileList.Add(fileName));
+            mockContext.Setup(c => c.CreateFile(It.IsAny<string>(), It.IsAny<string>())).Callback<string, string>((fileName, fileContents) => fileList.Add(fileName));
 
             var repo = new FileRepo(mockContext.Object);
-            repo.CreateEvolutionFile(evolutionName);
+            repo.CreateEvolutionFile(evolutionName, evolutionContents);
 
             Assert.NotEmpty(fileList);
             Assert.Contains(evolutionName, fileList[0]);
@@ -31,15 +32,13 @@ namespace Evolution.Test.Unit
         public void CreateEvolutionFiles_FileExists()
         {
             var evolutionName = "Evolution1";
+            var evolutionContents = "Programatic awesomeness";
             var fileList = new List<string>();
-            var count = 0;
 
             var mockContext = new Mock<IFileContext>();
-            mockContext.Setup(c => c.CreateFile(It.IsAny<string>())).Callback<string>((fileName) =>
+            mockContext.Setup(c => c.CreateFile(It.IsAny<string>(), It.IsAny<string>())).Callback<string, string>((fileName, fileContents) =>
             {
-                count++;
-
-                if (count > 1)
+                if (fileList.Contains(fileName))
                 {
                     throw new EvolutionFileException("Evolution file already exists");
                 }
@@ -51,9 +50,10 @@ namespace Evolution.Test.Unit
             mockContext.Setup(c => c.DeleteFile(It.IsAny<string>())).Callback<string>(fileName => fileList.Remove(fileName));
 
             var repo = new FileRepo(mockContext.Object);
+            repo.CreateEvolutionFile(evolutionName, evolutionContents);
 
-            Assert.Throws<EvolutionFileException>(() => repo.CreateEvolutionFile(evolutionName));
-            Assert.Empty(fileList);
+            Assert.Throws<EvolutionFileException>(() => repo.CreateEvolutionFile(evolutionName, evolutionContents));
+            Assert.Single(fileList);
         }
 
         [Fact]

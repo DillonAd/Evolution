@@ -8,12 +8,21 @@ namespace Evolution.IoC
 {
     public static class DependencyRegistry
     {
-        public static IServiceProvider GetServiceProvider()
+        public static IServiceProvider GetDataServiceProvider<T>() where T : class, IEvolutionContext
         {
             return new ServiceCollection()
+                .AddTransient<IEvolutionContext, T>()
                 .AddTransient<IEvolutionRepo, EvolutionRepo>()
-                .AddTransient<IEvolutionContext, OracleEvolutionContext>()
                 .BuildServiceProvider();
+        }
+
+        public static IFileRepo GetFileRepo()
+        {
+            return new ServiceCollection()
+                .AddTransient<IFileContext, FileContext>()
+                .AddTransient<IFileRepo, FileRepo>()
+                .BuildServiceProvider()
+                .GetService<IFileRepo>();
         }
     }
 }
