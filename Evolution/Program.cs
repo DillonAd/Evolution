@@ -1,5 +1,6 @@
 ﻿using CommandLine;
 using Evolution.Options;
+using System;
 
 namespace Evolution
 {
@@ -18,17 +19,17 @@ namespace Evolution
 
         private static int Run(AddOptions options)
         {
-            
+            throw new NotImplementedException();
         }
 
         private static int Run(CheckPointOptions options)
         {
-
+            throw new NotImplementedException();
         }
 
         private static int Run(ExecuteOptions options)
         {
-
+            throw new NotImplementedException();
         }
     }
 }

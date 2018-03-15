@@ -1,10 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Evolution.IoC
 {
-    public class DependencyRegistry
+    public static class DependencyRegistry
     {
+        public static IServiceProvider GetServiceProvider()
+        {
+            return null;
+        }
     }
 }

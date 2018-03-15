@@ -2,7 +2,7 @@
 
 namespace Evolution.Options
 {
-    [Verb("cp"]
+    [Verb("cp")]
     public class CheckPointOptions : IDatabaseAuthenticationOptions, ITargetEvolutionOptions
     {
         [Option("user", HelpText = "Database UserName")]
