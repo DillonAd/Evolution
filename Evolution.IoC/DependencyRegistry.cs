@@ -1,4 +1,7 @@
 ﻿using System;
+using Evolution.Data;
+using Evolution.Data.Oracle;
+using Evolution.Repo;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Evolution.IoC
@@ -7,7 +10,10 @@ namespace Evolution.IoC
     {
         public static IServiceProvider GetServiceProvider()
         {
-            return null;
+            return new ServiceCollection()
+                .AddTransient<IEvolutionRepo, EvolutionRepo>()
+                .AddTransient<IEvolutionContext, OracleEvolutionContext>()
+                .BuildServiceProvider();
         }
     }
 }
