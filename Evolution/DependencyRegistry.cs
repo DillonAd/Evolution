@@ -1,19 +1,18 @@
-﻿using System;
-using Evolution.Data;
-using Evolution.Data.Oracle;
+﻿using Evolution.Data;
 using Evolution.Repo;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Evolution.IoC
+namespace Evolution
 {
     public static class DependencyRegistry
     {
-        public static IServiceProvider GetDataServiceProvider<T>() where T : class, IEvolutionContext
+        public static IEvolutionRepo GetEvolutionRepo<T>() where T : class, IEvolutionContext
         {
             return new ServiceCollection()
                 .AddTransient<IEvolutionContext, T>()
                 .AddTransient<IEvolutionRepo, EvolutionRepo>()
-                .BuildServiceProvider();
+                .BuildServiceProvider()
+                .GetService<IEvolutionRepo>();
         }
 
         public static IFileRepo GetFileRepo()
