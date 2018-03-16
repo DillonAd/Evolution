@@ -76,7 +76,7 @@ namespace Evolution.Test.Unit
         [Fact]
         public void GetUnexecutedEvolutions()
         {
-            var executedEvolutions = new IProgression[]
+            var executedEvolutions = new IEvolution[]
             {
                 new Progression() { Name = "Evolution1", FileName="Evolution1.evo.sql" },
                 new Progression() { Name = "Evolution2", FileName="Evolution2.evo.sql" },

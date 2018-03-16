@@ -15,35 +15,21 @@ namespace Evolution.Repo
             _Context = context;
         }
 
-        //TODO change return type to string[] to preserve space for longer histories
-        public IProgression[] GetExecutedEvolutions()
+        public string[] GetExecutedEvolutionFileNames()
         {
-            var evolutions = new List<IProgression>();
-
             //TODO add logic to get all evolutions from the last checkpoint   
-            foreach (var evolution in _Context.Evolutions)
-            {
-                evolutions.Add(evolution);
-            }
-
-            return evolutions.ToArray();
+            return _Context.Evolutions.Select(e => e.FileName).ToArray();
         }
 
         //TODO Add ability to create checkpoint
         public void CreateEvolutionCheckPoint(Guid evolutionId)
         {
-            
+            throw new NotImplementedException();   
         }
 
-        public void AddEvolution(IProgression evolution)
+        public void AddEvolution(IEvolution evolution)
         {
             _Context.Evolutions.Add(evolution);
-        }
-
-        //TODO Possibly not neccessary
-        public void RemoveEvolution(IProgression evolution)
-        {
-            _Context.Evolutions.Remove(evolution);
         }
 
         public void SaveChanges()

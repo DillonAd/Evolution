@@ -2,7 +2,7 @@
 
 namespace Evolution.Data.Entity
 {
-    public struct Progression : IProgression
+    public struct Progression : IEvolution
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

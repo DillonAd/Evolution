@@ -15,7 +15,7 @@ namespace Evolution.Test.Unit
         [Fact]
         public void GetExecutedEvolutions()
         {
-            var evolutions = new List<IProgression>()
+            var evolutions = new List<IEvolution>()
             {
                 new Progression() { Name = "Evolution1" },
                 new Progression() { Name = "Evolution2" },
@@ -25,7 +25,7 @@ namespace Evolution.Test.Unit
             var context = SetupEvolutionContext(evolutions);
 
             var repo = new EvolutionRepo(context);
-            var executedEvolutions = repo.GetExecutedEvolutions();
+            var executedEvolutions = repo.GetExecutedEvolutionFileNames();
 
             Assert.Equal(evolutions.Count, executedEvolutions.Length);
         }
@@ -54,7 +54,7 @@ namespace Evolution.Test.Unit
         {
             var evolution = new Progression() { Name = "Evolution1" };
 
-            var evolutions = new List<IProgression>();
+            var evolutions = new List<IEvolution>();
             var context = SetupEvolutionContext(evolutions);
             var repo = new EvolutionRepo(context);
             
@@ -69,7 +69,7 @@ namespace Evolution.Test.Unit
             var success = false;
             const string evolutionContent = "select sysdate from dual;";
 
-            var context = SetupEvolutionContext(new List<IProgression>());
+            var context = SetupEvolutionContext(new List<IEvolution>());
             var repo = new EvolutionRepo(context);
 
             try
@@ -85,17 +85,17 @@ namespace Evolution.Test.Unit
             Assert.True(success);
         }
 
-        private IEvolutionContext SetupEvolutionContext(List<IProgression> evolutions)
+        private IEvolutionContext SetupEvolutionContext(List<IEvolution> evolutions)
         {
             var queryableEvolutions = evolutions.AsQueryable();
             
-            var dbSetMock = new Mock<DbSet<IProgression>>();
-            dbSetMock.As<IQueryable<IProgression>>().Setup(e => e.Provider).Returns(queryableEvolutions.Provider);
-            dbSetMock.As<IQueryable<IProgression>>().Setup(e => e.Expression).Returns(queryableEvolutions.Expression);
-            dbSetMock.As<IQueryable<IProgression>>().Setup(e => e.ElementType).Returns(queryableEvolutions.ElementType);
-            dbSetMock.As<IQueryable<IProgression>>().Setup(e => e.GetEnumerator()).Returns(() => queryableEvolutions.GetEnumerator());
-            dbSetMock.Setup(d => d.Add(It.IsAny<IProgression>())).Callback<IProgression>(e => evolutions.Add(e));
-            dbSetMock.Setup(d => d.Remove(It.IsAny<IProgression>())).Callback<IProgression>(e => evolutions.Remove(e));
+            var dbSetMock = new Mock<DbSet<IEvolution>>();
+            dbSetMock.As<IQueryable<IEvolution>>().Setup(e => e.Provider).Returns(queryableEvolutions.Provider);
+            dbSetMock.As<IQueryable<IEvolution>>().Setup(e => e.Expression).Returns(queryableEvolutions.Expression);
+            dbSetMock.As<IQueryable<IEvolution>>().Setup(e => e.ElementType).Returns(queryableEvolutions.ElementType);
+            dbSetMock.As<IQueryable<IEvolution>>().Setup(e => e.GetEnumerator()).Returns(() => queryableEvolutions.GetEnumerator());
+            dbSetMock.Setup(d => d.Add(It.IsAny<IEvolution>())).Callback<IEvolution>(e => evolutions.Add(e));
+            dbSetMock.Setup(d => d.Remove(It.IsAny<IEvolution>())).Callback<IEvolution>(e => evolutions.Remove(e));
 
             var contextMock = new Mock<IEvolutionContext>();
             contextMock.Setup(cm => cm.Evolutions).Returns(dbSetMock.Object);

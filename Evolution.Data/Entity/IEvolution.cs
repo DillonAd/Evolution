@@ -2,7 +2,7 @@
 
 namespace Evolution.Data.Entity
 {
-    public interface IProgression
+    public interface IEvolution
     {
         Guid Id { get; set; }
         string Name { get; set; }

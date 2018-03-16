@@ -4,9 +4,8 @@ namespace Evolution.Repo
 {
     public interface IEvolutionRepo
     {
-        IProgression[] GetExecutedEvolutions();
-        void AddEvolution(IProgression evolution);
-        void RemoveEvolution(IProgression evolution);
+        string[] GetExecutedEvolutionFileNames();
+        void AddEvolution(IEvolution evolution);
         void SaveChanges();
         void ExecuteEvolution(string content);
     }
