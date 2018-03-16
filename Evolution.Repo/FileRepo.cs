@@ -28,12 +28,12 @@ namespace Evolution.Repo
             return _Context.GetEvolutionFileContent(fileName);
         }
 
-        public IEnumerable<string> GetUnexecutedEvolutionFiles(IProgression[] executedEvolutions)
+        public IEnumerable<string> GetUnexecutedEvolutionFiles(string[] executedEvolutions)
         {
             var evolutionFileNames = _Context.GetEvolutionFileNames();
 
             //Use list of executed evolutions to get the list of unexecuted evolutions
-            return evolutionFileNames.Except(executedEvolutions.Select(e => e.FileName));
+            return evolutionFileNames.Except(executedEvolutions);
         }
     }
 }
