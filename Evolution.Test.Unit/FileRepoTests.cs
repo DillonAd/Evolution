@@ -132,7 +132,7 @@ namespace Evolution.Test.Unit
             var repo = new FileRepo(mockContext.Object);
             var evolutionName = repo.GetEvolutionName(fileName);
 
-            Assert.Equal(expectedEvolutionName, evolution);
+            Assert.Equal(expectedEvolutionName, evolutionName);
         }
     }
 }
