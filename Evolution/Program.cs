@@ -1,8 +1,8 @@
 ﻿using CommandLine;
-using Evolution.IoC;
+using Evolution.Data.Entity;
+using Evolution.Data.Oracle;
 using Evolution.Options;
 using System;
-using System.Collections.Generic;
 
 namespace Evolution
 {
@@ -42,7 +42,29 @@ namespace Evolution
 
         private static int Run(ExecuteOptions options)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var evolutionRepo = DependencyRegistry.GetEvolutionRepo<OracleEvolutionContext, OracleConnectionBuilder>(options);
+                var fileRepo = DependencyRegistry.GetFileRepo();
+
+                var executedEvolutions = evolutionRepo.GetExecutedEvolutionFileNames();
+                var unexecutedEvolutionFiles = fileRepo.GetUnexecutedEvolutionFiles(executedEvolutions);
+                string fileContents;
+
+                foreach(var evolutionFile in unexecutedEvolutionFiles)
+                {
+                    fileContents = fileRepo.GetEvolutionFileContent(evolutionFile);
+                    evolutionRepo.ExecuteEvolution(fileContents);
+                    evolutionRepo.AddEvolution();
+                }
+
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(GetExceptions(ex));
+                return 1;
+            }
         }
 
         private static string GetExceptions(Exception ex)

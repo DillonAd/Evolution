@@ -78,9 +78,9 @@ namespace Evolution.Test.Unit
         {
             var executedEvolutions = new IEvolution[]
             {
-                new Progression() { Name = "Evolution1", FileName="Evolution1.evo.sql" },
-                new Progression() { Name = "Evolution2", FileName="Evolution2.evo.sql" },
-                new Progression() { Name = "Evolution3", FileName="Evolution3.evo.sql" }
+                new Data.Entity.Evolution() { Name = "Evolution1", FileName="Evolution1.evo.sql" },
+                new Data.Entity.Evolution() { Name = "Evolution2", FileName="Evolution2.evo.sql" },
+                new Data.Entity.Evolution() { Name = "Evolution3", FileName="Evolution3.evo.sql" }
             };
 
             var unexecutedEvolutionFiles = new string[]

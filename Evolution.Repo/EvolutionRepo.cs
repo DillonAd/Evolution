@@ -27,8 +27,13 @@ namespace Evolution.Repo
             throw new NotImplementedException();   
         }
 
-        public void AddEvolution(IEvolution evolution)
+        public void AddEvolution(string name, string file, string content)
         {
+            var evolution = new Data.Entity.Evolution()
+            {
+                Id = Guid.NewGuid()
+            };
+
             _Context.Evolutions.Add(evolution);
         }
 

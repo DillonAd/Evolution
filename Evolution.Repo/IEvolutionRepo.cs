@@ -5,7 +5,7 @@ namespace Evolution.Repo
     public interface IEvolutionRepo
     {
         string[] GetExecutedEvolutionFileNames();
-        void AddEvolution(IEvolution evolution);
+        void AddEvolution(string name, string file, string content);
         void SaveChanges();
         void ExecuteEvolution(string content);
     }

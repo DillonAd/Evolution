@@ -17,9 +17,9 @@ namespace Evolution.Test.Unit
         {
             var evolutions = new List<IEvolution>()
             {
-                new Progression() { Name = "Evolution1" },
-                new Progression() { Name = "Evolution2" },
-                new Progression() { Name = "Evolution3" }
+                new Data.Entity.Evolution() { Name = "Evolution1" },
+                new Data.Entity.Evolution() { Name = "Evolution2" },
+                new Data.Entity.Evolution() { Name = "Evolution3" }
             };
 
             var context = SetupEvolutionContext(evolutions);
@@ -52,7 +52,7 @@ namespace Evolution.Test.Unit
         [Fact]
         public void AddEvolution()
         {
-            var evolution = new Progression() { Name = "Evolution1" };
+            var evolution = new Data.Entity.Evolution() { Name = "Evolution1" };
 
             var evolutions = new List<IEvolution>();
             var context = SetupEvolutionContext(evolutions);
