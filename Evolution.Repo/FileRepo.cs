@@ -1,9 +1,6 @@
 ﻿using Evolution.Data;
-using Evolution.Data.Entity;
-using Evolution.Exceptions;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace Evolution.Repo
 {

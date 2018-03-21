@@ -24,7 +24,7 @@ namespace Evolution.Repo
         //TODO Add ability to create checkpoint
         public void CreateEvolutionCheckPoint(Guid evolutionId)
         {
-            throw new NotImplementedException();   
+            throw new NotImplementedException();
         }
 
         public void AddEvolution(string name, string file, string content)
