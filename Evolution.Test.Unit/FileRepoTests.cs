@@ -108,31 +108,5 @@ namespace Evolution.Test.Unit
             Assert.Equal(unexecutedEvolutionFiles.Length, unexecutedEvolutions.Count());
             Assert.All(unexecutedEvolutions, e => unexecutedEvolutionFiles.Contains(e));
         }
-
-        [Fact]
-        public void CreateFileNameFromEvolutionName()
-        {
-            var expectedFileName = "2018011817_Initialize.evo.sql";
-            var evolutionName = "Initialize";
-
-            var mockContext = new Mock<IFileContext>();
-            var repo = new FileRepo(mockContext.Object);
-            var fileName = repo.CreateFileName(evolutionName);
-
-            Assert.Equal(expectedFileName, fileName);
-        }
-
-        [Fact]
-        public void GetEvolutionNameFromFileName()
-        {
-            var expectedEvolutionName = "Initialize";
-            var fileName = "2018011817_Initialize.evo.sql"; 
-
-            var mockContext = new Mock<IFileContext>();
-            var repo = new FileRepo(mockContext.Object);
-            var evolutionName = repo.GetEvolutionName(fileName);
-
-            Assert.Equal(expectedEvolutionName, evolutionName);
-        }
     }
 }

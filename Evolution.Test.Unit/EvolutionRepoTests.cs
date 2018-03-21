@@ -52,13 +52,18 @@ namespace Evolution.Test.Unit
         [Fact]
         public void AddEvolution()
         {
-            var evolution = new Data.Entity.Evolution() { Name = "Evolution1" };
+            var evolution = new Data.Entity.Evolution()
+            {
+                Name = "Evolution1",
+                FileName = "FileName",
+                Content = "Evolution Content"
+            };
 
             var evolutions = new List<IEvolution>();
             var context = SetupEvolutionContext(evolutions);
             var repo = new EvolutionRepo(context);
             
-            repo.AddEvolution(evolution);
+            repo.AddEvolution(evolution.Name, evolution.FileName, evolution.Content);
 
             Assert.Contains(evolution, evolutions);
         }
