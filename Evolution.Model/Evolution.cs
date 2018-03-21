@@ -5,17 +5,15 @@ namespace Evolution.Model
 {
     public class Evolution
     {
-        public Guid Guid { get; }
         public string FileName { get; }
         public string Name { get; }
         public IDate Created { get; }
 
         public Evolution(IDate created, string evolutionName) :
-            this(Guid.NewGuid(), evolutionName, created) { }
+            this(evolutionName, created) { }
 
-        public Evolution(Guid guid, string evolutionName, IDate created, string fileName = null)
+        public Evolution(string evolutionName, IDate created, string fileName = null)
         {
-            Guard.Against.Null(guid, nameof(guid));
             Guard.Against.Null(created, nameof(created));
             Guard.Against.NullOrWhiteSpace(evolutionName, nameof(evolutionName));
 
@@ -24,7 +22,6 @@ namespace Evolution.Model
             else
                 Guard.Against.NullOrWhiteSpace(fileName, nameof(fileName));
 
-            Guid = guid;
             Name = evolutionName;
             FileName = fileName;
             Created = created;
