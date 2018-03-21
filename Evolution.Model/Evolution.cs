@@ -27,6 +27,11 @@ namespace Evolution.Model
             Created = created;
         }
 
+        public void Create(string sourceFile)
+        {
+            throw new NotImplementedException();
+        }
+
         private static string CreateFileName(IDate created, string evolutionName)
         {
             return string.Format("{0}_{1}.evo.sql", created.ToString(), evolutionName);

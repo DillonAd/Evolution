@@ -13,9 +13,8 @@ namespace Evolution.Repo
             _Context = context;
         }
 
-        public void CreateEvolutionFile(string evolutionName, string sourceFile)
+        public void CreateEvolutionFile(string fileName, string sourceFile)
         {
-            var fileName = string.Format("{0}.evo.sql", evolutionName);
             var contents = _Context.ReadFile(sourceFile);
             _Context.CreateFile(fileName, contents);
         }

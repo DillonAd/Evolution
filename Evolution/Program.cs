@@ -1,5 +1,5 @@
 ﻿using CommandLine;
-using Evolution.Data.Entity;
+using Evolution.Model;
 using Evolution.Data.Oracle;
 using Evolution.Options;
 using System;
@@ -24,7 +24,9 @@ namespace Evolution
             try
             {
                 var fileRepo = DependencyRegistry.GetFileRepo();
-                fileRepo.CreateEvolutionFile(options.TargetEvolution, options.SourceFileName);
+                var evolution = new Model.Evolution(new Date(), options.TargetEvolution);
+
+                fileRepo.CreateEvolutionFile(evolution.FileName, options.SourceFileName);
 
                 return 0;
             }
@@ -49,13 +51,15 @@ namespace Evolution
 
                 var executedEvolutions = evolutionRepo.GetExecutedEvolutionFileNames();
                 var unexecutedEvolutionFiles = fileRepo.GetUnexecutedEvolutionFiles(executedEvolutions);
+                //TODO get most recent evolution name by filename if no evolution was provided
                 string fileContents;
 
                 foreach(var evolutionFile in unexecutedEvolutionFiles)
                 {
                     fileContents = fileRepo.GetEvolutionFileContent(evolutionFile);
                     evolutionRepo.ExecuteEvolution(fileContents);
-                    evolutionRepo.AddEvolution();
+                    //TODO
+                    //evolutionRepo.AddEvolution();
                 }
 
                 return 0;

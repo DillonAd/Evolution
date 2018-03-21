@@ -14,6 +14,7 @@
     <ProjectReference Include="..\Evolution.Data.Oracle\Evolution.Data.Oracle.csproj" />
     <ProjectReference Include="..\Evolution.Data\Evolution.Data.csproj" />
     <ProjectReference Include="..\Evolution.Exceptions\Evolution.Exceptions.csproj" />
+    <ProjectReference Include="..\Evolution.Model\Evolution.Model.csproj" />
     <ProjectReference Include="..\Evolution.Repo\Evolution.Repo.csproj" />
   </ItemGroup>
 
