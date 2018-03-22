@@ -65,7 +65,7 @@ namespace Evolution.Test.Unit
             
             repo.AddEvolution(evolution.Name, evolution.FileName, evolution.Content);
 
-            Assert.Contains(evolution, evolutions);
+            Assert.Single(evolutions);
         }
 
         [Fact]

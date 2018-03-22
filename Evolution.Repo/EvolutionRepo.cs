@@ -31,7 +31,10 @@ namespace Evolution.Repo
         {
             var evolution = new Data.Entity.Evolution()
             {
-                Id = Guid.NewGuid()
+                Id = Guid.NewGuid(),
+                Name = name,
+                FileName = file,
+                Content = content
             };
 
             _Context.Evolutions.Add(evolution);
