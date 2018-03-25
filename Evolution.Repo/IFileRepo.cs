@@ -5,8 +5,8 @@ namespace Evolution.Repo
 {
     public interface IFileRepo
     {
-        void CreateEvolutionFile(string fileName, string sourceFile);
-        string GetEvolutionFileContent(string fileName);
+        void CreateEvolutionFile(Model.Evolution evolution, string sourceFile);
+        string GetEvolutionFileContent(Model.Evolution evolution);
         IEnumerable<string> GetUnexecutedEvolutionFiles(string[] executedEvolutions);
     }
 }

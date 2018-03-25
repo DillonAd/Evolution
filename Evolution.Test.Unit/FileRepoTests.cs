@@ -1,6 +1,7 @@
 ﻿using Evolution.Data;
 using Evolution.Data.Entity;
 using Evolution.Exceptions;
+using Evolution.Model;
 using Evolution.Repo;
 using Moq;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace Evolution.Test.Unit
         public void CreateEvolutionFile_Success()
         {
             var evolutionName = "Evolution1";
+            var evolution = new Model.Evolution(new Date(), evolutionName);
             var evolutionContents = "Programatic awesomeness";
             var fileList = new List<string>();
 
@@ -22,7 +24,7 @@ namespace Evolution.Test.Unit
             mockContext.Setup(c => c.CreateFile(It.IsAny<string>(), It.IsAny<string>())).Callback<string, string>((fileName, fileContents) => fileList.Add(fileName));
 
             var repo = new FileRepo(mockContext.Object);
-            repo.CreateEvolutionFile(evolutionName, evolutionContents);
+            repo.CreateEvolutionFile(evolution, evolutionContents);
 
             Assert.NotEmpty(fileList);
             Assert.Contains(evolutionName, fileList[0]);
@@ -32,6 +34,7 @@ namespace Evolution.Test.Unit
         public void CreateEvolutionFiles_FileExists()
         {
             var evolutionName = "Evolution1";
+            var evolution = new Model.Evolution(new Date(), evolutionName);
             var evolutionContents = "Programatic awesomeness";
             var fileList = new List<string>();
 
@@ -50,23 +53,23 @@ namespace Evolution.Test.Unit
             mockContext.Setup(c => c.DeleteFile(It.IsAny<string>())).Callback<string>(fileName => fileList.Remove(fileName));
 
             var repo = new FileRepo(mockContext.Object);
-            repo.CreateEvolutionFile(evolutionName, evolutionContents);
+            repo.CreateEvolutionFile(evolution, evolutionContents);
 
-            Assert.Throws<EvolutionFileException>(() => repo.CreateEvolutionFile(evolutionName, evolutionContents));
+            Assert.Throws<EvolutionFileException>(() => repo.CreateEvolutionFile(evolution, evolutionContents));
             Assert.Single(fileList);
         }
 
         [Fact]
         public void GetEvolutionFileContents()
         {
-            var fileName = "evolution1.up.sql";
+            var fileName = "20180125131211_evolution1.up.sql";
             var content = "evolution file content";
 
             var mockContext = new Mock<IFileContext>();
             mockContext.Setup(c => c.GetEvolutionFileContent(It.Is<string>(f => f == fileName))).Returns(content);
 
             var repo = new FileRepo(mockContext.Object);
-            var contentResult = repo.GetEvolutionFileContent(fileName);
+            var contentResult = repo.GetEvolutionFileContent(new Model.Evolution(fileName));
 
             Assert.NotNull(contentResult);
             Assert.NotEmpty(contentResult);

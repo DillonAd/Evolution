@@ -41,11 +41,31 @@ namespace Evolution.Test.Unit
         [InlineData("add2Tables")]
         [InlineData("123456789")]
         [InlineData("a")]
-        public void Evolution_ValidFileName(string evolutionName)
+        public void Evolution_ValidFileNameFromEvolutionName(string evolutionName)
         {
             var date = new Date();
             var evolution = new Model.Evolution(date, evolutionName);
             Assert.Matches(@"[0-9]{14}_\w{1,}.evo.sql", evolution.FileName);
+        }
+
+        [Theory]
+        [InlineData("20181213145432_evolution1.evo.sql")]
+        public void Evolution_ValidFileName(string fileName)
+        {
+            var evolution = new Model.Evolution(fileName);
+
+            Assert.NotNull(evolution.Name);
+            Assert.False(string.IsNullOrWhiteSpace(fileName));
+        }
+
+        [Theory]
+        [InlineData("evolution1.evo.sql")]
+        [InlineData("evolution1.sql")]
+        [InlineData("evolution1.evo")]
+        [InlineData("20181213145432evolution1.evo.sql")]
+        public void Evolution_InvalidFileName(string fileName)
+        {
+            Assert.Throws<ArgumentException>(() => new Model.Evolution(fileName));
         }
 
         [Fact]

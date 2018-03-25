@@ -13,15 +13,15 @@ namespace Evolution.Repo
             _Context = context;
         }
 
-        public void CreateEvolutionFile(string fileName, string sourceFile)
+        public void CreateEvolutionFile(Model.Evolution evolution, string sourceFile)
         {
             var contents = _Context.ReadFile(sourceFile);
-            _Context.CreateFile(fileName, contents);
+            _Context.CreateFile(evolution.FileName, contents);
         }
 
-        public string GetEvolutionFileContent(string fileName)
+        public string GetEvolutionFileContent(Model.Evolution evolution)
         {
-            return _Context.GetEvolutionFileContent(fileName);
+            return _Context.GetEvolutionFileContent(evolution.FileName);
         }
 
         public IEnumerable<string> GetUnexecutedEvolutionFiles(string[] executedEvolutions)

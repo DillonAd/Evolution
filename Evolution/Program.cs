@@ -26,7 +26,7 @@ namespace Evolution
                 var fileRepo = DependencyRegistry.GetFileRepo();
                 var evolution = new Model.Evolution(new Date(), options.TargetEvolution);
 
-                fileRepo.CreateEvolutionFile(evolution.FileName, options.SourceFileName);
+                fileRepo.CreateEvolutionFile(evolution, options.SourceFileName);
 
                 return 0;
             }
@@ -51,14 +51,19 @@ namespace Evolution
 
                 var executedEvolutions = evolutionRepo.GetExecutedEvolutionFileNames();
                 var unexecutedEvolutionFiles = fileRepo.GetUnexecutedEvolutionFiles(executedEvolutions);
+                
                 //TODO get most recent evolution name by filename if no evolution was provided
                 string fileContents;
-
+                Model.Evolution evolution;
+                
                 foreach(var evolutionFile in unexecutedEvolutionFiles)
                 {
-                    fileContents = fileRepo.GetEvolutionFileContent(evolutionFile);
+                    evolution = new Model.Evolution(evolutionFile);
+
+                    fileContents = fileRepo.GetEvolutionFileContent(evolution);
                     evolutionRepo.ExecuteEvolution(fileContents);
-                    //TODO
+                    
+
                     //evolutionRepo.AddEvolution();
                 }
 
