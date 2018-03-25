@@ -27,17 +27,17 @@ namespace Evolution.Repo
             throw new NotImplementedException();
         }
 
-        public void AddEvolution(string name, string file, string content)
+        public void AddEvolution(Model.Evolution evolution, string content)
         {
-            var evolution = new Data.Entity.Evolution()
+            var newEvolution = new Data.Entity.Evolution()
             {
                 Id = Guid.NewGuid(),
-                Name = name,
-                FileName = file,
+                Name = evolution.Name,
+                FileName = evolution.FileName,
                 Content = content
             };
 
-            _Context.Evolutions.Add(evolution);
+            _Context.Evolutions.Add(newEvolution);
         }
 
         public void SaveChanges()

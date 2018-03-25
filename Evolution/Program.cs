@@ -62,9 +62,7 @@ namespace Evolution
 
                     fileContents = fileRepo.GetEvolutionFileContent(evolution);
                     evolutionRepo.ExecuteEvolution(fileContents);
-                    
-
-                    //evolutionRepo.AddEvolution();
+                    evolutionRepo.AddEvolution(evolution, fileContents);
                 }
 
                 return 0;

@@ -1,5 +1,6 @@
 ﻿using Evolution.Data;
 using Evolution.Data.Entity;
+using Evolution.Model;
 using Evolution.Repo;
 using Moq;
 using System;
@@ -52,18 +53,14 @@ namespace Evolution.Test.Unit
         [Fact]
         public void AddEvolution()
         {
-            var evolution = new Data.Entity.Evolution()
-            {
-                Name = "Evolution1",
-                FileName = "FileName",
-                Content = "Evolution Content"
-            };
+            var evolution = new Model.Evolution(new Date(), "Evolution1");
+            string content = "Evolution Content";
 
             var evolutions = new List<IEvolution>();
             var context = SetupEvolutionContext(evolutions);
             var repo = new EvolutionRepo(context);
             
-            repo.AddEvolution(evolution.Name, evolution.FileName, evolution.Content);
+            repo.AddEvolution(evolution, content);
 
             Assert.Single(evolutions);
         }
