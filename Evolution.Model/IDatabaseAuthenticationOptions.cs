@@ -1,4 +1,4 @@
-﻿namespace Evolution.Options
+﻿namespace Evolution.Model
 {
     public interface IDatabaseAuthenticationOptions
     {

@@ -1,4 +1,5 @@
 ﻿using CommandLine;
+using Evolution.IoC;
 using Evolution.Model;
 using Evolution.Data.Oracle;
 using Evolution.Options;

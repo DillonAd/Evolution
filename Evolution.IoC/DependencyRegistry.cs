@@ -1,16 +1,16 @@
 ﻿using Evolution.Data;
 using Evolution.Data.Oracle;
-using Evolution.Options;
+using Evolution.Model;
 using Evolution.Repo;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Evolution
+namespace Evolution.IoC
 {
     public static class DependencyRegistry
     {
         public static IEvolutionRepo GetEvolutionRepo<TContext, TConnectionStringBuilder>(IDatabaseAuthenticationOptions authOptions)
-                where TContext : class, IEvolutionContext
-                where TConnectionStringBuilder : class, IConnectionStringBuilder, new()
+                    where TContext : class, IEvolutionContext
+                    where TConnectionStringBuilder : class, IConnectionStringBuilder, new()
         {
             return new ServiceCollection()
                 .AddTransient<IDbContextFactory, DbContextFactory>()

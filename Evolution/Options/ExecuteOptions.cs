@@ -1,4 +1,5 @@
 ﻿using CommandLine;
+using Evolution.Model;
 
 namespace Evolution.Options
 {

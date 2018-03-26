@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Evolution.Repo", "Evolution
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Evolution.Exceptions", "Evolution.Exceptions\Evolution.Exceptions.csproj", "{F4F26C4C-732B-48F1-9712-CA097D963F48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evolution.Model", "Evolution.Model\Evolution.Model.csproj", "{D1EB34CB-E011-4FA0-B67D-4F68E9348838}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Evolution.Model", "Evolution.Model\Evolution.Model.csproj", "{D1EB34CB-E011-4FA0-B67D-4F68E9348838}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evolution.IoC", "Evolution.IoC\Evolution.IoC.csproj", "{EE7A1389-F72A-4C3A-A010-6F4B0E0C57E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{D1EB34CB-E011-4FA0-B67D-4F68E9348838}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1EB34CB-E011-4FA0-B67D-4F68E9348838}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1EB34CB-E011-4FA0-B67D-4F68E9348838}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE7A1389-F72A-4C3A-A010-6F4B0E0C57E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE7A1389-F72A-4C3A-A010-6F4B0E0C57E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE7A1389-F72A-4C3A-A010-6F4B0E0C57E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE7A1389-F72A-4C3A-A010-6F4B0E0C57E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
