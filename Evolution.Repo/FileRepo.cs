@@ -29,7 +29,7 @@ namespace Evolution.Repo
             var evolutionFileNames = _Context.GetEvolutionFileNames();
 
             //Use list of executed evolutions to get the list of unexecuted evolutions
-            return evolutionFileNames.Except(executedEvolutions);
+            return evolutionFileNames.Except(executedEvolutions).OrderBy(e => e);
         }
     }
 }
