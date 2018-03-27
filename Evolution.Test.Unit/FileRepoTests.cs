@@ -13,6 +13,7 @@ namespace Evolution.Test.Unit
     public class FileRepoTests
     {
         [Fact]
+        [Trait("Category", "unit")]
         public void CreateEvolutionFile_Success()
         {
             var evolutionName = "Evolution1";
@@ -31,6 +32,7 @@ namespace Evolution.Test.Unit
         }
 
         [Fact]
+        [Trait("Category", "unit")]
         public void CreateEvolutionFiles_FileExists()
         {
             var evolutionName = "Evolution1";
@@ -60,6 +62,7 @@ namespace Evolution.Test.Unit
         }
 
         [Fact]
+        [Trait("Category", "unit")]
         public void GetEvolutionFileContents()
         {
             var fileName = "20180125131211_evolution1.up.sql";
@@ -77,6 +80,7 @@ namespace Evolution.Test.Unit
         }
 
         [Fact]
+        [Trait("Category", "unit")]
         public void GetUnexecutedEvolutions()
         {
             var executedEvolutions = new IEvolution[]

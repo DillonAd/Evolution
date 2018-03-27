@@ -14,6 +14,7 @@ namespace Evolution.Test.Unit
     public class EvolutionRepoTests
     {
         [Fact]
+        [Trait("Category", "unit")]
         public void GetExecutedEvolutions()
         {
             var evolutions = new List<IEvolution>()
@@ -51,6 +52,7 @@ namespace Evolution.Test.Unit
         //}
 
         [Fact]
+        [Trait("Category", "unit")]
         public void AddEvolution()
         {
             var evolution = new Model.Evolution(new Date(), "Evolution1");
@@ -66,6 +68,7 @@ namespace Evolution.Test.Unit
         }
 
         [Fact]
+        [Trait("Category", "unit")]
         public void ExecuteEvolution_Success()
         {
             var success = false;

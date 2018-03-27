@@ -9,6 +9,7 @@ namespace Evolution.Test.Unit
     public class EvolutionTests
     {
         [Theory]
+        [Trait("Category", "unit")]
         [InlineData("initialize")]
         [InlineData("addTable")]
         [InlineData("add2Tables")]
@@ -22,6 +23,7 @@ namespace Evolution.Test.Unit
         }
 
         [Theory]
+        [Trait("Category", "unit")]
         [InlineData("")]
         [InlineData("   ")]
         public void Evolution_InvalidEvolutionName(string evolutionName)
@@ -30,12 +32,14 @@ namespace Evolution.Test.Unit
         }
 
         [Fact]
+        [Trait("Category", "unit")]
         public void Evolution_NullEvolutionName()
         {
             Assert.Throws<ArgumentNullException>(() => new Model.Evolution(new Date(), null));
         }
 
         [Theory]
+        [Trait("Category", "unit")]
         [InlineData("initialize")]
         [InlineData("addTable")]
         [InlineData("add2Tables")]
@@ -49,6 +53,7 @@ namespace Evolution.Test.Unit
         }
 
         [Theory]
+        [Trait("Category", "unit")]
         [InlineData("20181213145432_evolution1.evo.sql")]
         public void Evolution_ValidFileName(string fileName)
         {
@@ -59,6 +64,7 @@ namespace Evolution.Test.Unit
         }
 
         [Theory]
+        [Trait("Category", "unit")]
         [InlineData("evolution1.evo.sql")]
         [InlineData("evolution1.sql")]
         [InlineData("evolution1.evo")]
@@ -69,6 +75,7 @@ namespace Evolution.Test.Unit
         }
 
         [Fact]
+        [Trait("Category", "unit")]
         public void Evolution_InvalidDate()
         {
             Assert.Throws<ArgumentNullException>(() => new Model.Evolution(null, "evolutionName"));
