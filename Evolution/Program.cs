@@ -53,7 +53,6 @@ namespace Evolution
                 var executedEvolutions = evolutionRepo.GetExecutedEvolutionFileNames();
                 var unexecutedEvolutionFiles = fileRepo.GetUnexecutedEvolutionFiles(executedEvolutions);
                 
-                //TODO get most recent evolution name by filename if no evolution was provided
                 string fileContents;
                 Model.Evolution evolution;
                 
