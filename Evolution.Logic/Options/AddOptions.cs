@@ -1,7 +1,7 @@
 ﻿using CommandLine;
 using Evolution.Model;
 
-namespace Evolution.Options
+namespace Evolution.Logic.Options
 {
     [Verb("add")]
     public class AddOptions : ITargetEvolutionOptions

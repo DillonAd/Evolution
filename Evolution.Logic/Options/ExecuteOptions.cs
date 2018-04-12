@@ -1,7 +1,7 @@
 ﻿using CommandLine;
 using Evolution.Model;
 
-namespace Evolution.Options
+namespace Evolution.Logic.Options
 {
     [Verb("exec")]
     public class ExecuteOptions : IDatabaseAuthenticationOptions, ITargetEvolutionOptions

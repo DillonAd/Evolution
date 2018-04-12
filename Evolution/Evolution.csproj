@@ -6,13 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommandLineParser" Version="2.2.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Evolution.Exceptions\Evolution.Exceptions.csproj" />
     <ProjectReference Include="..\Evolution.IoC\Evolution.IoC.csproj" />
+    <ProjectReference Include="..\Evolution.Logic\Evolution.Logic.csproj" />
     <ProjectReference Include="..\Evolution.Model\Evolution.Model.csproj" />
     <ProjectReference Include="..\Evolution.Repo\Evolution.Repo.csproj" />
   </ItemGroup>

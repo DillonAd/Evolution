@@ -1,6 +1,6 @@
 ﻿using Evolution.Logic;
 
-namespace Evolution
+namespace Evolution.DotNetFramework
 {
     public static class Program
     {
