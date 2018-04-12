@@ -48,5 +48,15 @@
     <Compile Include="IFileRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Evolution.Data\Evolution.Data.csproj">
+      <Project>{81620f49-6ed2-4eb1-882b-9768b0f573d0}</Project>
+      <Name>Evolution.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Evolution.Model\Evolution.Model.csproj">
+      <Project>{eb27f0f0-2277-46dc-bd7b-3c19c9c92e12}</Project>
+      <Name>Evolution.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

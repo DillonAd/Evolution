@@ -48,5 +48,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Evolution.Logic\Evolution.Logic.csproj">
+      <Project>{496793FB-6D9A-4E98-94F5-7A198777D3F8}</Project>
+      <Name>Evolution.Logic</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
