@@ -10,6 +10,7 @@ namespace Evolution
     {
         static void Main(string[] args)
         {
+            return EvolutionLogic.Run(args);
         }
     }
 }
