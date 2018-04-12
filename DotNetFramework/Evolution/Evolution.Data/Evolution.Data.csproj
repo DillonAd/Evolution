@@ -40,6 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entity\Evolution.cs" />
+    <Compile Include="Entity\IEvolution.cs" />
+    <Compile Include="FileContext.cs" />
+    <Compile Include="IConnectionStringBuilder.cs" />
+    <Compile Include="IEvolutionContext.cs" />
+    <Compile Include="IFileContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
