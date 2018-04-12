@@ -40,6 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EvolutionLogic.cs" />
+    <Compile Include="Options\AddOptions.cs" />
+    <Compile Include="Options\CheckPointOptions.cs" />
+    <Compile Include="Options\ExecuteOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
