@@ -34,6 +34,8 @@ namespace Evolution.IoC
             {
                 _.For<IEvolutionContext>().Use<TContext>(() => (TContext)factory.CreateContext<TContext>(cb));
             });
+
+            return container;
         }
     }
 }
