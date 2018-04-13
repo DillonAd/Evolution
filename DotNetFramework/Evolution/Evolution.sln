@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evolution.Model", "Evolutio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evolution.Repo", "Evolution.Repo\Evolution.Repo.csproj", "{49A24F40-0202-4CF3-B65B-6BCA2AD89383}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evolution.Test.Unit", "Evolution.Test.Unit\Evolution.Test.Unit.csproj", "{C545FAF5-EBAE-4099-B819-F7B7671A5AA8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evolution.Test.Unit", "Evolution.Test.Unit\Evolution.Test.Unit.csproj", "{8EDF4429-251A-416D-BB68-93F227191BCF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,10 +59,10 @@ Global
 		{49A24F40-0202-4CF3-B65B-6BCA2AD89383}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49A24F40-0202-4CF3-B65B-6BCA2AD89383}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49A24F40-0202-4CF3-B65B-6BCA2AD89383}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C545FAF5-EBAE-4099-B819-F7B7671A5AA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C545FAF5-EBAE-4099-B819-F7B7671A5AA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C545FAF5-EBAE-4099-B819-F7B7671A5AA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C545FAF5-EBAE-4099-B819-F7B7671A5AA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EDF4429-251A-416D-BB68-93F227191BCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EDF4429-251A-416D-BB68-93F227191BCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
