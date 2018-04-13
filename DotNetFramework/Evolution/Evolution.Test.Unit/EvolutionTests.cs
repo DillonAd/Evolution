@@ -19,7 +19,7 @@ namespace Evolution.Test.Unit
         {
             var date = new Date();
             var evolution = new Model.Evolution(date, evolutionName);
-            Assert.Equal(evolutionName, evolution.Name);
+            Assert.AreEqual(evolutionName, evolution.Name);
         }
 
         [Test]
@@ -49,7 +49,7 @@ namespace Evolution.Test.Unit
         {
             var date = new Date();
             var evolution = new Model.Evolution(date, evolutionName);
-            Assert.Matches(@"[0-9]{14}_\w{1,}.evo.sql", evolution.FileName);
+            Assert.That(evolution.FileName, Does.Match(@"[0-9]{14}_\w{1,}.evo.sql"));
         }
 
         [Test]

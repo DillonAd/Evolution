@@ -27,8 +27,8 @@ namespace Evolution.Test.Unit
             var repo = new FileRepo(mockContext.Object);
             repo.CreateEvolutionFile(evolution, evolutionContents);
 
-            Assert.NotEmpty(fileList);
-            Assert.Contains(evolutionName, fileList[0]);
+            CollectionAssert.IsNotEmpty(fileList);
+            Assert.IsTrue(fileList[0].Contains(evolutionName));
         }
 
         [Test]
@@ -58,7 +58,7 @@ namespace Evolution.Test.Unit
             repo.CreateEvolutionFile(evolution, evolutionContents);
 
             Assert.Throws<EvolutionFileException>(() => repo.CreateEvolutionFile(evolution, evolutionContents));
-            Assert.Single(fileList);
+            Assert.AreEqual(1, fileList.Count);
         }
 
         [Test]
@@ -75,8 +75,8 @@ namespace Evolution.Test.Unit
             var contentResult = repo.GetEvolutionFileContent(new Model.Evolution(fileName));
 
             Assert.NotNull(contentResult);
-            Assert.NotEmpty(contentResult);
-            Assert.Equal(content, contentResult);
+            Assert.IsTrue(!string.IsNullOrWhiteSpace(contentResult));
+            Assert.AreEqual(content, contentResult);
         }
 
         [Test]
@@ -111,9 +111,13 @@ namespace Evolution.Test.Unit
             var repo = new FileRepo(mockContext.Object);
             var unexecutedEvolutions = repo.GetUnexecutedEvolutionFiles(executedEvolutions.Select(e => e.FileName).ToArray());
 
-            Assert.NotEmpty(unexecutedEvolutions);
-            Assert.Equal(unexecutedEvolutionFiles.Length, unexecutedEvolutions.Count());
-            Assert.All(unexecutedEvolutions, e => unexecutedEvolutionFiles.Contains(e));
+            CollectionAssert.IsNotEmpty(unexecutedEvolutions);
+            Assert.AreEqual(unexecutedEvolutionFiles.Length, unexecutedEvolutions.Count());
+            
+            foreach(var unexecutedEvolutionFile in unexecutedEvolutionFiles)
+            {
+                CollectionAssert.Contains(unexecutedEvolutionFile, unexecutedEvolutions);
+            }
         }
     }
 }

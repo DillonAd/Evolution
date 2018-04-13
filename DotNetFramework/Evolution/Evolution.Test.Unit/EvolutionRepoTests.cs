@@ -29,7 +29,7 @@ namespace Evolution.Test.Unit
             var repo = new EvolutionRepo(context);
             var executedEvolutions = repo.GetExecutedEvolutionFileNames();
 
-            Assert.Equal(evolutions.Count, executedEvolutions.Length);
+            Assert.AreEqual(evolutions.Count, executedEvolutions.Length);
         }
 
         //TODO Create Tests for Checkpoints
