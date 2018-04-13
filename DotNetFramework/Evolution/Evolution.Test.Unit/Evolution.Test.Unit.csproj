@@ -66,6 +66,10 @@
       <Project>{81620f49-6ed2-4eb1-882b-9768b0f573d0}</Project>
       <Name>Evolution.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Evolution.Exceptions\Evolution.Exceptions.csproj">
+      <Project>{1bd37ecf-f96e-4ef5-8656-998208dc11c7}</Project>
+      <Name>Evolution.Exceptions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Evolution.Model\Evolution.Model.csproj">
       <Project>{eb27f0f0-2277-46dc-bd7b-3c19c9c92e12}</Project>
       <Name>Evolution.Model</Name>

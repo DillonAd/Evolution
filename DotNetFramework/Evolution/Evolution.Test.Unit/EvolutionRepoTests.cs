@@ -3,18 +3,18 @@ using Evolution.Data.Entity;
 using Evolution.Model;
 using Evolution.Repo;
 using Moq;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using Xunit;
 
 namespace Evolution.Test.Unit
 {
     public class EvolutionRepoTests
     {
-        [Fact]
-        [Trait("Category", "unit")]
+        [Test]
+        [Category("unit")]
         public void GetExecutedEvolutions()
         {
             var evolutions = new List<IEvolution>()
@@ -33,7 +33,8 @@ namespace Evolution.Test.Unit
         }
 
         //TODO Create Tests for Checkpoints
-        //[Fact]
+        //[Test]
+        //[Category("unit")]
         //public void GetExecutedEvolutionsSinceCheckPoint()
         //{
         //    var evolutions = new List<IProgression>()
@@ -51,24 +52,8 @@ namespace Evolution.Test.Unit
         //    Assert.Equal(evolutions.Count, executedEvolutions.Length);
         //}
 
-        [Fact]
-        [Trait("Category", "unit")]
-        public void AddEvolution()
-        {
-            var evolution = new Model.Evolution(new Date(), "Evolution1");
-            string content = "Evolution Content";
-
-            var evolutions = new List<IEvolution>();
-            var context = SetupEvolutionContext(evolutions);
-            var repo = new EvolutionRepo(context);
-            
-            repo.AddEvolution(evolution, content);
-
-            Assert.Single(evolutions);
-        }
-
-        [Fact]
-        [Trait("Category", "unit")]
+        [Test]
+        [Category("unit")]
         public void ExecuteEvolution_Success()
         {
             var success = false;
