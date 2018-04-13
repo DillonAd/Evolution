@@ -1,8 +1,5 @@
-﻿using Evolution.Data;
-using Evolution.Data.Entity;
+﻿using Evolution.Data.Entity;
 using System.Data.Entity;
-using System;
-using System.Data.Common;
 
 namespace Evolution.Data.Oracle
 {

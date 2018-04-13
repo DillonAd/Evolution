@@ -90,16 +90,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Evolution.Data\Evolution.Data.csproj">
-      <Project>{81620f49-6ed2-4eb1-882b-9768b0f573d0}</Project>
-      <Name>Evolution.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Evolution.IOC\Evolution.IOC.csproj">
       <Project>{aa616614-7e3c-4ddf-aef9-b474a129d4c5}</Project>
       <Name>Evolution.IOC</Name>
     </ProjectReference>
     <ProjectReference Include="..\Evolution.Logic\Evolution.Logic.csproj">
-      <Project>{496793FB-6D9A-4E98-94F5-7A198777D3F8}</Project>
+      <Project>{496793fb-6d9a-4e98-94f5-7a198777d3f8}</Project>
       <Name>Evolution.Logic</Name>
     </ProjectReference>
     <ProjectReference Include="..\Evolution.Model\Evolution.Model.csproj">

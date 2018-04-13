@@ -77,10 +77,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Evolution.Data.Oracle\Evolution.Data.Oracle.csproj">
-      <Project>{f5d98ce6-bf1c-47cc-b0db-155903e30965}</Project>
-      <Name>Evolution.Data.Oracle</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Evolution.Model\Evolution.Model.csproj">
       <Project>{eb27f0f0-2277-46dc-bd7b-3c19c9c92e12}</Project>
       <Name>Evolution.Model</Name>
