@@ -8,37 +8,32 @@ namespace Evolution.IoC
 {
     public static class DependencyRegistry
     {
-        public static IEvolutionRepo GetEvolutionRepo<TContext, TConnectionStringBuilder>(IDatabaseAuthenticationOptions authOptions)
+        public static Container GetContainer<TContext, TConnectionStringBuilder>(IDatabaseAuthenticationOptions authOptions)
                     where TContext : class, IEvolutionContext
                     where TConnectionStringBuilder : class, IConnectionStringBuilder, new()
         {
-            return new ServiceCollection()
-                .AddTransient<IDbContextFactory, DbContextFactory>()
-                .AddTransient<IConnectionStringBuilder>((ctx) => new TConnectionStringBuilder()
+            var container = new Container(_ =>
+            {
+                _.For<IDbContextFactory>().Use<DbContextFactory>();
+                _.For<IFileContext>().Use<FileContext>();
+                _.For<IFileRepo>().Use<FileRepo>();
+                _.For<IEvolutionRepo>().Use<EvolutionRepo>();
+                _.For<IConnectionStringBuilder>().Use(() => new TConnectionStringBuilder()
                 {
                     UserName = authOptions.UserName,
                     Password = authOptions.Password,
                     Server = authOptions.Server,
                     Instance = authOptions.Instance
-                })
-                .AddTransient<IEvolutionContext, TContext>((ctx) =>
-                {
-                    var cb = ctx.GetService<IConnectionStringBuilder>();
-                    var factory = ctx.GetService<IDbContextFactory>();
-                    return (TContext)factory.CreateContext<TContext>(cb);
-                })
-                .AddTransient<IEvolutionRepo, EvolutionRepo>()
-                .BuildServiceProvider()
-                .GetService<IEvolutionRepo>();
-        }
+                });
+            });
 
-        public static IFileRepo GetFileRepo()
-        {
-            return new ServiceCollection()
-                .AddTransient<IFileContext, FileContext>()
-                .AddTransient<IFileRepo, FileRepo>()
-                .BuildServiceProvider()
-                .GetService<IFileRepo>();
+            var cb = container.GetInstance<IConnectionStringBuilder>();
+            var factory = container.GetInstance<IDbContextFactory>();
+
+            container.Configure(_ =>
+            {
+                _.For<IEvolutionContext>().Use<TContext>(() => (TContext)factory.CreateContext<TContext>(cb));
+            });
         }
     }
 }
