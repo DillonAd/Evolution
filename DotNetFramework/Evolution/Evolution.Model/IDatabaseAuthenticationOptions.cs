@@ -6,5 +6,6 @@
         string Password { get; set; }
         string Server { get; set; }
         string Instance { get; set; }
+        DatabaseTypes DatabaseType { get; set; }
     }
 }

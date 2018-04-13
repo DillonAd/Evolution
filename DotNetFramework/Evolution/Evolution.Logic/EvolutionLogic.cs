@@ -1,33 +1,27 @@
-﻿using CommandLine;
-using Evolution.Data.Oracle;
-using Evolution.IoC;
-using Evolution.Logic.Options;
-using Evolution.Model;
+﻿using Evolution.Model;
+using Evolution.Repo;
 using System;
 
 namespace Evolution.Logic
 {
-    public static class EvolutionLogic
+    public class EvolutionLogic : IEvolutionLogic
     {
-        public static int Run(string[] args)
+        private readonly IEvolutionRepo _EvolutionRepo;
+        private readonly IFileRepo _FileRepo;
+
+        public EvolutionLogic(IEvolutionRepo evolutionRepo, IFileRepo fileRepo)
         {
-            return Parser.Default.ParseArguments<AddOptions, CheckPointOptions, ExecuteOptions>(args).
-                MapResult(
-                    (AddOptions opts) => Run(opts),
-                    (CheckPointOptions opts) => Run(opts),
-                    (ExecuteOptions opts) => Run(opts),
-                    errors => 1
-                );
+            _EvolutionRepo = evolutionRepo;
+            _FileRepo = fileRepo;
         }
 
-        private static int Run(AddOptions options)
+        public int Run(IEvolutionCreatable newEvolution)
         {
             try
             {
-                var fileRepo = DependencyRegistry.GetFileRepo();
-                var evolution = new Model.Evolution(new Date(), options.TargetEvolution);
+                var evolution = new Model.Evolution(new Date(), newEvolution.TargetEvolution);
 
-                fileRepo.CreateEvolutionFile(evolution, options.SourceFileName);
+                _FileRepo.CreateEvolutionFile(evolution, newEvolution.SourceFile);
 
                 return 0;
             }
@@ -38,20 +32,18 @@ namespace Evolution.Logic
             }
         }
 
-        private static int Run(CheckPointOptions options)
-        {
-            throw new NotImplementedException();
-        }
+        //public int Run(CheckPointOptions options)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        private static int Run(ExecuteOptions options)
+        public int Run(IEvolutionTargetable targetedEvolution)
         {
+            //TODO Add logic to run up to a specific evolution
             try
             {
-                var evolutionRepo = DependencyRegistry.GetEvolutionRepo<OracleEvolutionContext, OracleConnectionBuilder>(options);
-                var fileRepo = DependencyRegistry.GetFileRepo();
-
-                var executedEvolutions = evolutionRepo.GetExecutedEvolutionFileNames();
-                var unexecutedEvolutionFiles = fileRepo.GetUnexecutedEvolutionFiles(executedEvolutions);
+                var executedEvolutions = _EvolutionRepo.GetExecutedEvolutionFileNames();
+                var unexecutedEvolutionFiles = _FileRepo.GetUnexecutedEvolutionFiles(executedEvolutions);
 
                 string fileContents;
                 Model.Evolution evolution;
@@ -60,9 +52,9 @@ namespace Evolution.Logic
                 {
                     evolution = new Model.Evolution(evolutionFile);
 
-                    fileContents = fileRepo.GetEvolutionFileContent(evolution);
-                    evolutionRepo.ExecuteEvolution(fileContents);
-                    evolutionRepo.AddEvolution(evolution, fileContents);
+                    fileContents = _FileRepo.GetEvolutionFileContent(evolution);
+                    _EvolutionRepo.ExecuteEvolution(fileContents);
+                    _EvolutionRepo.AddEvolution(evolution, fileContents);
                 }
 
                 return 0;
@@ -74,7 +66,7 @@ namespace Evolution.Logic
             }
         }
 
-        private static string GetExceptions(Exception ex)
+        private string GetExceptions(Exception ex)
         {
             if (ex == null)
             {

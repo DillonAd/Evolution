@@ -43,11 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseTypes.cs" />
     <Compile Include="Date.cs" />
     <Compile Include="Evolution.cs" />
     <Compile Include="IDatabaseAuthenticationOptions.cs" />
     <Compile Include="IDate.cs" />
-    <Compile Include="ITargetEvolutionOptions.cs" />
+    <Compile Include="IEvolutionCreatable.cs" />
+    <Compile Include="IEvolutionTargetable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -113,11 +113,8 @@ namespace Evolution.Test.Unit
 
             CollectionAssert.IsNotEmpty(unexecutedEvolutions);
             Assert.AreEqual(unexecutedEvolutionFiles.Length, unexecutedEvolutions.Count());
+            Assert.AreEqual(unexecutedEvolutionFiles, unexecutedEvolutions.ToArray());
             
-            foreach(var unexecutedEvolutionFile in unexecutedEvolutionFiles)
-            {
-                CollectionAssert.Contains(unexecutedEvolutionFile, unexecutedEvolutions);
-            }
         }
     }
 }

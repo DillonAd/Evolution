@@ -30,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CommandLine, Version=2.2.1.0, Culture=neutral, PublicKeyToken=de6f01bd326f8c32, processorArchitecture=MSIL">
-      <HintPath>..\packages\CommandLineParser.2.2.1\lib\net45\CommandLine.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Console">
@@ -76,19 +73,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EvolutionLogic.cs" />
-    <Compile Include="Options\AddOptions.cs" />
-    <Compile Include="Options\CheckPointOptions.cs" />
-    <Compile Include="Options\ExecuteOptions.cs" />
+    <Compile Include="IEvolutionLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Evolution.IOC\Evolution.IOC.csproj">
-      <Project>{aa616614-7e3c-4ddf-aef9-b474a129d4c5}</Project>
-      <Name>Evolution.IOC</Name>
+    <ProjectReference Include="..\Evolution.Data.Oracle\Evolution.Data.Oracle.csproj">
+      <Project>{f5d98ce6-bf1c-47cc-b0db-155903e30965}</Project>
+      <Name>Evolution.Data.Oracle</Name>
     </ProjectReference>
     <ProjectReference Include="..\Evolution.Model\Evolution.Model.csproj">
       <Project>{eb27f0f0-2277-46dc-bd7b-3c19c9c92e12}</Project>
       <Name>Evolution.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Evolution.Repo\Evolution.Repo.csproj">
+      <Project>{49a24f40-0202-4cf3-b65b-6bca2ad89383}</Project>
+      <Name>Evolution.Repo</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
