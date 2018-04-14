@@ -6,9 +6,9 @@ namespace Evolution.Options
     [Verb("add")]
     public class AddOptions : DatabaseAuthenticationOptions, IEvolutionCreatable
     {
-        [Option("src", HelpText = "Source file to create Evolution")]
+        [Option("source", HelpText = "Source file to create Evolution")]
         public string SourceFile { get; set; }
-        [Option("evo", HelpText = "")]
+        [Option("target", HelpText = "")]
         public string TargetEvolution { get; set; }
     }
 }
