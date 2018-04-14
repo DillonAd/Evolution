@@ -2,8 +2,7 @@
   <TestRunParameters>  
     <Parameter name="OracleUser" value="sys" />  
     <Parameter name="OraclePassword" value="Oradoc_db1" />  
-  </TestRunParameters> 
-    
+  </TestRunParameters>
   <DataCollectionRunSettings>  
     <DataCollectors>  
       <DataCollector friendlyName="Code Coverage" uri="datacollector://Microsoft/CodeCoverage/2.0" assemblyQualifiedName="Microsoft.VisualStudio.Coverage.DynamicCoverageDataCollector, Microsoft.VisualStudio.TraceCollector, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">  
@@ -11,10 +10,10 @@
           <CodeCoverage>  
             <ModulePaths>  
               <Exclude>  
-                <ModulePath>Evolution.Test.*</ModulePath>
-				<ModulePath>Evolution.Data.*</ModulePath>
-				<ModulePath>*Moq*</ModulePath>
-				<ModulePath>*nunit*</ModulePath>
+                <ModulePath>*Evolution.Test*</ModulePath>
+				        <ModulePath>Evolution.Data.*</ModulePath>
+				        <ModulePath>*Moq*</ModulePath>
+				        <ModulePath>*nunit*</ModulePath>
               </Exclude>  
             </ModulePaths>  
   
