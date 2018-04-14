@@ -61,10 +61,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EvolutionRepoTests.cs" />
-    <Compile Include="EvolutionTests.cs" />
-    <Compile Include="FileRepoTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTests\EvolutionRepoTests.cs" />
+    <Compile Include="UnitTests\EvolutionTests.cs" />
+    <Compile Include="UnitTests\FileRepoTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
@@ -90,6 +90,22 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="test.runsettings" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="IntegrationTests\TestSql\Oracle\001_CreateSchema.sql" />
+    <Content Include="IntegrationTests\TestSql\Oracle\002_CreateTable.sql" />
+    <Content Include="IntegrationTests\TestSql\Oracle\003_CreateIndex.sql" />
+    <Content Include="IntegrationTests\TestSql\Oracle\004_CreateFunction.sql" />
+    <Content Include="IntegrationTests\TestSql\Oracle\005_CreateProcedure.sql" />
+    <Content Include="IntegrationTests\TestSql\Oracle\006_CreatePackage.sql" />
+    <Content Include="IntegrationTests\TestSql\Oracle\007_CreateTrigger.sql" />
+    <Content Include="IntegrationTests\TestSql\Oracle\008_AlterTable.sql" />
+    <Content Include="IntegrationTests\TestSql\Oracle\009_InsertData.sql" />
+    <Content Include="IntegrationTests\TestSql\Oracle\010_UpdateData.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="IntegrationTests\Oracle\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
