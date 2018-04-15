@@ -1,22 +1,46 @@
 ﻿using Evolution.Data.Entity;
-using System.Data.Entity;
+using Oracle.ManagedDataAccess.Client;
+using System;
+using System.Data;
 
 namespace Evolution.Data.Oracle
 {
-    public class OracleEvolutionContext : DbContext, IEvolutionContext
+    public class OracleEvolutionContext : IEvolutionContext, IDisposable
     {
-        public virtual DbSet<IEvolution> Evolutions { get; set; }
+        private readonly OracleConnection _Connection;
 
-        public OracleEvolutionContext(string connectionString) : base(connectionString) { }
+        public OracleEvolutionContext(string connectionString)
+        {
+            _Connection = new OracleConnection(connectionString);
+            _Connection.Open();
+
+            CreateEvolutionTable();
+        }
 
         public void ExecuteEvolution(string content)
         {
-            Database.ExecuteSqlCommand(content);
+            using (OracleCommand cmd = new OracleCommand(content, _Connection))
+            {
+                cmd.ExecuteNonQuery();
+            }
         }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        public void Dispose()
         {
-            modelBuilder.Entity<IEvolution>();
+            if(_Connection.State == ConnectionState.Open)
+            {
+                _Connection.Close();
+            }
+
+            _Connection.Dispose();
+        }
+
+        private void CreateEvolutionTable()
+        {
+            var createCommand = @"CREATE TABLE EVOLUTION
+                                (
+                                    
+                                )";
         }
     }
 }

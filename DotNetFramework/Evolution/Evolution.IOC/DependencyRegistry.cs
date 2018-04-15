@@ -1,4 +1,5 @@
 ﻿using Evolution.Data;
+using Evolution.Data.Entity;
 using Evolution.Logic;
 using Evolution.Model;
 using Evolution.Repo;
@@ -18,6 +19,7 @@ namespace Evolution.IoC
                 _.For<IFileRepo>().Use<FileRepo>();
                 _.For<IEvolutionRepo>().Use<EvolutionRepo>();
                 _.For<IEvolutionLogic>().Use<EvolutionLogic>();
+                _.For<IEvolution>().Use<Data.Entity.Evolution>();
             }).GetInstance<IEvolutionLogic>();
         }
     }
