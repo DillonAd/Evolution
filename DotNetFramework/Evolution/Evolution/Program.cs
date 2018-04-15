@@ -16,13 +16,13 @@ namespace Evolution
                 );
         }
 
-        public static int Run(AddOptions options)
+        private static int Run(AddOptions options)
         {
             var app = DependencyRegistry.GetApplication(options);
             return app.Run(options);
         }
 
-        public static int Run(ExecuteOptions options)
+        private static int Run(ExecuteOptions options)
         {
             var app = DependencyRegistry.GetApplication(options);
             return app.Run(options);
