@@ -3,14 +3,16 @@ using System.Text;
 
 namespace Evolution.Data.Entity
 {
-    public struct Evolution : IEvolution
+    public class Evolution : IEvolution
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string FileName { get; set; }
         public string Content { get; set; }
         public byte[] Hash { get; set; }
-        public bool CheckPoint { get; set; }
+        public int CheckPoint { get; set; }
+
+        public Evolution() { }
 
         public Evolution(string name, string file, string content)
         {
@@ -19,7 +21,8 @@ namespace Evolution.Data.Entity
             FileName = file;
             Content = content;
             Hash = Encoding.ASCII.GetBytes(name + "-" + file + "-" + content);
-            CheckPoint = false;
+            Content = content;
+            CheckPoint = 0;
         }
     }
 }

@@ -8,6 +8,7 @@ namespace Evolution.Data.Entity
         string Name { get; set; }
         string FileName { get; set; }
         byte[] Hash { get; set; }
-        bool CheckPoint { get; set; }
+        string Content { get; set; }
+        int CheckPoint { get; set; }
     }
 }

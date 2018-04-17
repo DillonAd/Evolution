@@ -6,7 +6,6 @@ using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 
 namespace Evolution.Test.Unit
@@ -77,18 +76,8 @@ namespace Evolution.Test.Unit
 
         private IEvolutionContext SetupEvolutionContext(List<IEvolution> evolutions)
         {
-            var queryableEvolutions = evolutions.AsQueryable();
-            
-            var dbSetMock = new Mock<DbSet<IEvolution>>();
-            dbSetMock.As<IQueryable<IEvolution>>().Setup(e => e.Provider).Returns(queryableEvolutions.Provider);
-            dbSetMock.As<IQueryable<IEvolution>>().Setup(e => e.Expression).Returns(queryableEvolutions.Expression);
-            dbSetMock.As<IQueryable<IEvolution>>().Setup(e => e.ElementType).Returns(queryableEvolutions.ElementType);
-            dbSetMock.As<IQueryable<IEvolution>>().Setup(e => e.GetEnumerator()).Returns(() => queryableEvolutions.GetEnumerator());
-            dbSetMock.Setup(d => d.Add(It.IsAny<IEvolution>())).Callback<IEvolution>(e => evolutions.Add(e));
-            dbSetMock.Setup(d => d.Remove(It.IsAny<IEvolution>())).Callback<IEvolution>(e => evolutions.Remove(e));
-
             var contextMock = new Mock<IEvolutionContext>();
-            contextMock.Setup(cm => cm.Evolutions).Returns(dbSetMock.Object);
+            contextMock.Setup(cm => cm.GetEvolutions()).Returns(evolutions);
 
             return contextMock.Object;
         }

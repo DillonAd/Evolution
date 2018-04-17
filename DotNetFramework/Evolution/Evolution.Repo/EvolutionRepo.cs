@@ -18,7 +18,7 @@ namespace Evolution.Repo
         public string[] GetExecutedEvolutionFileNames()
         {
             //TODO add logic to get all evolutions from the last checkpoint   
-            return _Context.Evolutions.Select(e => e.FileName).ToArray();
+            return _Context.GetEvolutions().Select(e => e.FileName).ToArray();
         }
 
         //TODO Add ability to create checkpoint
@@ -37,12 +37,7 @@ namespace Evolution.Repo
                 Content = content
             };
 
-            _Context.Evolutions.Add(newEvolution);
-        }
-
-        public void SaveChanges()
-        {
-            _Context.SaveChanges();
+            _Context.AddEvolution(newEvolution);
         }
 
         public void ExecuteEvolution(string content)

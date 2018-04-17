@@ -16,7 +16,8 @@ namespace Evolution.IoC
                     UserName = dbAuthOptions.UserName,
                     Password = dbAuthOptions.Password,
                     Server = dbAuthOptions.Server,
-                    Instance = dbAuthOptions.Instance
+                    Instance = dbAuthOptions.Instance,
+                    Port = dbAuthOptions.Port
                 };
 
                 return new OracleEvolutionContext(connectionStringBuilder.CreateConnectionString());

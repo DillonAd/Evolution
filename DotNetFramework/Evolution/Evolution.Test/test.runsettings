@@ -1,7 +1,10 @@
 <RunSettings>  
   <TestRunParameters>  
-    <Parameter name="OracleUser" value="sys" />  
-    <Parameter name="OraclePassword" value="Oradoc_db1" />  
+    <Parameter name="OracleUser" value="c##appUser" />  
+    <Parameter name="OraclePassword" value="appPassword" />
+    <Parameter name="OracleServer" value="127.0.0.1" />
+    <Parameter name="OracleInstance" value="ORCLCDB.localdomain" />
+    <Parameter name="OraclePort" value="6666" />
   </TestRunParameters>
   <DataCollectionRunSettings>  
     <DataCollectors>  
