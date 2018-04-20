@@ -1,6 +1,4 @@
-﻿using Evolution.Exceptions;
-using Evolution.Model;
-using Moq;
+﻿using Evolution.Model;
 using NUnit.Framework;
 using System;
 

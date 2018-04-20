@@ -101,7 +101,25 @@ namespace Evolution.Data.Oracle
                                     CONSTRAINT EVOLUTION_PK PRIMARY KEY (ID)
                                 )";
 
-            using (OracleCommand cmd = new OracleCommand(createCommand, _Connection))
+            const string checkTableQuery = @"SELECT COUNT(*) AS CNT
+                                            FROM DBA_TABLES
+                                            WHERE TABLE_NAME = 'EVOLUTION'";
+
+            using (var cmd = new OracleCommand(checkTableQuery, _Connection))
+            {
+                using (var r = cmd.ExecuteReader())
+                {
+                    var result = new DataTable();
+                    result.Load(r);
+                    
+                    if(Convert.ToInt32(result.Rows[0]["CNT"]) > 0)
+                    {
+                        return;
+                    }
+                }
+            }
+
+            using (var cmd = new OracleCommand(createCommand, _Connection))
             {
                 cmd.ExecuteNonQuery();
             }

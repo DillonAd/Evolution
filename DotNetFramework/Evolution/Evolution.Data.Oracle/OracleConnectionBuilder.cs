@@ -1,6 +1,4 @@
-﻿using Evolution.Data;
-using Oracle.ManagedDataAccess.Client;
-using System.Data.Common;
+﻿using Oracle.ManagedDataAccess.Client;
 
 namespace Evolution.Data.Oracle
 {

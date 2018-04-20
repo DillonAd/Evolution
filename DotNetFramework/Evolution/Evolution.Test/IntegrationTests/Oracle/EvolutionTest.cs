@@ -1,19 +1,18 @@
-﻿using Evolution;
-using Evolution.Model;
+﻿using Evolution.Model;
 using NUnit.Framework;
-using System;
-using System.Diagnostics;
 using System.IO;
 
 namespace Evolution.Test.Unit.IntegrationTests.Oracle
 {
     public class EvolutionTest
     {
+        private const string _FilePath = "./IntegrationTests/TestSql/Oracle/";
+
         [Test]
         [Category("integration")]
         public void Evolve_Success()
         {
-            var fileList = Directory.GetFiles("./IntegrationTests/TestSql/Oracle/");
+            var fileList = Directory.GetFiles(_FilePath);
 
             foreach(var fileName in fileList)
             {
