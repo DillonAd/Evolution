@@ -44,7 +44,6 @@ namespace Evolution.Test.Unit
         [TestCase("a")]
         public void Evolution_ValidFileNameFromEvolutionName(string evolutionName)
         {
-            var date = new Date();
             var evolution = new Model.Evolution(evolutionName);
             Assert.That(evolution.FileName, Does.Match(@"[0-9]{14}_\w{1,}.evo.sql"));
         }
