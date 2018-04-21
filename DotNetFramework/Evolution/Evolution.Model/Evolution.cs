@@ -7,9 +7,9 @@ namespace Evolution.Model
     {
         public string FileName { get; }
         public string Name { get; }
-        public IDate Created { get; }
+        public DateTime Created { get; }
 
-        public Evolution(IDate created, string evolutionName)
+        public Evolution(string evolutionName, DateTime created)
         {
             Guard.Against.Null(created, nameof(created));
             Guard.Against.NullOrWhiteSpace(evolutionName, nameof(evolutionName));
@@ -27,7 +27,7 @@ namespace Evolution.Model
             FileName = fileName;
         }
 
-        private string CreateFileName(IDate created, string evolutionName)
+        private string CreateFileName(DateTime created, string evolutionName)
         {
             return string.Format("{0}_{1}.evo.sql", created.ToString(), evolutionName);
         }

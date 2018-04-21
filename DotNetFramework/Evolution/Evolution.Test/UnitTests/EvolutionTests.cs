@@ -15,8 +15,7 @@ namespace Evolution.Test.Unit
         [TestCase("a")]
         public void Evolution_ValidEvolutionName(string evolutionName)
         {
-            var date = new Date();
-            var evolution = new Model.Evolution(date, evolutionName);
+            var evolution = new Model.Evolution(evolutionName);
             Assert.AreEqual(evolutionName, evolution.Name);
         }
 
@@ -26,14 +25,14 @@ namespace Evolution.Test.Unit
         [TestCase("   ")]
         public void Evolution_InvalidEvolutionName(string evolutionName)
         {
-            Assert.Throws<ArgumentException>(() => new Model.Evolution(new Date(), evolutionName));
+            Assert.Throws<ArgumentException>(() => new Model.Evolution(evolutionName));
         }
 
         [Test]
         [Category("unit")]
         public void Evolution_NullEvolutionName()
         {
-            Assert.Throws<ArgumentNullException>(() => new Model.Evolution(new Date(), null));
+            Assert.Throws<ArgumentNullException>(() => new Model.Evolution(null));
         }
 
         [Test]
@@ -46,7 +45,7 @@ namespace Evolution.Test.Unit
         public void Evolution_ValidFileNameFromEvolutionName(string evolutionName)
         {
             var date = new Date();
-            var evolution = new Model.Evolution(date, evolutionName);
+            var evolution = new Model.Evolution(evolutionName);
             Assert.That(evolution.FileName, Does.Match(@"[0-9]{14}_\w{1,}.evo.sql"));
         }
 
@@ -70,13 +69,6 @@ namespace Evolution.Test.Unit
         public void Evolution_InvalidFileName(string fileName)
         {
             Assert.Throws<ArgumentException>(() => new Model.Evolution(fileName));
-        }
-
-        [Test]
-        [Category("unit")]
-        public void Evolution_InvalidDate()
-        {
-            Assert.Throws<ArgumentNullException>(() => new Model.Evolution(null, "evolutionName"));
         }
     }
 }

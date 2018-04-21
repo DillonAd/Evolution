@@ -19,7 +19,7 @@ namespace Evolution.Logic
         {
             try
             {
-                var evolution = new Model.Evolution(new Date(), newEvolution.TargetEvolution);
+                var evolution = new Model.Evolution(evolutionName: newEvolution.TargetEvolution, created: DateTime.Now);
 
                 _FileRepo.CreateEvolutionFile(evolution, newEvolution.SourceFile);
 
