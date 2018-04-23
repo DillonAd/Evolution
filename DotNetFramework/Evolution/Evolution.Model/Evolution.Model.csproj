@@ -53,5 +53,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Evolution.Exceptions\Evolution.Exceptions.csproj">
+      <Project>{1BD37ECF-F96E-4EF5-8656-998208DC11C7}</Project>
+      <Name>Evolution.Exceptions</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -45,7 +45,14 @@ namespace Evolution.Data.Oracle
 
         public List<IEvolution> GetEvolutions()
         {
-            const string evolutionQuery = @"SELECT ID, NAME, FILE_NAME, CREATED_DATE, CONTENT, HASH, CHECKPOINT FROM EVOLUTION";
+            const string evolutionQuery = @"SELECT ID, 
+                                                   NAME, 
+                                                   FILE_NAME, 
+                                                   CREATED_DATE, 
+                                                   CONTENT, 
+                                                   HASH, 
+                                                   CHECKPOINT 
+                                            FROM EVOLUTION";
 
             var results = new DataTable();
             List<IEvolution> evolutions = new List<IEvolution>();
@@ -111,7 +118,7 @@ namespace Evolution.Data.Oracle
                 {
                     var result = new DataTable();
                     result.Load(r);
-                    
+
                     if(Convert.ToInt32(result.Rows[0]["CNT"]) > 0)
                     {
                         return;
