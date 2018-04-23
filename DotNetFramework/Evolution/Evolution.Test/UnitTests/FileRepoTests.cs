@@ -5,6 +5,7 @@ using Evolution.Model;
 using Evolution.Repo;
 using Moq;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,9 +17,10 @@ namespace Evolution.Test.Unit
         [Category("unit")]
         public void CreateEvolutionFile_Success()
         {
-            var evolutionName = "Evolution1";
-            var evolution = new Model.Evolution(new Date(), evolutionName);
-            var evolutionContents = "Programatic awesomeness";
+            const string evolutionName = "Evolution1";
+            const string evolutionContents = "Programatic awesomeness";
+
+            var evolution = new Model.Evolution(evolutionName, DateTime.Now);
             var fileList = new List<string>();
 
             var mockContext = new Mock<IFileContext>();
@@ -35,9 +37,10 @@ namespace Evolution.Test.Unit
         [Category("unit")]
         public void CreateEvolutionFiles_FileExists()
         {
-            var evolutionName = "Evolution1";
-            var evolution = new Model.Evolution(new Date(), evolutionName);
-            var evolutionContents = "Programatic awesomeness";
+            const string evolutionName = "Evolution1";
+            const string evolutionContents = "Programatic awesomeness";
+
+            var evolution = new Model.Evolution(evolutionName, DateTime.Now);
             var fileList = new List<string>();
 
             var mockContext = new Mock<IFileContext>();
@@ -65,8 +68,8 @@ namespace Evolution.Test.Unit
         [Category("unit")]
         public void GetEvolutionFileContents()
         {
-            var fileName = "20180125131211_evolution1.up.sql";
-            var content = "evolution file content";
+            const string fileName = "20180125131211_evolution1.up.sql";
+            const string content = "evolution file content";
 
             var mockContext = new Mock<IFileContext>();
             mockContext.Setup(c => c.GetEvolutionFileContent(It.Is<string>(f => f == fileName))).Returns(content);
