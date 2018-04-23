@@ -8,7 +8,7 @@ set oraPort1=6666
 set oraPort2=6667
 
 rem Setup Docker container for Oracle database
-docker run -d -it --name %dbName% -P store/oracle/database-enterprise:12.2.0.1
+rem docker run -d -it --name %dbName% -P store/oracle/database-enterprise:12.2.0.1
 
 docker run -d --name %dbName% ^
 	-p %oraPort1%:1521 -p %oraPort2%:5500 ^
