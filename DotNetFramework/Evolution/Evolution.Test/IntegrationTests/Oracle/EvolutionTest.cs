@@ -23,7 +23,7 @@ namespace Evolution.Test.Unit.IntegrationTests.Oracle
 
             foreach(var fileName in fileList)
             {
-                targetEvolution = fileName.Replace(fileName, ".sql");
+                targetEvolution = fileName.Replace(fileName, ".sql").Replace(_FilePath, string.Empty);
                 Assert.Zero(Execute(targetEvolution));
             }
         }

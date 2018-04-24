@@ -24,11 +24,11 @@ echo %TIME%
 
 rem Setup test user on Oracle database
 @echo create user c##%oraUser% identified by %oraPwd%; | sqlplus "sys/Oradoc_db1@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=127.0.0.1)(PORT=%oraPort1%))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=ORCLCDB.localdomain)))" as sysdba
-rem @echo grant dba to c##%oraUser%; | sqlplus "sys/Oradoc_db1@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=127.0.0.1)(PORT=%oraPort1%))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=ORCLCDB.localdomain)))" as sysdba
-rem @echo grant create session to c##%oraUser%; | sqlplus "sys/Oradoc_db1@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=127.0.0.1)(PORT=%oraPort1%))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=ORCLCDB.localdomain)))" as sysdba
+@echo grant dba to c##%oraUser%; | sqlplus "sys/Oradoc_db1@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=127.0.0.1)(PORT=%oraPort1%))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=ORCLCDB.localdomain)))" as sysdba
+@echo grant create session to c##%oraUser%; | sqlplus "sys/Oradoc_db1@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=127.0.0.1)(PORT=%oraPort1%))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=ORCLCDB.localdomain)))" as sysdba
 
 rem Run Tests
-rem dotnet test Evolution.Test\ --filter TestCategory=integration --settings test.runsettings 
+dotnet test Evolution.Test\ --filter TestCategory=integration --settings test.runsettings 
 rem -- TestRunParameters.Parameter.OracleUser="%oraUser%"  TestRunParameters.OraclePassword=%oraPwd% TestRunParameters.OracleInstance=%oraInstance% TestRunParameters.OraclePort=%oraPort1%
 
 rem TearDown Docker container

@@ -3,6 +3,7 @@ using Evolution.Data.Entity;
 using Evolution.Exceptions;
 using Evolution.Model;
 using Evolution.Repo;
+using Evolution.Test.UnitTests.Infrastructure;
 using Moq;
 using NUnit.Framework;
 using System;
@@ -21,16 +22,14 @@ namespace Evolution.Test.Unit
             const string evolutionContents = "Programatic awesomeness";
 
             var evolution = new Model.Evolution(evolutionName, DateTime.Now);
-            var fileList = new List<string>();
+            
+            var mockBuilder = new FileContextMockBuilder()
+                .AddCreateEvolutionFileBehavior();
 
-            var mockContext = new Mock<IFileContext>();
-            mockContext.Setup(c => c.CreateFile(It.IsAny<string>(), It.IsAny<string>())).Callback<string, string>((fileName, fileContents) => fileList.Add(fileName));
-
-            var repo = new FileRepo(mockContext.Object);
+            var repo = new FileRepo(mockBuilder.Context);
             repo.CreateEvolutionFile(evolution, evolutionContents);
 
-            CollectionAssert.IsNotEmpty(fileList);
-            Assert.IsTrue(fileList[0].Contains(evolutionName));
+            Assert.NotZero(mockBuilder.EvolutionCount);
         }
 
         [Test]
@@ -41,27 +40,15 @@ namespace Evolution.Test.Unit
             const string evolutionContents = "Programatic awesomeness";
 
             var evolution = new Model.Evolution(evolutionName, DateTime.Now);
-            var fileList = new List<string>();
+            
+            var mockBuilder = new FileContextMockBuilder()
+                .AddCreateEvolutionFileBehavior()
+                .AddEvolution(evolution.FileName, evolutionContents);
 
-            var mockContext = new Mock<IFileContext>();
-            mockContext.Setup(c => c.CreateFile(It.IsAny<string>(), It.IsAny<string>())).Callback<string, string>((fileName, fileContents) =>
-            {
-                if (fileList.Contains(fileName))
-                {
-                    throw new EvolutionFileException("Evolution file already exists");
-                }
-                else
-                {
-                    fileList.Add(fileName);
-                }
-            });
-            mockContext.Setup(c => c.DeleteFile(It.IsAny<string>())).Callback<string>(fileName => fileList.Remove(fileName));
-
-            var repo = new FileRepo(mockContext.Object);
-            repo.CreateEvolutionFile(evolution, evolutionContents);
+            var repo = new FileRepo(mockBuilder.Context);
 
             Assert.Throws<EvolutionFileException>(() => repo.CreateEvolutionFile(evolution, evolutionContents));
-            Assert.AreEqual(1, fileList.Count);
+            Assert.AreEqual(1, mockBuilder.EvolutionCount);
         }
 
         [Test]
@@ -70,11 +57,12 @@ namespace Evolution.Test.Unit
         {
             const string fileName = "20180125131211_evolution1.up.sql";
             const string content = "evolution file content";
+            
+            var contextBuilder = new FileContextMockBuilder()
+                .AddEvolution(fileName, content)
+                .AddGetEvolutionFileContentBehavior();
 
-            var mockContext = new Mock<IFileContext>();
-            mockContext.Setup(c => c.GetEvolutionFileContent(It.Is<string>(f => f == fileName))).Returns(content);
-
-            var repo = new FileRepo(mockContext.Object);
+            var repo = new FileRepo(contextBuilder.Context);
             var contentResult = repo.GetEvolutionFileContent(new Model.Evolution(fileName));
 
             Assert.NotNull(contentResult);
@@ -107,11 +95,10 @@ namespace Evolution.Test.Unit
                 "Evolution3.evo.sql",
             };
             evolutionFileNames.AddRange(unexecutedEvolutionFiles);
+            
+            var mockBuilder = new FileContextMockBuilder().AddGetEvolutionFileNamesBehavior(evolutionFileNames.ToArray());
 
-            var mockContext = new Mock<IFileContext>();
-            mockContext.Setup(mc => mc.GetEvolutionFileNames()).Returns(evolutionFileNames.ToArray());
-
-            var repo = new FileRepo(mockContext.Object);
+            var repo = new FileRepo(mockBuilder.Context);
             var unexecutedEvolutions = repo.GetUnexecutedEvolutionFiles(executedEvolutions.Select(e => e.FileName).ToArray());
 
             CollectionAssert.IsNotEmpty(unexecutedEvolutions);
