@@ -1,6 +1,7 @@
 ﻿using Evolution.Data;
 using Evolution.Data.Entity;
 using Evolution.Repo;
+using Evolution.Test.UnitTests.Infrastructure;
 using Moq;
 using NUnit.Framework;
 using System;
@@ -21,7 +22,9 @@ namespace Evolution.Test.Unit
                 new Data.Entity.Evolution() { Name = "Evolution3" }
             };
 
-            var context = SetupEvolutionContext(evolutions);
+            var context = new EvolutionContextBuilder()
+                .AddGetEvolutionBehavior(evolutions)
+                .Context;
 
             var repo = new EvolutionRepo(context);
             var executedEvolutions = repo.GetExecutedEvolutionFileNames();
@@ -56,7 +59,10 @@ namespace Evolution.Test.Unit
             var success = false;
             const string evolutionContent = "select sysdate from dual;";
 
-            var context = SetupEvolutionContext(new List<IEvolution>());
+            var context = new EvolutionContextBuilder()
+                .AddGetEvolutionBehavior(new List<IEvolution>())
+                .Context;
+
             var repo = new EvolutionRepo(context);
 
             try
@@ -70,14 +76,6 @@ namespace Evolution.Test.Unit
             }
 
             Assert.True(success);
-        }
-
-        private IEvolutionContext SetupEvolutionContext(List<IEvolution> evolutions)
-        {
-            var contextMock = new Mock<IEvolutionContext>();
-            contextMock.Setup(cm => cm.GetEvolutions()).Returns(evolutions);
-
-            return contextMock.Object;
         }
     }
 }
