@@ -65,7 +65,8 @@
     <Compile Include="UnitTests\EvolutionRepoTests.cs" />
     <Compile Include="UnitTests\EvolutionTests.cs" />
     <Compile Include="UnitTests\FileRepoTests.cs" />
-    <Compile Include="UnitTests\Infrastructure\FileContextMockBuilder.cs" />
+    <Compile Include="UnitTests\Infrastructure\EvolutionContextBuilder.cs" />
+    <Compile Include="UnitTests\Infrastructure\FileContextBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

@@ -1,10 +1,7 @@
-﻿using Evolution.Data;
-using Evolution.Data.Entity;
+﻿using Evolution.Data.Entity;
 using Evolution.Exceptions;
-using Evolution.Model;
 using Evolution.Repo;
 using Evolution.Test.UnitTests.Infrastructure;
-using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -23,7 +20,7 @@ namespace Evolution.Test.Unit
 
             var evolution = new Model.Evolution(evolutionName, DateTime.Now);
             
-            var mockBuilder = new FileContextMockBuilder()
+            var mockBuilder = new FileContextBuilder()
                 .AddCreateEvolutionFileBehavior();
 
             var repo = new FileRepo(mockBuilder.Context);
@@ -41,7 +38,7 @@ namespace Evolution.Test.Unit
 
             var evolution = new Model.Evolution(evolutionName, DateTime.Now);
             
-            var mockBuilder = new FileContextMockBuilder()
+            var mockBuilder = new FileContextBuilder()
                 .AddCreateEvolutionFileBehavior()
                 .AddEvolution(evolution.FileName, evolutionContents);
 
@@ -55,10 +52,10 @@ namespace Evolution.Test.Unit
         [Category("unit")]
         public void GetEvolutionFileContents()
         {
-            const string fileName = "20180125131211_evolution1.up.sql";
+            const string fileName = "20180125131211_evolution1.evo.sql";
             const string content = "evolution file content";
             
-            var contextBuilder = new FileContextMockBuilder()
+            var contextBuilder = new FileContextBuilder()
                 .AddEvolution(fileName, content)
                 .AddGetEvolutionFileContentBehavior();
 
@@ -96,7 +93,7 @@ namespace Evolution.Test.Unit
             };
             evolutionFileNames.AddRange(unexecutedEvolutionFiles);
             
-            var mockBuilder = new FileContextMockBuilder().AddGetEvolutionFileNamesBehavior(evolutionFileNames.ToArray());
+            var mockBuilder = new FileContextBuilder().AddGetEvolutionFileNamesBehavior(evolutionFileNames.ToArray());
 
             var repo = new FileRepo(mockBuilder.Context);
             var unexecutedEvolutions = repo.GetUnexecutedEvolutionFiles(executedEvolutions.Select(e => e.FileName).ToArray());

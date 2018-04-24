@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Evolution.Test.UnitTests.Infrastructure
 {
-    public class FileContextMockBuilder
+    public class FileContextBuilder
     {
         public IFileContext Context => _Mock.Object;
         public int EvolutionCount => _Evolutions.Count;
@@ -15,28 +15,28 @@ namespace Evolution.Test.UnitTests.Infrastructure
         private List<KeyValuePair<string, string>> _Evolutions;
         private List<KeyValuePair<string, string>> _SourceFiles;
 
-        public FileContextMockBuilder()
+        public FileContextBuilder()
         {
             _Mock = new Mock<IFileContext>();
             _Evolutions = new List<KeyValuePair<string, string>>();
             _SourceFiles = new List<KeyValuePair<string, string>>();
         }
 
-        public FileContextMockBuilder AddEvolution(string fileName, string content)
+        public FileContextBuilder AddEvolution(string fileName, string content)
         {
             _Evolutions.Add(new KeyValuePair<string, string>(fileName, content));
             
             return this;
         }
 
-        public FileContextMockBuilder AddSourceFile(string fileName, string content)
+        public FileContextBuilder AddSourceFile(string fileName, string content)
         {
             _SourceFiles.Add(new KeyValuePair<string, string>(fileName, content));    
 
             return this;
         }
 
-        public FileContextMockBuilder AddCreateEvolutionFileBehavior()
+        public FileContextBuilder AddCreateEvolutionFileBehavior()
         {
             _Mock.Setup(c => c.CreateFile(It.IsAny<string>(), It.IsAny<string>()))
                 .Callback<string, string>((fileName, fileContents) =>
@@ -54,14 +54,14 @@ namespace Evolution.Test.UnitTests.Infrastructure
             return this;
         }
 
-        public FileContextMockBuilder AddGetEvolutionFileNamesBehavior(string[] evolutionFileNames)
+        public FileContextBuilder AddGetEvolutionFileNamesBehavior(string[] evolutionFileNames)
         {
             _Mock.Setup(mc => mc.GetEvolutionFileNames()).Returns(evolutionFileNames);
 
             return this;
         }
 
-        public FileContextMockBuilder AddGetEvolutionFileContentBehavior()
+        public FileContextBuilder AddGetEvolutionFileContentBehavior()
         {
             _Mock.Setup(c => c.GetEvolutionFileContent(It.IsAny<string>())).Returns((string fileName) =>
                 _Evolutions.FirstOrDefault(e => e.Key == fileName).Value);
