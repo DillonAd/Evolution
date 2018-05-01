@@ -6,5 +6,7 @@
         string Password { get; set; }
         string Server { get; set; }
         string Instance { get; set; }
+        int Port { get; set; }
+        DatabaseTypes DatabaseType { get; set; }
     }
 }

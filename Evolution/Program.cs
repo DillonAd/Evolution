@@ -1,4 +1,6 @@
-﻿using Evolution.Logic;
+﻿using CommandLine;
+using Evolution.IoC;
+using Evolution.Options;
 
 namespace Evolution
 {
@@ -6,7 +8,24 @@ namespace Evolution
     {
         public static int Main(string[] args)
         {
-            return EvolutionLogic.Run(args);
+            return Parser.Default.ParseArguments<AddOptions, ExecuteOptions>(args).
+                MapResult(
+                    (AddOptions opts) => Run(opts),
+                    (ExecuteOptions opts) => Run(opts),
+                    errors => 1
+                );
+        }
+
+        private static int Run(AddOptions options)
+        {
+            var app = DependencyRegistry.GetApplication(options);
+            return app.Run(options);
+        }
+
+        private static int Run(ExecuteOptions options)
+        {
+            var app = DependencyRegistry.GetApplication(options);
+            return app.Run(options);
         }
     }
 }

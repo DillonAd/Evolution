@@ -17,7 +17,7 @@ namespace Evolution.Test.Unit
         public void CreateEvolutionFile_Success()
         {
             var evolutionName = "Evolution1";
-            var evolution = new Model.Evolution(new Date(), evolutionName);
+            var evolution = new Model.Evolution(evolutionName);
             var evolutionContents = "Programatic awesomeness";
             var fileList = new List<string>();
 
@@ -36,7 +36,7 @@ namespace Evolution.Test.Unit
         public void CreateEvolutionFiles_FileExists()
         {
             var evolutionName = "Evolution1";
-            var evolution = new Model.Evolution(new Date(), evolutionName);
+            var evolution = new Model.Evolution(evolutionName);
             var evolutionContents = "Programatic awesomeness";
             var fileList = new List<string>();
 

@@ -1,4 +1,5 @@
 ﻿using Ardalis.GuardClauses;
+using Evolution.Exceptions;
 using System;
 
 namespace Evolution.Model
@@ -7,11 +8,10 @@ namespace Evolution.Model
     {
         public string FileName { get; }
         public string Name { get; }
-        public IDate Created { get; }
+        public DateTime Created { get; }
 
-        public Evolution(IDate created, string evolutionName)
+        public Evolution(string evolutionName, DateTime created)
         {
-            Guard.Against.Null(created, nameof(created));
             Guard.Against.NullOrWhiteSpace(evolutionName, nameof(evolutionName));
 
             Name = evolutionName;
@@ -27,9 +27,15 @@ namespace Evolution.Model
             FileName = fileName;
         }
 
-        private string CreateFileName(IDate created, string evolutionName)
+        private string CreateFileName(DateTime created, string evolutionName)
         {
-            return string.Format("{0}_{1}.evo.sql", created.ToString(), evolutionName);
+            return string.Format("{0}{1}{2}{3}{4}{5}_{6}.evo.sql", created.Year.ToString(),
+                                                        created.Month.ToString("00"),
+                                                        created.Day.ToString("00"),
+                                                        created.ToString("HH"),
+                                                        created.Minute.ToString("00"),
+                                                        created.Second.ToString("00"),
+                                                        evolutionName);
         }
 
         private string ParseEvolutionName(string fileName)
@@ -39,11 +45,17 @@ namespace Evolution.Model
                 fileName.Replace(".evo.sql", string.Empty);
 
                 var firstUnderscoreIndex = fileName.IndexOf('_');
-                return fileName.Substring(firstUnderscoreIndex);
+
+                if (firstUnderscoreIndex < 0)
+                {
+                    throw new ArgumentOutOfRangeException("Cant find underscore for in proper file name format.");
+                }
+
+                return fileName.Substring(firstUnderscoreIndex + 1);
             }
-            catch(ArgumentOutOfRangeException ex)
+            catch (ArgumentOutOfRangeException ex)
             {
-                throw new ArgumentException("Error parsing file name.", ex);
+                throw new EvolutionException("Error parsing file name.", ex);
             }
         }
     }

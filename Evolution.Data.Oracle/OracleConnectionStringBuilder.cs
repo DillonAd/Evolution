@@ -1,6 +1,4 @@
-﻿using Evolution.Data;
-using Oracle.ManagedDataAccess.Client;
-using System.Data.Common;
+﻿using Oracle.ManagedDataAccess.Client;
 
 namespace Evolution.Data.Oracle
 {
@@ -36,9 +34,11 @@ namespace Evolution.Data.Oracle
 
         public string Server { get; set; }
 
+        public int Port { get; set; }
+
         #endregion
 
-        private OracleConnectionStringBuilder _Builder;
+        private readonly OracleConnectionStringBuilder _Builder;
 
         public OracleConnectionBuilder()
         {
@@ -47,9 +47,8 @@ namespace Evolution.Data.Oracle
 
         public string CreateConnectionString()
         {
-            //TODO Get Port
-            _Builder.DataSource = string.Format("SERVER=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST={0})(PORT={1}))" + 
-                "(CONNECT_DATA=(SERVICE_NAME={2})))", Server, 1433, Instance);
+            _Builder.DataSource = string.Format("(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST={0})(PORT={1}))" +
+                "(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME={2})))", Server, Port, Instance);
 
             return _Builder.ToString();
         }

@@ -9,8 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Evolution.IoC\Evolution.IoC.csproj" />
     <ProjectReference Include="..\Evolution.Model\Evolution.Model.csproj" />
+    <ProjectReference Include="..\Evolution.Repo\Evolution.Repo.csproj" />
   </ItemGroup>
 
 </Project>

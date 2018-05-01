@@ -54,7 +54,7 @@ namespace Evolution.Test.Unit
         [Trait("Category", "unit")]
         public void AddEvolution()
         {
-            var evolution = new Model.Evolution(new Date(), "Evolution1");
+            var evolution = new Model.Evolution("Evolution1");
             string content = "Evolution Content";
 
             var evolutions = new List<IEvolution>();
