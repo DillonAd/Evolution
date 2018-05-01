@@ -1,11 +1,8 @@
-﻿using Evolution.Data;
-using Evolution.Data.Entity;
-using Evolution.Model;
+﻿using Evolution.Data.Entity;
 using Evolution.Repo;
-using Moq;
+using Evolution.Test.UnitTests.Infrastructure;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Xunit;
 
 namespace Evolution.Test.Unit
@@ -23,7 +20,9 @@ namespace Evolution.Test.Unit
                 new Data.Entity.Evolution() { Name = "Evolution3" }
             };
 
-            var context = SetupEvolutionContext(evolutions);
+            var context = new EvolutionContextBuilder()
+                .AddGetEvolutionBehavior(evolutions)
+                .Context;
 
             var repo = new EvolutionRepo(context);
             var executedEvolutions = repo.GetExecutedEvolutionFileNames();
@@ -32,7 +31,8 @@ namespace Evolution.Test.Unit
         }
 
         //TODO Create Tests for Checkpoints
-        //[Fact]
+        //[Test]
+        //[Category("unit")]
         //public void GetExecutedEvolutionsSinceCheckPoint()
         //{
         //    var evolutions = new List<IProgression>()
@@ -52,28 +52,15 @@ namespace Evolution.Test.Unit
 
         [Fact]
         [Trait("Category", "unit")]
-        public void AddEvolution()
-        {
-            var evolution = new Model.Evolution("Evolution1");
-            string content = "Evolution Content";
-
-            var evolutions = new List<IEvolution>();
-            var context = SetupEvolutionContext(evolutions);
-            var repo = new EvolutionRepo(context);
-            
-            repo.AddEvolution(evolution, content);
-
-            Assert.Single(evolutions);
-        }
-
-        [Fact]
-        [Trait("Category", "unit")]
         public void ExecuteEvolution_Success()
         {
             var success = false;
             const string evolutionContent = "select sysdate from dual;";
 
-            var context = SetupEvolutionContext(new List<IEvolution>());
+            var context = new EvolutionContextBuilder()
+                .AddGetEvolutionBehavior(new List<IEvolution>())
+                .Context;
+
             var repo = new EvolutionRepo(context);
 
             try
@@ -81,17 +68,12 @@ namespace Evolution.Test.Unit
                 repo.ExecuteEvolution(evolutionContent);
                 success = true;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 success = false;
             }
 
             Assert.True(success);
-        }
-
-        private IEvolutionContext SetupEvolutionContext(List<IEvolution> evolutions)
-        {
-            return null;
         }
     }
 }

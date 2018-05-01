@@ -1,6 +1,4 @@
 ﻿using Evolution.Exceptions;
-using Evolution.Model;
-using Moq;
 using System;
 using Xunit;
 
@@ -17,7 +15,7 @@ namespace Evolution.Test.Unit
         [InlineData("a")]
         public void Evolution_ValidEvolutionName(string evolutionName)
         {
-            var evolution = new Model.Evolution(evolutionName);
+            var evolution = new Model.Evolution("date_" + evolutionName);
             Assert.Equal(evolutionName, evolution.Name);
         }
 
@@ -46,7 +44,7 @@ namespace Evolution.Test.Unit
         [InlineData("a")]
         public void Evolution_ValidFileNameFromEvolutionName(string evolutionName)
         {
-            var evolution = new Model.Evolution(evolutionName);
+            var evolution = new Model.Evolution(evolutionName, DateTime.Now);
             Assert.Matches(@"[0-9]{14}_\w{1,}.evo.sql", evolution.FileName);
         }
 
@@ -69,7 +67,7 @@ namespace Evolution.Test.Unit
         [InlineData("20181213145432evolution1.evo.sql")]
         public void Evolution_InvalidFileName(string fileName)
         {
-            Assert.Throws<ArgumentException>(() => new Model.Evolution(fileName));
+            Assert.Throws<EvolutionException>(() => new Model.Evolution(fileName));
         }
     }
 }
