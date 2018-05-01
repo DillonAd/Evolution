@@ -5,11 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EntityFramework" Version="6.2.0" />
-    <PackageReference Include="Oracle.ManagedDataAccess.EntityFramework" Version="12.2.1100" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Evolution.Exceptions\Evolution.Exceptions.csproj" />
   </ItemGroup>
 

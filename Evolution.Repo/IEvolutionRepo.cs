@@ -6,7 +6,6 @@ namespace Evolution.Repo
     {
         string[] GetExecutedEvolutionFileNames();
         void AddEvolution(Model.Evolution evolution, string content);
-        void SaveChanges();
         void ExecuteEvolution(string content);
     }
 }

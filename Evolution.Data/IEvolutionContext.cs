@@ -1,12 +1,12 @@
 ﻿using Evolution.Data.Entity;
-using System.Data.Entity;
+using System.Collections.Generic;
 
 namespace Evolution.Data
 {
     public interface IEvolutionContext
     {
-        DbSet<IEvolution> Evolutions { get; set; }
-        int SaveChanges();
+        void AddEvolution(IEvolution evolution);
         void ExecuteEvolution(string content);
+        List<IEvolution> GetEvolutions();
     }
 }

@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EntityFramework" Version="6.2.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Evolution.Data.Oracle\Evolution.Data.Oracle.csproj" />
     <ProjectReference Include="..\Evolution.Data\Evolution.Data.csproj" />
     <ProjectReference Include="..\Evolution.Exceptions\Evolution.Exceptions.csproj" />
