@@ -47,7 +47,6 @@ namespace Evolution.Data.Oracle
 
         public string CreateConnectionString()
         {
-            //TODO Get Port
             _Builder.DataSource = string.Format("(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST={0})(PORT={1}))" +
                 "(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME={2})))", Server, Port, Instance);
 
