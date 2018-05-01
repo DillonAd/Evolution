@@ -4,7 +4,6 @@ using Evolution.Logic;
 using Evolution.Model;
 using Evolution.Repo;
 using StructureMap;
-using System;
 
 namespace Evolution.IoC
 {
