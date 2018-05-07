@@ -20,6 +20,11 @@
     <ProjectReference Include="..\Evolution.Exceptions\Evolution.Exceptions.csproj" />
     <ProjectReference Include="..\Evolution.Model\Evolution.Model.csproj" />
     <ProjectReference Include="..\Evolution.Repo\Evolution.Repo.csproj" />
+    <ProjectReference Include="..\Evolution\Evolution.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="IntegrationTests\TestSql\Oracle\" />
   </ItemGroup>
 
 </Project>
