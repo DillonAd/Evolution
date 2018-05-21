@@ -1,8 +1,8 @@
 @echo off
 
 set dbName=evolution
-set oraUser=appUser
-set oraPwd=appPassword
+set oraUser=%1 rem appUser
+set oraPwd=%2 rem appPassword
 set oraInstance=evolutionDB
 set oraPort1=6666
 set oraPort2=6667
