@@ -1,1 +1,0 @@
-dotnet test Evolution.Test\ --filter TestCategory=unit
