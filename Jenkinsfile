@@ -10,7 +10,7 @@ pipeline {
         }
         stage('Unit Test') {
             steps {
-
+                sh 'dotnet test --results-directory ./  --filter Category=unit -logger "trx;LogFileName=results\unit_tests.xml"'
             }
         }
         stage('Integration Test') {
