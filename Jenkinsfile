@@ -8,7 +8,12 @@ pipeline {
                 
             }
         }
-        stage('Test') {
+        stage('Unit Test') {
+            steps {
+
+            }
+        }
+        stage('Integration Test') {
             steps {
 
             }
