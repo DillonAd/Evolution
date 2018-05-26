@@ -23,11 +23,5 @@ pipeline {
                 stash ${BUILD_NUMBER}
             }
         }
-        //stage('Deploy') {
-        //    steps {
-        //        unstash ${BUILD_NUMBER}
-        //
-        //    }
-        //}
     }
 }
