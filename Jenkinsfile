@@ -19,7 +19,7 @@ pipeline {
         stage('Integration Test') {
             steps {
                 unstash "${BUILD_NUMBER}"
-                sh 'dotnet test ./Evolution.Test.Unit/Evolution.Test.Unit.csproj --filter Category=integration --logger "trx;LogFileName=results\tests_integration.xml"'
+                sh 'integrationTest.sh'
             }
         }
     }
