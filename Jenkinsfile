@@ -12,14 +12,14 @@ pipeline {
         stage('Unit Test') {
             steps {
                 unstash "${BUILD_NUMBER}"
-                sh 'dotnet test ./Evolution.Test.Unit/Evolution.Test.Unit.csproj --filter Category=unit -logger "trx;LogFileName=results\tests.xml"'
+                sh 'dotnet test ./Evolution.Test.Unit/Evolution.Test.Unit.csproj --filter Category=unit --logger "trx;LogFileName=results\tests.xml"'
                 stash "${BUILD_NUMBER}"
             }
         }
         stage('Integration Test') {
             steps {
                 unstash "${BUILD_NUMBER}"
-                sh 'dotnet test ./Evolution.Test.Unit/Evolution.Test.Unit.csproj --filter Category=integration -logger "trx;LogFileName=results\tests.xml"'
+                sh 'dotnet test ./Evolution.Test.Unit/Evolution.Test.Unit.csproj --filter Category=integration --logger "trx;LogFileName=results\tests.xml"'
             }
         }
     }
