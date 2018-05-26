@@ -8,10 +8,7 @@ oraPort1=6666
 oraPort2=6667
 
 # Setup Docker container for Oracle database
-docker run -d --name $dbName \
-	-p $oraPort1:1521 -p $oraPort2:5500 \
-	-e ORACLE_SID=$oraInstance \
-	store/oracle/database-enterprise:12.2.0.1
+docker run -d --name $dbName -p $oraPort1:1521 -p $oraPort2:5500 -e ORACLE_SID=$oraInstance	store/oracle/database-enterprise:12.2.0.1
 
 # Check for health
 date
