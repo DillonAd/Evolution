@@ -27,4 +27,37 @@
     <Folder Include="IntegrationTests\TestSql\Oracle\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="IntegrationTests\TestSql\Oracle\001_CreateSchema.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="IntegrationTests\TestSql\Oracle\002_CreateTable.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="IntegrationTests\TestSql\Oracle\003_CreateIndex.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="IntegrationTests\TestSql\Oracle\004_CreateFunction.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="IntegrationTests\TestSql\Oracle\005_CreateProcedure.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="IntegrationTests\TestSql\Oracle\006_CreatePackage.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="IntegrationTests\TestSql\Oracle\007_CreateTrigger.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="IntegrationTests\TestSql\Oracle\008_AlterTable.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="IntegrationTests\TestSql\Oracle\009_InsertData.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="IntegrationTests\TestSql\Oracle\010_UpdateData.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
