@@ -19,7 +19,7 @@ pipeline {
         stage('Integration Test') {
             steps {
                 unstash "${BUILD_NUMBER}"
-                sh 'integrationTest.sh'
+                sh './integrationTest.sh'
             }
         }
     }
