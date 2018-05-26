@@ -15,9 +15,12 @@ docker run -d --name $dbName \
 
 # Check for health
 date
-:healthLoop
-health=(docker inspect --format='{{json .State.Health.Status}}' $dbName)
-if not $health == "healthy" goto healthLoop
+while true; do
+	health=(docker inspect --format='{{json .State.Health.Status}}' $dbName)
+	if $health == "healthy" then
+	  exit
+	fi
+done
 date
 
 # Setup test user on Oracle database

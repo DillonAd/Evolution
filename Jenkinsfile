@@ -19,6 +19,7 @@ pipeline {
         stage('Integration Test') {
             steps {
                 unstash "${BUILD_NUMBER}"
+                sh 'chmod 7'
                 sh './integrationTest.sh'
             }
         }
