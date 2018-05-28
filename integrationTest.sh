@@ -29,7 +29,10 @@ echo 'grant create session to c##$oraUser;' | sqlplus "sys/Oradoc_db1@(DESCRIPTI
 # Run Tests
 # dotnet test Evolution.Test\ --filter TestCategory=integration --settings test.runsettings -- TestRunParameters.Parameter.OracleUser="%oraUser%"  TestRunParameters.OraclePassword=%oraPwd% TestRunParameters.OracleInstance=%oraInstance% TestRunParameters.OraclePort=%oraPort1%
 dotnet test ./Evolution.Test.Unit/Evolution.Test.Unit.csproj --filter Category=integration --logger "trx;LogFileName=results\tests_integration.xml"
+status=$?
 
 # TearDown Docker container
 docker stop $dbName
 docker rm $dbName
+
+exit $status
