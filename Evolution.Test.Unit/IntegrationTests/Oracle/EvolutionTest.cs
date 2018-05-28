@@ -1,4 +1,5 @@
 ﻿using Evolution.Model;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Xunit;
@@ -50,13 +51,17 @@ namespace Evolution.Test.Unit.IntegrationTests.Oracle
 
         private string GetConnectionOptionsString()
         {
-            return string.Format("--user {0} --pwd {1} --server {2} --instance {3} --port {4} --type {5}",
+            var connectionParams = string.Format("--user {0} --pwd {1} --server {2} --instance {3} --port {4} --type {5}",
                 TestContext.Parameters["OracleUser"],
                 TestContext.Parameters["OraclePassword"],
                 TestContext.Parameters["OracleServer"],
                 TestContext.Parameters["OracleInstance"],
                 TestContext.Parameters["OraclePort"],
                 ((int)DatabaseTypes.Oracle).ToString());
+
+            Console.WriteLine(connectionParams);
+
+            return connectionParams;
         }
     }
 
