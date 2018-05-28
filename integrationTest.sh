@@ -13,7 +13,7 @@ docker run -d --name $dbName -p $oraPort1:1521 -p $oraPort2:5500 -e ORACLE_SID=$
 # Check for health
 date
 while true; do
-	health=(docker inspect --format='{{json .State.Health.Status}}' $dbName)
+	health=$(docker inspect --format='{{json .State.Health.Status}}' $dbName)
 	if $health == "healthy" then
 	  exit
 	fi
