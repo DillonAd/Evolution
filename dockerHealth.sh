@@ -1,11 +1,11 @@
+#!/bin/bash
 dbName=$1
-
-date
-while true; do
+echo $(date)
+health=
+until [[ $health == "healthy" ]]
+do
+    echo $dbName
 	health=$(docker inspect --format='{{json .State.Health.Status}}' $dbName)
-	if [ $health = \"healthy\" ]
-	then
-	  break
-	fi
+    echo $health
 done
-date
+echo $(date)
