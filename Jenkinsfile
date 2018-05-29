@@ -32,6 +32,7 @@ pipeline {
                 sh "docker run -d --name ${env.dbName} -p ${env.oraPort1}:1521 -p ${env.oraPort2}:5500 -e ORACLE_SID=${env.oraInstance}	store/oracle/database-enterprise:12.2.0.1"
 
                 timeout(time: 30, unit: 'MINUTES') {
+                    sh 'chmod 700 dockerHealth.sh'
                     sh './dockerHealth.sh ${dbName}'
                 }
 
