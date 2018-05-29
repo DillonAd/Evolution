@@ -29,22 +29,22 @@ pipeline {
 
                 unstash "${BUILD_NUMBER}"
                 //Startup Docker container for database
-                sh 'docker run -d --name ${env.dbName} -p ${env.oraPort1}:1521 -p ${env.oraPort2:5500} -e ORACLE_SID=${env.oraInstance}	store/oracle/database-enterprise:12.2.0.1'
+                sh "docker run -d --name ${env.dbName} -p ${env.oraPort1}:1521 -p ${env.oraPort2}:5500 -e ORACLE_SID=${env.oraInstance}	store/oracle/database-enterprise:12.2.0.1"
 
                 timeout(time: 30, unit: 'MINUTES') {
-                    sh 'dockerHealth.sh ${dbName}'
+                    sh './dockerHealth.sh ${dbName}'
                 }
 
                 //Setup test user
-                sh 'docker exec -ti my_container sh -c "echo \'create user c##$oraUser identified by $oraPwd\' | sqlplus "sys/Oradoc_db1@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=127.0.0.1)(PORT=%oraPort1%))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=ORCLCDB.localdomain)))" as sysdba"'
-                sh 'docker exec -ti my_container sh -c "echo \'grant dba to c##$oraUser;\' | sqlplus "sys/Oradoc_db1@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=127.0.0.1)(PORT=%oraPort1%))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=ORCLCDB.localdomain)))" as sysdba"'
-                sh 'docker exec -ti my_container sh -c "echo \'grant create session to c##$oraUser;\' | sqlplus "sys/Oradoc_db1@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=127.0.0.1)(PORT=%oraPort1%))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=ORCLCDB.localdomain)))" as sysdba"'
+                sh "docker exec -ti my_container sh -c \"echo 'create user c##$oraUser identified by $oraPwd' | sqlplus \"sys/Oradoc_db1@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=127.0.0.1)(PORT=%oraPort1%))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=ORCLCDB.localdomain)))\" as sysdba\""
+                sh "docker exec -ti my_container sh -c \"echo 'grant dba to c##$oraUser;' | sqlplus \"sys/Oradoc_db1@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=127.0.0.1)(PORT=%oraPort1%))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=ORCLCDB.localdomain)))\" as sysdba\""
+                sh "docker exec -ti my_container sh -c \"echo 'grant create session to c##$oraUser;' | sqlplus \"sys/Oradoc_db1@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=127.0.0.1)(PORT=%oraPort1%))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=ORCLCDB.localdomain)))\" as sysdba\""
 
-                sh 'dotnet test ./Evolution.Test.Unit/Evolution.Test.Unit.csproj --filter Category=integration --logger "trx;LogFileName=results\tests_integration.xml"'
+                sh "dotnet test ./Evolution.Test.Unit/Evolution.Test.Unit.csproj --filter Category=integration --logger \"trx;LogFileName=results\tests_integration.xml\""
 
                 //Breakdown container
-                sh 'docker stop ${env.dbName}'
-                sh 'docker rm ${env.dbName}'
+                sh "docker stop ${env.dbName}"
+                sh "docker rm ${env.dbName}"
             }
         }
     }
