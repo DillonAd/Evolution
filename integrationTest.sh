@@ -16,7 +16,7 @@ while true; do
 	health=$(docker inspect --format='{{json .State.Health.Status}}' $dbName)
 	if [ $health = \"healthy\" ]
 	then
-	  exit
+	  break
 	fi
 done
 date
