@@ -1,4 +1,4 @@
-create user c##%oraUser% identified by %oraPwd%
+create user c##%oraUser% identified by appPassword
 \
 grant dba to c##$oraUser
 \
