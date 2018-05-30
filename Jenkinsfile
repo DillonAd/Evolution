@@ -37,10 +37,9 @@ pipeline {
                 }
 
                 //Setup test user
-                sh "docker exec -ti my_container sh -c \"echo 'create user c##$oraUser identified by $oraPwd' | sqlplus \"sys/Oradoc_db1@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=127.0.0.1)(PORT=%oraPort1%))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=ORCLCDB.localdomain)))\" as sysdba\""
-                sh "docker exec -ti my_container sh -c \"echo 'grant dba to c##$oraUser;' | sqlplus \"sys/Oradoc_db1@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=127.0.0.1)(PORT=%oraPort1%))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=ORCLCDB.localdomain)))\" as sysdba\""
-                sh "docker exec -ti my_container sh -c \"echo 'grant create session to c##$oraUser;' | sqlplus \"sys/Oradoc_db1@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=127.0.0.1)(PORT=%oraPort1%))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=ORCLCDB.localdomain)))\" as sysdba\""
-
+                sh "docker cp ./Setup/Setup_Oracle.sql ${dbName}:SetupOracle.sql"
+                sh "docker exec -ti ${dbName} bash -c \"sqlplus \"sys/Oradoc_db1@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=127.0.0.1)(PORT=%oraPort1%))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=ORCLCDB.localdomain)))\" as sysdba @.\\SteupOracle.sql\""
+                
                 sh "dotnet test ./Evolution.Test.Unit/Evolution.Test.Unit.csproj --filter Category=integration --logger \"trx;LogFileName=results\\tests_integration.xml\""
 
                 //Breakdown container
