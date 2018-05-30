@@ -38,7 +38,7 @@ pipeline {
 
                 //Setup test user
                 sh "docker cp ./Setup/SetupOracle.sql ${dbName}:SetupOracle.sql"
-                sh "docker exec ${dbName} bash -c \"source /home/oracle/.bashrc; sqlplus sys/Oradoc_db1@ORCLCDB as sysdba @/SetupOracle.sql\""
+                sh "docker exec ${dbName} bash -c ""source /home/oracle/.bashrc; sqlplus sys/Oradoc_db1@ORCLCDB as sysdba @/SetupOracle.sql"""
                 
                 sh "dotnet test ./Evolution.Test.Unit/Evolution.Test.Unit.csproj --filter Category=integration --logger \"trx;LogFileName=results\\tests_integration.xml\""
 
