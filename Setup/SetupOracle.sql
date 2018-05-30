@@ -1,6 +1,6 @@
-create user c##%oraUser% identified by appPassword
+create user c##appUser identified by appPassword
 \
-grant dba to c##$oraUser
+grant dba to c##appUser
 \
-grant create session to c##$oraUser
+grant create session to c##appUser
 \
