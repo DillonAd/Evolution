@@ -49,6 +49,7 @@ pipeline {
                         {
                             println ex
                             sleep 60
+                            throw ex
                         }
                     }
                 }
