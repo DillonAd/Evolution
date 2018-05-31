@@ -12,7 +12,7 @@ pipeline {
         stage('Unit Test') {
             steps {
                 unstash "${BUILD_NUMBER}"
-                sh 'dotnet test ./Evolution.Test.Unit/Evolution.Test.Unit.csproj --no-build --filter Category=unit --logger "trx;LogFileName=results\\tests_unit.xml"'
+                sh 'dotnet test ./Evolution.Test.Unit/Evolution.Test.Unit.csproj --filter Category=unit --logger "trx;LogFileName=results\\tests_unit.xml"'
                 stash "${BUILD_NUMBER}"
             }
         }
@@ -53,8 +53,8 @@ pipeline {
                     }
                 }
                 
-                sh "dotnet test ./Evolution.Test.Unit/Evolution.Test.Unit.csproj --no-build --filter Category=integration --logger \"trx;LogFileName=results\\tests_integration.xml\""
-                
+                sh "dotnet test ./Evolution.Test.Unit/Evolution.Test.Unit.csproj --filter Category=integration --logger \"trx;LogFileName=results\\tests_integration.xml\""
+
                 //Breakdown container
                 sh "docker stop ${env.dbName}"
                 sh "docker rm ${env.dbName}"
