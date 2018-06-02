@@ -44,6 +44,7 @@ pipeline {
                     script {
                         try
                         {
+                            sleep 120
                             println "${dockerCmd}"
                             sh "${dockerCmd}"
                         }
