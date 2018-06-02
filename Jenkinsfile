@@ -21,12 +21,11 @@ pipeline {
                 String dbName="evolution"
                 String oraUser="appUser"
                 String oraPwd="appPassword"
-                //String oraInstance="evolutionDB"
                 String oraPort1="6666"
                 String oraPort2="6667"
                 String src = 'sys/Oradoc_db1@localhost:1521/ORCLCDB.localdomain'
-                String cmd = "'source /home/oracle/.bashrc; sqlplus ${src} as sysdba @/SetupOracle.sql; exit \$?'"
-                String dockerCmd = "docker exec evolution bash -c ${cmd}"
+                String command = "'source /home/oracle/.bashrc; sqlplus ${src} as sysdba @/SetupOracle.sql; exit \$?'"
+                String dockerCmd = "docker exec evolution bash -c ${command}"
             }
             steps {
 
