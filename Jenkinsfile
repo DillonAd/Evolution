@@ -24,7 +24,9 @@ pipeline {
                 //String oraInstance="evolutionDB"
                 String oraPort1="6666"
                 String oraPort2="6667"
-                String cmd = "source /home/oracle/.bashrc; sqlplus sys/Oradoc_db1@ORCLCDB as sysdba @/SetupOracle.sql; exit \$?"
+                String src = 'sys/Oradoc_db1@localhost:1521/ORCLCDB.localdomain'
+                String cmd = "'source /home/oracle/.bashrc; sqlplus ${src} as sysdba @/SetupOracle.sql; exit \$?'"
+                String dockerCmd = "docker exec evolution bash -c ${cmd}"
             }
             steps {
 
@@ -43,12 +45,13 @@ pipeline {
                     script {
                         try
                         {
-                            sh "docker exec evolution bash -c '${cmd}'"
+                            println "${dockerCmd}"
+                            sh "${dockerCmd}"
                         }
                         catch(ex)
                         {
                             println ex
-                            sleep 60
+                            sleep 15
                             throw ex
                         }
                     }
