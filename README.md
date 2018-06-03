@@ -1,4 +1,6 @@
 # Evolution
+![Build Status](https://codejanitor.dynu.net/jenkins/job/Evolution/badge/icon)
+
 Evolution is a command line tool to move code for database applications.
 
 ## Purpose
@@ -21,7 +23,26 @@ Once the pilot is done, I definitely want to support Microsoft SQL Server, and l
 ```bash
 
 dotnet build
+
+```
+
+### Testing
+
+#### Unit Tests
+To run the unit tests, simply running the command is sufficient.
+
+```bash
+
 dotnet test --filter Category=unit
+
+```
+
+#### Integration Tests
+
+//TODO
+
+```bash
+
 dotnet test --filter Category=integration
 
 ```
@@ -32,8 +53,8 @@ At the moment, the way to deploy this solution is to build it from the source. F
 
 ## Usage
 
-```C#
+```bash
 
-//TODO
+
 
 ```
