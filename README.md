@@ -53,8 +53,16 @@ At the moment, the way to deploy this solution is to build it from the source. F
 
 ## Usage
 
+### Step 1
+Write the code!
+
+### Step 2
+Create the evolution file
+
 ```bash
 
-
+evo add <filename>
 
 ```
+
+This will create and evolution (*.evo.sql) file with the same name as the targeted file. These evolution files will be the scripts that will be run against the database in the next step.
