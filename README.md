@@ -54,15 +54,29 @@ At the moment, the way to deploy this solution is to build it from the source. F
 ## Usage
 
 ### Step 1
-Write the code!
+Write the code! (Possibly the most important part)
 
 ### Step 2
-Create the evolution file
+Create the Evolution file
 
 ```bash
 
-evo add <filename>
+evo add <filename> <evolutionName>
 
 ```
 
-This will create and evolution (*.evo.sql) file with the same name as the targeted file. These evolution files will be the scripts that will be run against the database in the next step.
+This will create and evolution (*.evo.sql) file with the contents the targeted file, but the name of the purpose of the evolution. These evolution files will be the scripts that will be run against the database in the next step.
+
+### Step 2.5
+This step is technically optional, but it is highly encouraged for everyone to check the Evolution file(s) into source control. This tool is meant for CI\CD, and the whole premise is predicated on building from source control. Use Git, Team Foundate Version Control, Subversion, or Starteam for all I care.  I'm sure there can be use cases outside of CI\CD, but either way (as I'm sure you already know) version control your code base.
+
+### Step 3
+Run the Evolution files!
+
+```bash
+
+evo exec <evolutionFile>
+
+```
+
+The <evolutionFile> parameter is optional. If that parameter is provided, the program will run all Evolution files that have not been executed before the one specificed. Otherwise, all unexecuted Evolution files will be run.
