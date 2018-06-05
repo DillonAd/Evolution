@@ -8,5 +8,6 @@ namespace Evolution.Options
     {
         [Option("db")]
         public string DatabaseType { get; set; }
+        //TODO Add optional config file
     }
 }
