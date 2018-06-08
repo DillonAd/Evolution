@@ -16,6 +16,13 @@ pipeline {
                 stash "${BUILD_NUMBER}"
             }
         }
+        stage('Quality') {
+            steps {
+                sh 'dotnet /opt/sonarscanner-msbuild/SonarScanner.MSBuild.dll begin /k:"evolution"'
+                sh 'dotnet build'
+                sh 'dotnet /opt/sonarscanner-msbuild/SonarScanner.MSBuild.dll end'
+            }
+        }
         stage('Integration Test - Oracle') {
             environment {
                 String dbName="evolution"
