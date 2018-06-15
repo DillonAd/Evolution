@@ -6,7 +6,7 @@ using System.Data;
 
 namespace Evolution.Data.Oracle
 {
-    public class OracleEvolutionContext : IEvolutionContext, IDisposable
+    public sealed class OracleEvolutionContext : IEvolutionContext
     {
         private readonly OracleConnection _Connection;
 
