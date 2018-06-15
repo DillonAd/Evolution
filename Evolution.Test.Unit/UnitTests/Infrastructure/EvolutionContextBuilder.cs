@@ -13,7 +13,7 @@ namespace Evolution.Test.UnitTests.Infrastructure
     {
         public IEvolutionContext Context => _Mock.Object;
 
-        private Mock<IEvolutionContext> _Mock;
+        private readonly Mock<IEvolutionContext> _Mock;
 
         public EvolutionContextBuilder()
         {

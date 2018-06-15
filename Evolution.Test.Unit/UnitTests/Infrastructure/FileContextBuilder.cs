@@ -11,9 +11,9 @@ namespace Evolution.Test.UnitTests.Infrastructure
         public IFileContext Context => _Mock.Object;
         public int EvolutionCount => _Evolutions.Count;
 
-        private Mock<IFileContext> _Mock;
-        private List<KeyValuePair<string, string>> _Evolutions;
-        private List<KeyValuePair<string, string>> _SourceFiles;
+        private readonly Mock<IFileContext> _Mock;
+        private readonly List<KeyValuePair<string, string>> _Evolutions;
+        private readonly List<KeyValuePair<string, string>> _SourceFiles;
 
         public FileContextBuilder()
         {
@@ -41,7 +41,7 @@ namespace Evolution.Test.UnitTests.Infrastructure
             _Mock.Setup(c => c.CreateFile(It.IsAny<string>(), It.IsAny<string>()))
                 .Callback<string, string>((fileName, fileContents) =>
                 {
-                    if (_Evolutions.Count(e => e.Key == fileName) > 0)
+                    if (_Evolutions.Any(e => e.Key == fileName))
                     {
                         throw new EvolutionFileException("Evolution file already exists");
                     }
