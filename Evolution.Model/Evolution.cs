@@ -40,23 +40,17 @@ namespace Evolution.Model
 
         private string ParseEvolutionName(string fileName)
         {
-            try
+            fileName = fileName.Replace(".evo.sql", string.Empty);
+
+            var firstUnderscoreIndex = fileName.IndexOf('_');
+
+            if (firstUnderscoreIndex < 0)
             {
-                fileName = fileName.Replace(".evo.sql", string.Empty);
-
-                var firstUnderscoreIndex = fileName.IndexOf('_');
-
-                if (firstUnderscoreIndex < 0)
-                {
-                    throw new ArgumentOutOfRangeException("Cant find underscore for in proper file name format.");
-                }
-
-                return fileName.Substring(firstUnderscoreIndex + 1);
+                throw new EvolutionFileException("File name format is incorrect." +
+                    " Please use this tool to generate Evolution files");
             }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                throw new EvolutionException("Error parsing file name.", ex);
-            }
+
+            return fileName.Substring(firstUnderscoreIndex + 1);
         }
     }
 }
