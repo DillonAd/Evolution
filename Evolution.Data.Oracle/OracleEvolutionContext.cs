@@ -78,6 +78,8 @@ namespace Evolution.Data.Oracle
                     //Hash = row["HASH"], Convert.to
                     CheckPoint = int.Parse(row["CHECKPOINT"].ToString())
                 };
+
+                evolutions.Add(evolution);
             }
 
             return evolutions;
