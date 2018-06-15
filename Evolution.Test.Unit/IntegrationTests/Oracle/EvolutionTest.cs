@@ -65,7 +65,7 @@ namespace Evolution.Test.Unit.IntegrationTests.Oracle
         }
     }
 
-    internal class TestContext
+    internal static class TestContext
     {
         public static Dictionary<string, string> Parameters { get; } = new Dictionary<string, string>()
         {
