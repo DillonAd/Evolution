@@ -42,7 +42,7 @@ namespace Evolution.Model
         {
             try
             {
-                fileName.Replace(".evo.sql", string.Empty);
+                fileName = fileName.Replace(".evo.sql", string.Empty);
 
                 var firstUnderscoreIndex = fileName.IndexOf('_');
 
