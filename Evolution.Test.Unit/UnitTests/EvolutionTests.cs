@@ -67,7 +67,7 @@ namespace Evolution.Test.Unit
         [InlineData("20181213145432evolution1.evo.sql")]
         public void Evolution_InvalidFileName(string fileName)
         {
-            Assert.Throws<EvolutionException>(() => new Model.Evolution(fileName));
+            Assert.Throws<EvolutionFileException>(() => new Model.Evolution(fileName));
         }
     }
 }
