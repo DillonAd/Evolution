@@ -10,7 +10,7 @@ namespace Evolution.Options
         public string SourceFile { get; set; }
 
         //TODO Add HelpText for AddOptions
-        [Option("target", HelpText = "")]
+        [Option("target", HelpText = "Name of the evolution to create.")]
         public string TargetEvolution { get; set; }
     }
 }
