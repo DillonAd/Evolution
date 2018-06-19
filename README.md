@@ -1,5 +1,5 @@
 # Evolution
-![Build Status](https://codejanitor.dynu.net/jenkins/job/Evolution/badge/icon)
+![Build Status](https://codejanitor.dynu.net/jenkins/buildStatus/icon?job=Evolution)
 
 Evolution is a command line tool to move code for database applications.
 
