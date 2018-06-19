@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -15,8 +15,5 @@
     <ProjectReference Include="..\Evolution.IoC\Evolution.IoC.csproj" />
     <ProjectReference Include="..\Evolution.Model\Evolution.Model.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-	<DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="2.0.0" />
-  </ItemGroup>
+	
 </Project>
