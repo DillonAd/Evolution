@@ -22,12 +22,12 @@ pipeline {
                 }
             }
         }
-        stage('Test') {
+        stage('Test - Unit') {
             steps {
                 script {
                     try {
                         unstash "${BUILD_NUMBER}"
-                        sh "dotnet test ./CarrierPidgeon.Test/CarrierPidgeon.Test.csproj --logger \"trx;LogFileName=unit_tests.xml\" --no-build"
+                        sh "dotnet test ./CarrierPidgeon.Test/CarrierPidgeon.Test.csproj --logger \"trx;LogFileName=unit_tests.xml\" --no-build --filter \"Category=unit\""
             			step([$class: 'MSTestPublisher', testResultsFile:"**/unit_tests.xml", failOnError: true, keepLongStdio: true])
                         stash "${BUILD_NUMBER}"
                     } catch(ex) {
