@@ -12,7 +12,7 @@ pipeline {
                 script {
                     try {
                         checkout scm
-                        sh 'dotnet build ./Evolution/Evolution.csproj --output ./out'
+                        sh 'dotnet build ./Evolution.sln'
                         stash "${BUILD_NUMBER}"
                     } catch(ex) {
                         throw ex
@@ -27,7 +27,8 @@ pipeline {
                 script {
                     try {
                         unstash "${BUILD_NUMBER}"
-                        sh 'dotnet test ./Evolution.Test.Unit/Evolution.Test.Unit.csproj --filter Category=unit --logger "trx;LogFileName=results\\tests_unit.xml"'
+                        sh "dotnet test ./CarrierPidgeon.Test/CarrierPidgeon.Test.csproj --logger \"trx;LogFileName=unit_tests.xml\" --no-build"
+            			step([$class: 'MSTestPublisher', testResultsFile:"**/unit_tests.xml", failOnError: true, keepLongStdio: true])
                         stash "${BUILD_NUMBER}"
                     } catch(ex) {
                         throw ex
