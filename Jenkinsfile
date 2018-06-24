@@ -24,14 +24,16 @@ pipeline {
         }
         stage('Test') {
             steps {
-                try {
-                    unstash "${BUILD_NUMBER}"
-                    sh 'dotnet test ./Evolution.Test.Unit/Evolution.Test.Unit.csproj --filter Category=unit --logger "trx;LogFileName=results\\tests_unit.xml"'
-                    stash "${BUILD_NUMBER}"
-                } catch(ex) {
-                    throw ex
-                } finally {
-                    sh 'dotnet /opt/sonarscanner-msbuild/SonarScanner.MSBuild.dll end'
+                script {
+                    try {
+                        unstash "${BUILD_NUMBER}"
+                        sh 'dotnet test ./Evolution.Test.Unit/Evolution.Test.Unit.csproj --filter Category=unit --logger "trx;LogFileName=results\\tests_unit.xml"'
+                        stash "${BUILD_NUMBER}"
+                    } catch(ex) {
+                        throw ex
+                    } finally {
+                        sh 'dotnet /opt/sonarscanner-msbuild/SonarScanner.MSBuild.dll end'
+                    }
                 }
             }
         }
