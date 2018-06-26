@@ -15,9 +15,8 @@ pipeline {
                         sh 'dotnet build ./Evolution.sln'
                         stash "${BUILD_NUMBER}"
                     } catch(ex) {
-                        throw ex
-                    } finally {
                         sh 'dotnet /opt/sonarscanner-msbuild/SonarScanner.MSBuild.dll end'
+                        throw ex
                     }
                 }
             }
