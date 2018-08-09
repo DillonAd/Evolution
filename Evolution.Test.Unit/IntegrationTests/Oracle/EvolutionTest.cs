@@ -71,8 +71,8 @@ namespace Evolution.Test.Unit.IntegrationTests.Oracle
         {
             { "OracleUser", "c##appUser" },
             { "OraclePassword", "appPassword" },
-            { "OracleServer", "127.0.0.1" },
-            { "OracleInstance", "ORACLDB.localdomain" },
+            { "OracleServer", "localhost" },
+            { "OracleInstance", "ORCLCDB.localdomain" },
             { "OraclePort", "6666" }
         };
     }
