@@ -48,7 +48,6 @@ namespace Evolution.Data.Oracle
         public string CreateConnectionString()
         {
             _Builder.DataSource = $"(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST={Server})(PORT={Port}))(CONNECT_DATA=(SERVICE_NAME={Instance})))";
-            System.Console.WriteLine(_Builder.ToString());
             return _Builder.ToString();
         }
     }
