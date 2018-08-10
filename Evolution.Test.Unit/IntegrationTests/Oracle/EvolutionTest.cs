@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Evolution.Test.Unit.IntegrationTests.Oracle
 {
-    public class EvolutionTest
+    public class EvolutionTest : IDisposable
     {
         private const string _FilePath = "./IntegrationTests/TestSql/Oracle/";
 
@@ -60,6 +60,14 @@ namespace Evolution.Test.Unit.IntegrationTests.Oracle
                 ((int)DatabaseTypes.Oracle).ToString());
 
             return connectionParams;
+        }
+
+        public void Dispose()
+        {
+            foreach(var file in Directory.GetFiles("./", "*.sql", SearchOption.TopDirectoryOnly))
+            {
+                File.Delete(file);
+            }
         }
     }
 
