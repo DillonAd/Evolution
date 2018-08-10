@@ -18,7 +18,7 @@ namespace Evolution.Test.Unit.IntegrationTests.Oracle
 
             foreach (var fileName in fileList)
             {
-                Assert.Equal(0, Add(Path.GetFileName(fileName)));
+                Assert.Equal(0, Add(fileName));
             }
 
             string targetEvolution;
@@ -34,7 +34,7 @@ namespace Evolution.Test.Unit.IntegrationTests.Oracle
         {
             var executionString = string.Format("add {0} --target {1} --source {2}",
                 GetConnectionOptionsString(),
-                fileName.Replace(".sql", string.Empty),
+                Path.GetFileName(fileName).Replace(".sql", string.Empty),
                 fileName);
 
             return Program.Main(executionString.Split(' '));
