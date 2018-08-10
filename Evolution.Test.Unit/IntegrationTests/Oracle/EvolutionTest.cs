@@ -18,7 +18,7 @@ namespace Evolution.Test.Unit.IntegrationTests.Oracle
 
             foreach (var fileName in fileList)
             {
-                Assert.Equal(0, Add(fileName));
+                Assert.Equal(0, Add(Path.GetFileName(fileName)));
             }
 
             string targetEvolution;
@@ -58,8 +58,6 @@ namespace Evolution.Test.Unit.IntegrationTests.Oracle
                 TestContext.Parameters["OracleInstance"],
                 TestContext.Parameters["OraclePort"],
                 ((int)DatabaseTypes.Oracle).ToString());
-
-            Console.WriteLine(connectionParams);
 
             return connectionParams;
         }
