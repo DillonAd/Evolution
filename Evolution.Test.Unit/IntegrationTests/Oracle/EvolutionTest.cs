@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Evolution.Test.Unit.IntegrationTests.Oracle
 {
@@ -10,11 +12,18 @@ namespace Evolution.Test.Unit.IntegrationTests.Oracle
     {
         private const string _FilePath = "./IntegrationTests/TestSql/Oracle/";
 
+        private readonly ITestOutputHelper _outputHelper;
+
+        public EvolutionTest(ITestOutputHelper outputHelper)
+        {
+            _outputHelper = outputHelper;
+        }
+
         [Fact]
         [Trait("Category", "integration")]
         public void Evolve_Success()
         {
-            var fileList = Directory.GetFiles(_FilePath);
+            var fileList = Directory.GetFiles(_FilePath).OrderBy(file => file);
 
             foreach (var fileName in fileList)
             {
@@ -25,7 +34,8 @@ namespace Evolution.Test.Unit.IntegrationTests.Oracle
 
             foreach (var fileName in fileList)
             {
-                targetEvolution = fileName.Replace(fileName, ".sql").Replace(_FilePath, string.Empty);
+                targetEvolution = fileName.Replace(".sql", string.Empty).Replace(_FilePath, string.Empty);
+                _outputHelper.WriteLine(targetEvolution);
                 Assert.Equal(0, Execute(targetEvolution));
             }
         }
@@ -36,7 +46,7 @@ namespace Evolution.Test.Unit.IntegrationTests.Oracle
                 GetConnectionOptionsString(),
                 Path.GetFileName(fileName).Replace(".sql", string.Empty),
                 fileName);
-
+            
             return Program.Main(executionString.Split(' '));
         }
 
@@ -45,7 +55,7 @@ namespace Evolution.Test.Unit.IntegrationTests.Oracle
             var executionString = string.Format("exec {0} --target {1}",
                 GetConnectionOptionsString(),
                 targetEvolution);
-
+                
             return Program.Main(executionString.Split(' '));
         }
 
