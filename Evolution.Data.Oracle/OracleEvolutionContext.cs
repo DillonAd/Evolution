@@ -37,7 +37,7 @@ namespace Evolution.Data.Oracle
 
         public void ExecuteEvolution(string content)
         {
-            foreach (var command in content.Split('/'))
+            foreach (var command in content.Split(new char[] { '/', ';' }))
             {
                 if (!string.IsNullOrWhiteSpace(command))
                 {
