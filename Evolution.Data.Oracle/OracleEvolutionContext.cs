@@ -37,11 +37,13 @@ namespace Evolution.Data.Oracle
 
         public void ExecuteEvolution(string content)
         {
-            foreach (var command in content.Split(new char[] { '/', ';' }))
+            string command;
+            foreach (var commandText in content.Split(new char[] { '/', ';' }))
             {
+                command = commandText.Replace(Environment.NewLine, string.Empty);
                 if (!string.IsNullOrWhiteSpace(command))
                 {
-                    Console.WriteLine(command);
+                    //Console.WriteLine($"- {command}");
                     using (OracleCommand cmd = new OracleCommand(command, _Connection))
                     {
                         cmd.CommandType = CommandType.Text;
