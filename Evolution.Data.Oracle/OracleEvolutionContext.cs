@@ -37,9 +37,17 @@ namespace Evolution.Data.Oracle
 
         public void ExecuteEvolution(string content)
         {
-            using (OracleCommand cmd = new OracleCommand(content, _Connection))
+            foreach (var command in content.Split('/'))
             {
-                cmd.ExecuteNonQuery();
+                if (!string.IsNullOrWhiteSpace(command))
+                {
+                    Console.WriteLine(command);
+                    using (OracleCommand cmd = new OracleCommand(command, _Connection))
+                    {
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                    }
+                }
             }
         }
 
