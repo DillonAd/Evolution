@@ -24,10 +24,12 @@ namespace Evolution.Test.Unit.IntegrationTests.Oracle
         public void Evolve_Success()
         {
             var fileList = Directory.GetFiles(_FilePath).OrderBy(file => file);
+            string arguments;
 
             foreach (var fileName in fileList)
             {
-                Assert.Equal(0, Add(fileName));
+                arguments = $"{ GetAddArguments(fileName) } { GetConnectionOptionsString() }";
+                Assert.Equal(0, Run(arguments));
             }
 
             string targetEvolution;
@@ -35,28 +37,27 @@ namespace Evolution.Test.Unit.IntegrationTests.Oracle
             foreach (var fileName in fileList)
             {
                 targetEvolution = fileName.Replace(".sql", string.Empty).Replace(_FilePath, string.Empty);
-                _outputHelper.WriteLine(targetEvolution);
-                Assert.Equal(0, Execute(targetEvolution));
+                arguments = $"{ GetExecArguments(fileName) } { GetConnectionOptionsString() }";
+                _outputHelper.WriteLine(arguments);
+                Assert.Equal(0, Run(arguments));
             }
         }
 
-        private int Add(string fileName)
+        private int Run(string arguments)
         {
-            var executionString = string.Format("add {0} --target {1} --source {2}",
-                GetConnectionOptionsString(),
-                Path.GetFileName(fileName).Replace(".sql", string.Empty),
-                fileName);
-            
-            return Program.Main(executionString.Split(' '));
+            return Program.Main(arguments.Split(' '));
         }
 
-        private int Execute(string targetEvolution)
+        private string GetAddArguments(string fileName)
         {
-            var executionString = string.Format("exec {0} --target {1}",
-                GetConnectionOptionsString(),
-                targetEvolution);
-                
-            return Program.Main(executionString.Split(' '));
+            return string.Format("add --target {0} --source {1}",
+                Path.GetFileName(fileName).Replace(".sql", string.Empty),
+                fileName);
+        }
+
+        private string GetExecArguments(string targetName)
+        {
+            return string.Format("exec --target {0}",targetName);
         }
 
         private string GetConnectionOptionsString()
