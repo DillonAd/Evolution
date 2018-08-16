@@ -2,11 +2,11 @@ pipeline {
     agent any
     
     stages {
-        stage('Quality Start') {
-            steps {
-                sh 'dotnet /opt/sonarscanner-msbuild/SonarScanner.MSBuild.dll begin /k:"evolution"'
-            }
-        }
+        // stage('Quality Start') {
+        //     steps {
+        //         sh 'dotnet /opt/sonarscanner-msbuild/SonarScanner.MSBuild.dll begin /k:"evolution"'
+        //     }
+        // }
         stage('Build') {
             steps {
                 script {
@@ -15,7 +15,7 @@ pipeline {
                         sh 'dotnet build ./Evolution.sln'
                         stash "${BUILD_NUMBER}"
                     } catch(ex) {
-                        sh 'dotnet /opt/sonarscanner-msbuild/SonarScanner.MSBuild.dll end'
+                        // sh 'dotnet /opt/sonarscanner-msbuild/SonarScanner.MSBuild.dll end'
                         throw ex
                     }
                 }
@@ -27,12 +27,12 @@ pipeline {
                     try {
                         unstash "${BUILD_NUMBER}"
                         sh "dotnet test ./Evolution.Test.Unit/Evolution.Test.Unit.csproj --logger \"trx;LogFileName=unit_tests.xml\" --no-build --filter \"Category=unit\""
-            			step([$class: 'MSTestPublisher', testResultsFile:"**/unit_tests.xml", failOnError: true, keepLongStdio: true])
+            			// step([$class: 'MSTestPublisher', testResultsFile:"**/unit_tests.xml", failOnError: true, keepLongStdio: true])
                         stash "${BUILD_NUMBER}"
                     } catch(ex) {
                         throw ex
                     } finally {
-                        sh 'dotnet /opt/sonarscanner-msbuild/SonarScanner.MSBuild.dll end'
+                        // sh 'dotnet /opt/sonarscanner-msbuild/SonarScanner.MSBuild.dll end'
                     }
                 }
             }
@@ -52,11 +52,11 @@ pipeline {
 
                 unstash "${BUILD_NUMBER}"
                 //Startup Docker container for database
-                sh "docker run -d --name ${env.dbName} -p ${env.oraPort1}:1521 -p ${env.oraPort2}:5500 -e ORACLE_SID=${env.oraInstance}	store/oracle/database-enterprise:12.2.0.1"
+                sh "docker run -d --rm --name ${env.dbName} -p ${env.oraPort1}:1521 -p ${env.oraPort2}:5500 -e ORACLE_SID=${env.oraInstance}	store/oracle/database-enterprise:12.2.0.1"
 
                 timeout(time: 30, unit: 'MINUTES') {
-                    sh 'chmod 700 dockerHealth.sh'
-                    sh './dockerHealth.sh ${dbName}'
+                    sh 'chmod 700 ./Setup/dockerHealth.sh'
+                    sh './Setup/dockerHealth.sh ${dbName}'
                 }
 
                 //Setup test user
@@ -82,7 +82,6 @@ pipeline {
 
                 //Breakdown container
                 sh "docker stop ${env.dbName}"
-                sh "docker rm ${env.dbName}"
             }
         }
     }
