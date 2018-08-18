@@ -2,11 +2,6 @@ pipeline {
     agent any
     
     stages {
-        // stage('Quality Start') {
-        //     steps {
-        //         sh 'dotnet /opt/sonarscanner-msbuild/SonarScanner.MSBuild.dll begin /k:"evolution"'
-        //     }
-        // }
         stage('Build') {
             steps {
                 script {
@@ -16,7 +11,6 @@ pipeline {
                         sh 'dotnet build ./Evolution.sln'
                         stash "${BUILD_NUMBER}"
                     } catch(ex) {
-                        //sh 'dotnet /opt/sonarscanner-msbuild/SonarScanner.MSBuild.dll end'
                         throw ex
                     } finally {
                         sh 'dotnet /opt/sonarscanner-msbuild/SonarScanner.MSBuild.dll end'
