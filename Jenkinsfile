@@ -30,9 +30,8 @@ pipeline {
             			// step([$class: 'MSTestPublisher', testResultsFile:"**/unit_tests.xml", failOnError: true, keepLongStdio: true])
                         stash "${BUILD_NUMBER}"
                     } catch(ex) {
-                        throw ex
-                    } finally {
                         sh 'dotnet /opt/sonarscanner-msbuild/SonarScanner.MSBuild.dll end'
+                        throw ex
                     }
                 }
             }
