@@ -2,22 +2,26 @@ pipeline {
     agent any
     
     stages {
-        stage('Quality Start') {
-            steps {
-                sh 'dotnet /opt/sonarscanner-msbuild/SonarScanner.MSBuild.dll begin /k:"evolution"'
-            }
-        }
+        // stage('Quality Start') {
+        //     steps {
+        //         sh 'dotnet /opt/sonarscanner-msbuild/SonarScanner.MSBuild.dll begin /k:"evolution"'
+        //     }
+        // }
         stage('Build') {
             steps {
                 script {
                     try {
                         checkout scm
+                        sh 'dotnet /opt/sonarscanner-msbuild/SonarScanner.MSBuild.dll begin /k:"evolution"'
                         sh 'dotnet build ./Evolution.sln'
                         stash "${BUILD_NUMBER}"
                     } catch(ex) {
-                        sh 'dotnet /opt/sonarscanner-msbuild/SonarScanner.MSBuild.dll end'
+                        //sh 'dotnet /opt/sonarscanner-msbuild/SonarScanner.MSBuild.dll end'
                         throw ex
+                    } finally {
+                        sh 'dotnet /opt/sonarscanner-msbuild/SonarScanner.MSBuild.dll end'
                     }
+                    
                 }
             }
         }
@@ -30,7 +34,7 @@ pipeline {
             			// step([$class: 'MSTestPublisher', testResultsFile:"**/unit_tests.xml", failOnError: true, keepLongStdio: true])
                         stash "${BUILD_NUMBER}"
                     } catch(ex) {
-                        sh 'dotnet /opt/sonarscanner-msbuild/SonarScanner.MSBuild.dll end'
+                        //sh 'dotnet /opt/sonarscanner-msbuild/SonarScanner.MSBuild.dll end'
                         throw ex
                     }
                 }
@@ -48,41 +52,46 @@ pipeline {
                 String dockerCmd = "docker exec evolution bash -c ${command}"
             }
             steps {
+                script {
+                    try {
+                        unstash "${BUILD_NUMBER}"
+                        //Startup Docker container for database
+                        sh "docker run -d --rm --name ${env.dbName} -p ${env.oraPort1}:1521 -p ${env.oraPort2}:5500 -e ORACLE_SID=${env.oraInstance}	store/oracle/database-enterprise:12.2.0.1"
 
-                unstash "${BUILD_NUMBER}"
-                //Startup Docker container for database
-                sh "docker run -d --rm --name ${env.dbName} -p ${env.oraPort1}:1521 -p ${env.oraPort2}:5500 -e ORACLE_SID=${env.oraInstance}	store/oracle/database-enterprise:12.2.0.1"
-
-                timeout(time: 30, unit: 'MINUTES') {
-                    sh 'chmod 700 ./Setup/dockerHealth.sh'
-                    sh './Setup/dockerHealth.sh ${dbName}'
-                }
-
-                //Setup test user
-                sh "docker cp ./Setup/SetupOracle.sql ${dbName}:SetupOracle.sql"
-                retry(5) {
-                    script {
-                        try
-                        {
-                            sleep 120
-                            println "${dockerCmd}"
-                            sh "${dockerCmd}"
+                        timeout(time: 30, unit: 'MINUTES') {
+                            sh 'chmod 700 ./Setup/dockerHealth.sh'
+                            sh './Setup/dockerHealth.sh ${dbName}'
                         }
-                        catch(ex)
-                        {
-                            println ex
-                            sleep 15
-                            throw ex
+
+                        //Setup test user
+                        sh "docker cp ./Setup/SetupOracle.sql ${dbName}:SetupOracle.sql"
+                        retry(5) {
+                            script {
+                                try
+                                {
+                                    sleep 120
+                                    println "${dockerCmd}"
+                                    sh "${dockerCmd}"
+                                }
+                                catch(ex)
+                                {
+                                    println ex
+                                    sleep 15
+                                    throw ex
+                                }
+                            }
                         }
+                        
+                        sh "dotnet test ./Evolution.Test.Unit/Evolution.Test.Unit.csproj --filter Category=integration --logger \"trx;LogFileName=results/tests_integration.xml\""
+                    }
+                    finally
+                    {
+                        //Breakdown container
+                        sh "docker stop ${env.dbName}"
+
+                        //sh 'dotnet /opt/sonarscanner-msbuild/SonarScanner.MSBuild.dll end'
                     }
                 }
-                
-                sh "dotnet test ./Evolution.Test.Unit/Evolution.Test.Unit.csproj --filter Category=integration --logger \"trx;LogFileName=results/tests_integration.xml\""
-
-                //Breakdown container
-                sh "docker stop ${env.dbName}"
-
-                sh 'dotnet /opt/sonarscanner-msbuild/SonarScanner.MSBuild.dll end'
             }
         }
     }
