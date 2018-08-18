@@ -78,7 +78,7 @@ pipeline {
                     }
                 }
                 
-                sh "dotnet test ./Evolution.Test.Unit/Evolution.Test.Unit.csproj --filter Category=integration --logger \"trx;LogFileName=results\\tests_integration.xml\""
+                sh "dotnet test ./Evolution.Test.Unit/Evolution.Test.Unit.csproj --filter Category=integration --logger \"trx;LogFileName=results/tests_integration.xml\""
 
                 //Breakdown container
                 sh "docker stop ${env.dbName}"
