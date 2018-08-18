@@ -40,7 +40,7 @@ dotnet test --filter Category=unit
 
 #### Integration Tests
 
-To run the integratino tests, you need to have started the Oracle Docker image and created the user for the tests to use.
+To run the integration tests, you need to have started the Oracle Docker image and created the user for the tests to use.
 
 ```bash
 
@@ -68,7 +68,7 @@ evo add <filename> <evolutionName>
 
 ```
 
-This will create and evolution (*.evo.sql) file with the contents the targeted file, but the name of the purpose of the evolution. These evolution files will be the scripts that will be run against the database in the next step.
+This will create an evolution (*.evo.sql) file with the contents the targeted file, but the name of the purpose of the evolution. These evolution files will be the scripts that will be run against the database in the next step.
 
 ### Step 2.5
 
