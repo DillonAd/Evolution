@@ -14,7 +14,10 @@ namespace Evolution.Configuration
 
             foreach(var option in content)
             {
-                
+                if(!string.IsNullOrWhiteSpace(option))
+                {
+                    _configOptions.Add(new ConfigurationOption(option));
+                }
             }
         }
     }
