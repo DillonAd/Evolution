@@ -38,7 +38,7 @@ namespace Evolution.Test.Unit.IntegrationTests.Oracle
             foreach (var fileName in fileList)
             {
                 targetEvolution = fileName.Replace(".sql", string.Empty).Replace(_FilePath, string.Empty);
-                arguments = $"{ GetExecArguments(fileName) } { GetConnectionOptionsString() }";
+                arguments = $"{ GetExecArguments(targetEvolution) } { GetConnectionOptionsString() }";
                 _outputHelper.WriteLine(arguments);
                 Assert.Equal(0, Run(arguments));
             }
@@ -64,7 +64,7 @@ namespace Evolution.Test.Unit.IntegrationTests.Oracle
             foreach (var fileName in fileList)
             {
                 targetEvolution = fileName.Replace(".sql", string.Empty).Replace(_FilePath, string.Empty);
-                arguments = $"{ GetExecArguments(fileName) }";
+                arguments = $"{ GetExecArguments(targetEvolution) }";
                 _outputHelper.WriteLine(arguments);
                 Assert.Equal(0, Run(arguments));
             }
