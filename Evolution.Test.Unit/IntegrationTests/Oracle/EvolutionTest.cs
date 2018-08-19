@@ -9,7 +9,7 @@ using Xunit.Abstractions;
 
 namespace Evolution.Test.Unit.IntegrationTests.Oracle
 {
-    public class EvolutionTest : IDisposable
+    public sealed class EvolutionTest : IDisposable
     {
         private const string _FilePath = "./IntegrationTests/TestSql/Oracle/";
 
