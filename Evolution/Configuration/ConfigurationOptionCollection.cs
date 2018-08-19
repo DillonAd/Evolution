@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Evolution.Configuration
 {
@@ -20,5 +21,8 @@ namespace Evolution.Configuration
                 }
             }
         }
+
+        public string GetConfigurationValue(string key) =>
+            _configOptions.FirstOrDefault(co => co.Key == key)?.Value;
     }
 }
