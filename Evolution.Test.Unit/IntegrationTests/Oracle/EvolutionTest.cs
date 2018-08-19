@@ -1,4 +1,5 @@
 ﻿using Evolution.Model;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -43,6 +44,32 @@ namespace Evolution.Test.Unit.IntegrationTests.Oracle
             }
         }
 
+        [Fact]
+        [Trait("Category", "integration")]
+        public void Evolve_Success_With_Config()
+        {
+            WriteConfig(GetConnectionOptionsString());
+
+            var fileList = Directory.GetFiles(_FilePath).OrderBy(file => file);
+            string arguments;
+
+            foreach (var fileName in fileList)
+            {
+                arguments = $"{ GetAddArguments(fileName) }";
+                Assert.Equal(0, Run(arguments));
+            }
+
+            string targetEvolution;
+
+            foreach (var fileName in fileList)
+            {
+                targetEvolution = fileName.Replace(".sql", string.Empty).Replace(_FilePath, string.Empty);
+                arguments = $"{ GetExecArguments(fileName) }";
+                _outputHelper.WriteLine(arguments);
+                Assert.Equal(0, Run(arguments));
+            }
+        }
+
         private int Run(string arguments)
         {
             return Program.Main(arguments.Split(' '));
@@ -71,6 +98,24 @@ namespace Evolution.Test.Unit.IntegrationTests.Oracle
                 ((int)DatabaseTypes.Oracle).ToString());
 
             return connectionParams;
+        }
+
+        private void WriteConfig(string connectionString)
+        {
+            var options = connectionString.Split(" ");
+            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+            string key;
+            string value;
+
+            for(int i = 0; i < options.Length; i++)
+            {
+                key = i <= options.Length ? options[i] : string.Empty;
+                value = i <= options.Length ? options[++i] : string.Empty;
+                dictionary.Add(key, value);
+            }
+
+            var json = JsonConvert.SerializeObject(dictionary);
+            File.WriteAllText(".evo", json);
         }
 
         public void Dispose()
