@@ -11,6 +11,8 @@ namespace Evolution.Configuration
 
         public ConfigurationOptionCollection()
         {
+            _configOptions = new List<ConfigurationOption>();
+            
             var content = File.ReadAllLines($"./{configFileName}");
 
             foreach(var option in content)
