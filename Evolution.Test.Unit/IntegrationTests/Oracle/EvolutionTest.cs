@@ -72,6 +72,9 @@ namespace Evolution.Test.Unit.IntegrationTests.Oracle
 
         private int Run(string arguments)
         {
+            foreach(var arg in arguments.Split(' '))
+                _outputHelper.WriteLine(arg);
+
             return Program.Main(arguments.Split(' '));
         }
 
@@ -89,7 +92,7 @@ namespace Evolution.Test.Unit.IntegrationTests.Oracle
 
         private string GetConnectionOptionsString()
         {
-            var connectionParams = string.Format("--user {0} --pwd {1} --server {2} --instance {3} --port {4} --type {5}",
+            var connectionParams = string.Format("--user {0} --password {1} --server {2} --instance {3} --port {4} --type {5}",
                 TestContext.Parameters["OracleUser"],
                 TestContext.Parameters["OraclePassword"],
                 TestContext.Parameters["OracleServer"],
@@ -103,19 +106,18 @@ namespace Evolution.Test.Unit.IntegrationTests.Oracle
         private void WriteConfig(string connectionString)
         {
             var options = connectionString.Split(" ");
-            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+            var filePath = Path.Combine(Environment.CurrentDirectory, ".evo");
             string key;
             string value;
 
+            File.WriteAllText(filePath, "");
+
             for(int i = 0; i < options.Length; i++)
             {
-                key = i <= options.Length ? options[i] : string.Empty;
+                key = i <= options.Length ? options[i].Replace("--", "") : string.Empty;
                 value = i <= options.Length ? options[++i] : string.Empty;
-                dictionary.Add(key, value);
+                File.AppendAllText(filePath, $"{key}={value}\n");
             }
-
-            var json = JsonConvert.SerializeObject(dictionary);
-            File.WriteAllText(".evo", json);
         }
 
         public void Dispose()
