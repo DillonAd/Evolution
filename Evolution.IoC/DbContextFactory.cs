@@ -9,11 +9,11 @@ namespace Evolution.IoC
     {
         public IEvolutionContext CreateContext(IDatabaseAuthenticationOptions dbAuthOptions)
         {
-            if (dbAuthOptions.DatabaseType == DatabaseTypes.Oracle)
+            if (dbAuthOptions.Type == DatabaseTypes.Oracle)
             {
                 var connectionStringBuilder = new OracleConnectionBuilder()
                 {
-                    UserName = dbAuthOptions.UserName,
+                    UserName = dbAuthOptions.User,
                     Password = dbAuthOptions.Password,
                     Server = dbAuthOptions.Server,
                     Instance = dbAuthOptions.Instance,
