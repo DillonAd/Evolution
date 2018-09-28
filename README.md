@@ -1,5 +1,5 @@
 # Evolution
-![Build Status](https://codejanitor.dynu.net/jenkins/buildStatus/icon?job=Evolution)
+[![Build status](https://dev.azure.com/dillon-adams/GitHub/_apis/build/status/Evolution)](https://dev.azure.com/dillon-adams/GitHub/_build/latest?definitionId=3)
 
 Evolution is a command line tool to move code for database applications.
 
