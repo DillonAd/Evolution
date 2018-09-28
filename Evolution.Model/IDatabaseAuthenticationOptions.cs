@@ -2,11 +2,11 @@
 {
     public interface IDatabaseAuthenticationOptions
     {
-        string UserName { get; set; }
+        string User { get; set; }
         string Password { get; set; }
         string Server { get; set; }
         string Instance { get; set; }
         int Port { get; set; }
-        DatabaseTypes DatabaseType { get; set; }
+        DatabaseTypes Type { get; set; }
     }
 }

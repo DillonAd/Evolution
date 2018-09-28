@@ -21,25 +21,33 @@ namespace Evolution.Data.Oracle
         public void AddEvolution(IEvolution evolution)
         {
             const string insertCommand = @"INSERT INTO EVOLUTION (ID, NAME, FILE_NAME, CONTENT, HASH, CHECKPOINT)
-                                VALUES (@ID, @NAME, @FILE_NAME, @CONTENT, @HASH, @CHECKPOINT)";
+                                VALUES (:ID, :NAME, :FILE_NAME, :CONTENT, :HASH, :CHECKPOINT)";
 
             using (OracleCommand cmd = new OracleCommand(insertCommand, _Connection))
             {
-                cmd.Parameters.Add("@ID", evolution.Id);
-                cmd.Parameters.Add("@NAME", evolution.Name);
-                cmd.Parameters.Add("@FILE_NAME", evolution.FileName);
-                cmd.Parameters.Add("@CONTENT", evolution.Content);
-                cmd.Parameters.Add("@HASH", evolution.Hash);
-                cmd.Parameters.Add("@CHECKPOINT", evolution.CheckPoint);
+                cmd.Parameters.Add("ID", evolution.Id.ToByteArray());
+                cmd.Parameters.Add("NAME", evolution.Name);
+                cmd.Parameters.Add("FILE_NAME", evolution.FileName);
+                cmd.Parameters.Add("CONTENT", evolution.Content);
+                cmd.Parameters.Add("HASH", evolution.Hash);
+                cmd.Parameters.Add("CHECKPOINT", evolution.CheckPoint);
                 cmd.ExecuteNonQuery();
             }
         }
 
         public void ExecuteEvolution(string content)
         {
-            using (OracleCommand cmd = new OracleCommand(content, _Connection))
+            foreach (var command in content.Split(new char[] { '/' }))
             {
-                cmd.ExecuteNonQuery();
+                if (!string.IsNullOrWhiteSpace(command))
+                {
+                    Console.WriteLine($"- {command}");
+                    using (OracleCommand cmd = new OracleCommand(command, _Connection))
+                    {
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                    }
+                }
             }
         }
 
@@ -70,7 +78,7 @@ namespace Evolution.Data.Oracle
             {
                 evolution = new Entity.Evolution()
                 {
-                    Id = Guid.Parse(row["ID"].ToString()),
+                    Id = new Guid((byte[])row["ID"]),
                     Name = row["NAME"].ToString(),
                     FileName = row["FILE_NAME"].ToString(),
                     Content = row["CONTENT"].ToString(),

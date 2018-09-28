@@ -1,57 +1,98 @@
 ﻿using Evolution.Model;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Evolution.Test.Unit.IntegrationTests.Oracle
 {
-    public class EvolutionTest
+    public sealed class EvolutionTest : IDisposable
     {
         private const string _FilePath = "./IntegrationTests/TestSql/Oracle/";
+
+        private readonly ITestOutputHelper _outputHelper;
+
+        public EvolutionTest(ITestOutputHelper outputHelper)
+        {
+            _outputHelper = outputHelper;
+        }
 
         [Fact]
         [Trait("Category", "integration")]
         public void Evolve_Success()
         {
-            var fileList = Directory.GetFiles(_FilePath);
+            var fileList = Directory.GetFiles(_FilePath).OrderBy(file => file);
+            string arguments;
 
             foreach (var fileName in fileList)
             {
-                Assert.Equal(0, Add(fileName));
+                arguments = $"{ GetAddArguments(fileName) } { GetConnectionOptionsString() }";
+                Assert.Equal(0, Run(arguments));
             }
 
             string targetEvolution;
 
             foreach (var fileName in fileList)
             {
-                targetEvolution = fileName.Replace(fileName, ".sql").Replace(_FilePath, string.Empty);
-                Assert.Equal(0, Execute(targetEvolution));
+                targetEvolution = fileName.Replace(".sql", string.Empty).Replace(_FilePath, string.Empty);
+                arguments = $"{ GetExecArguments(targetEvolution) } { GetConnectionOptionsString() }";
+                _outputHelper.WriteLine(arguments);
+                Assert.Equal(0, Run(arguments));
             }
         }
 
-        private int Add(string fileName)
+        [Fact]
+        [Trait("Category", "integration")]
+        public void Evolve_Success_With_Config()
         {
-            var executionString = string.Format("add {0} --target {1} --source {2}",
-                GetConnectionOptionsString(),
-                fileName.Replace(".sql", string.Empty),
-                fileName);
+            WriteConfig(GetConnectionOptionsString());
 
-            return Program.Main(executionString.Split(' '));
+            var fileList = Directory.GetFiles(_FilePath).OrderBy(file => file);
+            string arguments;
+
+            foreach (var fileName in fileList)
+            {
+                arguments = $"{ GetAddArguments(fileName) }";
+                Assert.Equal(0, Run(arguments));
+            }
+
+            string targetEvolution;
+
+            foreach (var fileName in fileList)
+            {
+                targetEvolution = fileName.Replace(".sql", string.Empty).Replace(_FilePath, string.Empty);
+                arguments = $"{ GetExecArguments(targetEvolution) }";
+                _outputHelper.WriteLine(arguments);
+                Assert.Equal(0, Run(arguments));
+            }
         }
 
-        private int Execute(string targetEvolution)
+        private int Run(string arguments)
         {
-            var executionString = string.Format("exec {0} --target {1}",
-                GetConnectionOptionsString(),
-                targetEvolution);
+            foreach(var arg in arguments.Split(' '))
+                _outputHelper.WriteLine(arg);
 
-            return Program.Main(executionString.Split(' '));
+            return Program.Main(arguments.Split(' '));
+        }
+
+        private string GetAddArguments(string fileName)
+        {
+            return string.Format("add --target {0} --source {1}",
+                Path.GetFileName(fileName).Replace(".sql", string.Empty),
+                fileName);
+        }
+
+        private string GetExecArguments(string targetName)
+        {
+            return string.Format("exec --target {0}",targetName);
         }
 
         private string GetConnectionOptionsString()
         {
-            var connectionParams = string.Format("--user {0} --pwd {1} --server {2} --instance {3} --port {4} --type {5}",
+            var connectionParams = string.Format("--user {0} --password {1} --server {2} --instance {3} --port {4} --type {5}",
                 TestContext.Parameters["OracleUser"],
                 TestContext.Parameters["OraclePassword"],
                 TestContext.Parameters["OracleServer"],
@@ -59,9 +100,32 @@ namespace Evolution.Test.Unit.IntegrationTests.Oracle
                 TestContext.Parameters["OraclePort"],
                 ((int)DatabaseTypes.Oracle).ToString());
 
-            Console.WriteLine(connectionParams);
-
             return connectionParams;
+        }
+
+        private void WriteConfig(string connectionString)
+        {
+            var options = connectionString.Split(" ");
+            var filePath = Path.Combine(Environment.CurrentDirectory, ".evo");
+            string key;
+            string value;
+
+            File.WriteAllText(filePath, "");
+
+            for(int i = 0; i < options.Length; i++)
+            {
+                key = i <= options.Length ? options[i].Replace("--", "") : string.Empty;
+                value = i <= options.Length ? options[++i] : string.Empty;
+                File.AppendAllText(filePath, $"{key}={value}\n");
+            }
+        }
+
+        public void Dispose()
+        {
+            foreach(var file in Directory.GetFiles("./", "*.sql", SearchOption.TopDirectoryOnly))
+            {
+                File.Delete(file);
+            }
         }
     }
 
@@ -71,8 +135,8 @@ namespace Evolution.Test.Unit.IntegrationTests.Oracle
         {
             { "OracleUser", "c##appUser" },
             { "OraclePassword", "appPassword" },
-            { "OracleServer", "127.0.0.1" },
-            { "OracleInstance", "ORACLDB.localdomain" },
+            { "OracleServer", "localhost" },
+            { "OracleInstance", "ORCLCDB.localdomain" },
             { "OraclePort", "6666" }
         };
     }
