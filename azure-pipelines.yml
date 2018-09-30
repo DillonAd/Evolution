@@ -1,3 +1,4 @@
+name: $(Build.BuildId)
 resources:
 - repo: self
 queue:
