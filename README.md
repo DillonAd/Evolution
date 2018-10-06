@@ -1,24 +1,29 @@
 # Evolution
+
 [![Build Status](https://dev.azure.com/dillon-adams/GitHub/_apis/build/status/Evolution)](https://dev.azure.com/dillon-adams/GitHub/_build/latest?definitionId=4)
 
 Evolution is a command line tool to move code for database applications.
 
 ## Purpose
+
 Ever have to manage the deployment of an application where all of the logic is in the database? It is not a fun task to manage manually and there aren't many automated solutions that are affordable.
 
 Oracle has _finally_ put out a prerelease version of their .NET Core data access library, so the .NET Core version of this is going forward. The plans are to remove the .NET Framework version after I am sure all of the functionality has been captured.
 
-Once the pilot is done, I definitely want to support Microsoft SQL Server, and look into other database platforms that this kind of tool may be useful. Suggestions are always welcome and encouraged. 
+Once the pilot is done, I definitely want to support Microsoft SQL Server, and look into other database platforms that this kind of tool may be useful. Suggestions are always welcome and encouraged.
 
 ## Developer Setup
 
 ### Required Software
-- Install Docker (https://www.docker.com/)
-- Install .NET Core (https://www.microsoft.com/net/download/)
-- Run ``` runOracle.sh ``` to setup Oracle Docker image
-  - You may need to go to the Docker store to get permissions to pull the image. (Oracle's policy not mine)
+
+- [Install Docker](https://www.docker.com/)
+- [Install .NET Core](https://www.microsoft.com/net/download/)
+- Run `runOracle.sh` to setup Oracle Docker image
+  - You may need to go to the Docker store to get permissions to pull the image. (Oracle's policy, not mine)
+    - [Image](https://store.docker.com/images/oracle-database-enterprise-edition)
 
 ### Building
+
 (From the base directory)
 
 ```bash
@@ -30,6 +35,7 @@ dotnet build
 ### Testing
 
 #### Unit Tests
+
 To run the unit tests, simply running the test command is sufficient.
 
 ```bash
