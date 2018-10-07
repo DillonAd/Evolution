@@ -1,6 +1,6 @@
 # Evolution
 
-[![Build Status](https://dev.azure.com/dillon-adams/GitHub/_apis/build/status/Evolution)](https://dev.azure.com/dillon-adams/GitHub/_build/latest?definitionId=4)
+[![Build Status](https://dev.azure.com/dillon-adams/GitHub/_apis/build/status/Evolution)](https://dev.azure.com/dillon-adams/GitHub/_build/latest?definitionId=4) [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=DillonAd_Evolution&metric=coverage)](https://sonarcloud.io/dashboard?id=DillonAd_Evolution)
 
 Evolution is a command line tool to move code for database applications.
 
