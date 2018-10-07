@@ -21,6 +21,7 @@ Once the pilot is done, I definitely want to support Microsoft SQL Server, and l
 - Run `runOracle.sh` to setup Oracle Docker image
   - You may need to go to the Docker store to get permissions to pull the image. (Oracle's policy, not mine)
     - [Image](https://store.docker.com/images/oracle-database-enterprise-edition)
+    - Developers will need to create a Docker account to log in to the Docker store.
 
 ### Building
 
@@ -47,6 +48,8 @@ dotnet test --filter Category=unit
 #### Integration Tests
 
 To run the integration tests, you need to have started the Oracle Docker image and created the user for the tests to use.
+
+To start the Docker image and create the necessary assets, the statements in the `/Setup/runOracle.sh` file will need to be run. The Oracle image takes time to set up, so make sure that the image is fully ready before running the tests. (The health check that reports back to the `docker ps` command sometimes lies. It's best to wait for a couple minutes after seeing the container report as _healthy_ before proceeding)
 
 ```bash
 
