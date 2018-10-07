@@ -69,5 +69,32 @@ namespace Evolution.Test.Unit
         {
             Assert.Throws<EvolutionFileException>(() => new Model.Evolution(fileName));
         }
+
+        [Theory]
+        [Trait("Category", "unit")]
+        [InlineData("a")]
+        public void Evolution_WhenCreatedArgumentPresent_ThenCreatedSet(string fileName)
+        {
+            // Arrange
+            var date = new DateTime(2018, 10, 7);
+
+            // Act
+            var evolution = new Model.Evolution(fileName, date);
+
+            // Assert
+            Assert.Equal(date, evolution.Created);
+        }
+
+        [Theory]
+        [Trait("Category", "unit")]
+        [InlineData("a")]
+        public void Evolution_WhenCreatedArgumentNotPresent_ThenCreatedReturnsDefault(string fileName)
+        {
+            // Act
+            var evolution = new Model.Evolution("date_" + fileName);
+
+            // Assert
+            Assert.Equal(DateTime.MinValue, evolution.Created);
+        }
     }
 }
