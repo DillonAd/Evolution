@@ -40,9 +40,13 @@ steps:
 
 - task: SonarSource.sonarcloud.ce096e50-6155-4de8-8800-4221aaeed4a1.SonarCloudAnalyze@1
   displayName: 'Run Code Analysis'
+  # This will fail on PR builds https://go.microsoft.com/fwlink/?linkid=862029
+  continueOnError: true
 
 - task: SonarSource.sonarcloud.38b27399-a642-40af-bb7d-9971f69712e8.SonarCloudPublish@1
   displayName: 'Publish Quality Gate Result'
+  # This will fail on PR builds https://go.microsoft.com/fwlink/?linkid=862029
+  continueOnError: true
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: source'
