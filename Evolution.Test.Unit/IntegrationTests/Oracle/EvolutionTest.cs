@@ -22,7 +22,6 @@ namespace Evolution.Test.Unit.IntegrationTests.Oracle
 
         [Fact]
         [Trait("Category", "integration")]
-        [Trait("Provider", "Oracle")]
         public void Evolve_Success()
         {
             var fileList = Directory.GetFiles(_FilePath).OrderBy(file => file);
@@ -47,7 +46,6 @@ namespace Evolution.Test.Unit.IntegrationTests.Oracle
 
         [Fact]
         [Trait("Category", "integration")]
-        [Trait("Provider", "Oracle")]
         public void Evolve_Success_With_Config()
         {
             WriteConfig(GetConnectionOptionsString());
