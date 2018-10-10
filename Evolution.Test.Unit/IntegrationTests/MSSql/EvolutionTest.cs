@@ -22,6 +22,7 @@ namespace Evolution.Test.Unit.IntegrationTests.SqlClient
 
         [Fact]
         [Trait("Category", "integration")]
+        [Trait("Provider", "MSSql")]
         public void Evolve_Success()
         {
             var fileList = Directory.GetFiles(_FilePath).OrderBy(file => file);
@@ -46,6 +47,7 @@ namespace Evolution.Test.Unit.IntegrationTests.SqlClient
 
         [Fact]
         [Trait("Category", "integration")]
+        [Trait("Provider", "MSSql")]
         public void Evolve_Success_With_Config()
         {
             WriteConfig(GetConnectionOptionsString());

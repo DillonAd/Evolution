@@ -18,19 +18,27 @@ Once the pilot is done, I definitely want to support Microsoft SQL Server, and l
 
 - [Install Docker](https://www.docker.com/)
 - [Install .NET Core](https://www.microsoft.com/net/download/)
+
+For Oracle:
+
 - Run `runOracle.sh` to setup Oracle Docker image
   - You may need to go to the Docker store to get permissions to pull the image. (Oracle's policy, not mine)
     - [Image](https://store.docker.com/images/oracle-database-enterprise-edition)
     - Developers will need to create a Docker account to log in to the Docker store.
+
+For MSSql:
+
+- Change `<YourStrong!Passw0rd>` in `runMSSql.sh` to a valid value (Specify your own strong password that is at least 8 characters and meets the [SQL Server password requirements](https://docs.microsoft.com/en-us/sql/relational-databases/security/password-policy?view=sql-server-2017).)
+- Run `runMSSql.sh` to setup MSSql Docker image
+  - [Image](https://store.docker.com/images/oracle-database-enterprise-edition)
+  - Developers will need to create a Docker account to log in to the Docker store.
 
 ### Building
 
 (From the base directory)
 
 ```bash
-
 dotnet build
-
 ```
 
 ### Testing
@@ -40,22 +48,32 @@ dotnet build
 To run the unit tests, simply running the test command is sufficient.
 
 ```bash
-
 dotnet test --filter Category=unit
-
 ```
 
 #### Integration Tests
+
+For Oracle:
 
 To run the integration tests, you need to have started the Oracle Docker image and created the user for the tests to use.
 
 To start the Docker image and create the necessary assets, the statements in the `/Setup/runOracle.sh` file will need to be run. The Oracle image takes time to set up, so make sure that the image is fully ready before running the tests. (The health check that reports back to the `docker ps` command sometimes lies. It's best to wait for a couple minutes after seeing the container report as _healthy_ before proceeding)
 
 ```bash
-
-dotnet test --filter Category=integration
-
+dotnet test --filter Category=integration & Provider=Oracle
 ```
+
+For MSSql:
+
+To run the integration tests, you need to have started the MSSql Docker image and created the user for the tests to use.
+
+To start the Docker image and create the necessary assets, the statements in the `/Setup/runMSSql.sh` file will need to be run. The MSSql image takes time to set up, so make sure that the image is fully ready before running the tests. (The health check that reports back to the `docker ps` command sometimes lies. It's best to wait for a couple minutes after seeing the container report as _healthy_ before proceeding)
+
+```bash
+dotnet test --filter Category=integration & Provider=MSSql
+```
+
+Note: Capitalization is important here.
 
 ## Deployment
 
@@ -72,25 +90,21 @@ Write the code! (Possibly the most important part)
 Create the Evolution file
 
 ```bash
-
 evo add <filename> <evolutionName>
-
 ```
 
-This will create an evolution (*.evo.sql) file with the contents the targeted file, but the name of the purpose of the evolution. These evolution files will be the scripts that will be run against the database in the next step.
+This will create an evolution (\*.evo.sql) file with the contents the targeted file, but the name of the purpose of the evolution. These evolution files will be the scripts that will be run against the database in the next step.
 
 ### Step 2.5
 
-This step is technically optional, but it is highly encouraged for everyone to check the Evolution file(s) into source control. This tool is meant for CI\CD, and the whole premise is predicated on building from source control. Use Git, Team Foundate Version Control, Subversion, or Starteam for all I care.  I'm sure there can be use cases outside of CI\CD, but either way (as I'm sure you already know) version control your code base.
+This step is technically optional, but it is highly encouraged for everyone to check the Evolution file(s) into source control. This tool is meant for CI\CD, and the whole premise is predicated on building from source control. Use Git, Team Foundate Version Control, Subversion, or Starteam for all I care. I'm sure there can be use cases outside of CI\CD, but either way (as I'm sure you already know) version control your code base.
 
 ### Step 3
 
 Run the Evolution files!
 
 ```bash
-
 evo exec <evolutionFile>
-
 ```
 
-The ```<evolutionFile>``` parameter is optional. If that parameter is provided, the program will run all Evolution files that have not been executed before the one specificed. Otherwise, all unexecuted Evolution files will be run.
+The `<evolutionFile>` parameter is optional. If that parameter is provided, the program will run all Evolution files that have not been executed before the one specificed. Otherwise, all unexecuted Evolution files will be run.
