@@ -25,6 +25,7 @@ namespace Evolution.Options
 
         private const string DB_HELP_TEXT = "Type of database.\n" +
             "  Valid Options:\n" +
-            "    1 - Oracle";
+            "    1 - Oracle\n" +
+            "    2 - MSSql";
     }
 }
