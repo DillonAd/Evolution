@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Evolution.Data.Oracle\Evolution.Data.Oracle.csproj" />
+    <ProjectReference Include="..\Evolution.Data.SqlClient\Evolution.Data.SqlClient.csproj" />
     <ProjectReference Include="..\Evolution.Data\Evolution.Data.csproj" />
     <ProjectReference Include="..\Evolution.Logic\Evolution.Logic.csproj" />
     <ProjectReference Include="..\Evolution.Model\Evolution.Model.csproj" />

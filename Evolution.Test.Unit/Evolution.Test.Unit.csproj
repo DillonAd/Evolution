@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
     <!--<TargetFramework>net471</TargetFramework>-->
 
     <IsPackable>false</IsPackable>
@@ -33,6 +33,36 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="IntegrationTests\TestSql\MSSql\001_CreateSchema.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="IntegrationTests\TestSql\MSSql\002_CreateTable.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="IntegrationTests\TestSql\MSSql\003_CreateIndex.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="IntegrationTests\TestSql\MSSql\004_CreateFunction.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="IntegrationTests\TestSql\MSSql\005_CreateProcedure.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="IntegrationTests\TestSql\MSSql\006_CreatePackage.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="IntegrationTests\TestSql\MSSql\007_CreateTrigger.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="IntegrationTests\TestSql\MSSql\008_AlterTable.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="IntegrationTests\TestSql\MSSql\009_InsertData.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="IntegrationTests\TestSql\MSSql\010_UpdateData.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="IntegrationTests\TestSql\Oracle\001_CreateSchema.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
