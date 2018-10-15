@@ -13,6 +13,7 @@ namespace Evolution.Test.Unit
         [Trait("Category", "unit")]
         public void GetExecutedEvolutions()
         {
+            //Arrange
             var evolutions = new List<IEvolution>()
             {
                 new Data.Entity.Evolution() { Name = "Evolution1" },
@@ -24,9 +25,12 @@ namespace Evolution.Test.Unit
                 .AddGetEvolutionBehavior(evolutions)
                 .Context;
 
+            
+            //Act
             var repo = new EvolutionRepo(context);
             var executedEvolutions = repo.GetExecutedEvolutionFileNames();
 
+            //Assert
             Assert.Equal(evolutions.Count, executedEvolutions.Length);
         }
 
@@ -54,6 +58,7 @@ namespace Evolution.Test.Unit
         [Trait("Category", "unit")]
         public void ExecuteEvolution_Success()
         {
+            //Arrange
             var success = false;
             const string evolutionContent = "select sysdate from dual;";
 
@@ -61,6 +66,7 @@ namespace Evolution.Test.Unit
                 .AddGetEvolutionBehavior(new List<IEvolution>())
                 .Context;
 
+             //Act
             var repo = new EvolutionRepo(context);
 
             try
@@ -72,7 +78,7 @@ namespace Evolution.Test.Unit
             {
                 success = false;
             }
-
+            //Assert
             Assert.True(success);
         }
     }
