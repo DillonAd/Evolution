@@ -41,7 +41,7 @@ To run the unit tests, simply running the test command is sufficient.
 
 ```bash
 
-dotnet test --filter Category=unit
+dotnet test --filter "Category=unit"
 
 ```
 
@@ -53,7 +53,7 @@ To start the Docker image and create the necessary assets, the statements in the
 
 ```bash
 
-dotnet test --filter Category=integration
+dotnet test --filter "Category=integration"
 
 ```
 
