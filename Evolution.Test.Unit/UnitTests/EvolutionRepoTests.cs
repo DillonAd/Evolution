@@ -25,7 +25,6 @@ namespace Evolution.Test.Unit
                 .AddGetEvolutionBehavior(evolutions)
                 .Context;
 
-            
             //Act
             var repo = new EvolutionRepo(context);
             var executedEvolutions = repo.GetExecutedEvolutionFileNames();
@@ -78,6 +77,7 @@ namespace Evolution.Test.Unit
             {
                 success = false;
             }
+
             //Assert
             Assert.True(success);
         }
