@@ -14,13 +14,17 @@ namespace Evolution.Configuration
         {
             _configOptions = new List<ConfigurationOption>();
             var filePath = Path.Combine(Directory.GetCurrentDirectory(), configFileName);
-            var content = File.ReadAllLines($"{filePath}");
-            
-            foreach(var option in content)
+
+            if (File.Exists(filePath))
             {
-                if(!string.IsNullOrWhiteSpace(option))
+                var content = File.ReadAllLines($"{filePath}");
+
+                foreach (var option in content)
                 {
-                    _configOptions.Add(new ConfigurationOption(option));
+                    if (!string.IsNullOrWhiteSpace(option))
+                    {
+                        _configOptions.Add(new ConfigurationOption(option));
+                    }
                 }
             }
         }
