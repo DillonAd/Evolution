@@ -13,7 +13,7 @@
     <PackageLicenseUrl>https://github.com/DillonAd/Evolution/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/DillonAd/Evolution</RepositoryUrl>
     <PackageTags>database migration devops</PackageTags>
-    <PackageIconUrl>https://github.com/DillonAd/Evolution/blob/master/nuget.png</PackageIconUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/DillonAd/Evolution/master/nuget.png</PackageIconUrl>
     <AssemblyVersion>1.0.0.0</AssemblyVersion> 
   </PropertyGroup>
 
