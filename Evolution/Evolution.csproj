@@ -6,7 +6,15 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <AssemblyName>evo</AssemblyName>
-    <LangVersion>7.3</LangVersion> 
+    <LangVersion>7.3</LangVersion>
+    <Authors>Dillon Adams</Authors>
+    <Product>Evolution</Product>
+    <PackageProjectUrl>https://github.com/DillonAd/Evolution</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/DillonAd/Evolution/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/DillonAd/Evolution</RepositoryUrl>
+    <PackageTags>database migration devops</PackageTags>
+    <PackageIconUrl>https://github.com/DillonAd/Evolution/blob/master/nuget.png</PackageIconUrl>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion> 
   </PropertyGroup>
 
   <ItemGroup>
