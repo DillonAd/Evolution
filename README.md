@@ -1,5 +1,5 @@
 ![img](https://raw.githubusercontent.com/DillonAd/Evolution/master/logo114H.png)
-_Logo Artwork By @richardbmx_
+_Logo Artwork By [@richardbmx](https://github.com/richardbmx)_
 
 # Evolution
 
