@@ -1,4 +1,5 @@
-![img](https://raw.githubusercontent.com/richardbmx/Evolution/master/logo114H.png)
+![img](https://raw.githubusercontent.com/DillonAd/Evolution/master/logo114H.png)
+_Logo Artwork By @richardbmx_
 
 # Evolution
 
