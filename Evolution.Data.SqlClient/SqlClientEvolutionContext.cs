@@ -20,7 +20,7 @@ namespace Evolution.Data.SqlClient
 
         public void AddEvolution(IEvolution evolution) 
         {
-            const string insertCommand = @"INSERT INTO EVOLUTION (ID, NAME, FILE_NAME, CONTENT, HASH, CHECKPOINT)
+            const string insertCommand = @"INSERT INTO EVOLUTION (ID, NAME, FILE_NAME, CONTENT, HASH, [CHECKPOINT])
                                 VALUES (:ID, :NAME, :FILE_NAME, :CONTENT, :HASH, :CHECKPOINT)";
 
             using (SqlCommand cmd = new SqlCommand(insertCommand, _Connection)) 
@@ -58,7 +58,7 @@ namespace Evolution.Data.SqlClient
                                                    CREATED_DATE, 
                                                    CONTENT, 
                                                    HASH, 
-                                                   CHECKPOINT 
+                                                   [CHECKPOINT] 
                                             FROM EVOLUTION";
 
             var results = new DataTable();
@@ -106,20 +106,20 @@ namespace Evolution.Data.SqlClient
         {
             const string createCommand = @"CREATE TABLE EVOLUTION
                                 (
-                                    ID              VARBINARY(16),
+                                    ID              UNIQUEIDENTIFIER,
                                     NAME            VARCHAR(100),
                                     FILE_NAME       VARCHAR(100),
-                                    CREATED_DATE    DATE,
+                                    CREATED_DATE    DATETIME,
                                     CONTENT         VARCHAR(MAX),
                                     HASH            VARBINARY(16),
-                                    CHECKPOINT      TINYINT,
+                                    [CHECKPOINT]    BIT,
 
-                                    CONSTRAINT EVOLUTION_PK PRIMARY KEY (ID)
+                                    PRIMARY KEY (ID)
                                 )";
 
             const string checkTableQuery = @"SELECT COUNT(*) AS CNT
-                                            FROM DBA_TABLES
-                                            WHERE TABLE_NAME = 'EVOLUTION'";
+                                            FROM SYS.TABLES
+                                            WHERE NAME = 'EVOLUTION'";
 
             using (var cmd = new SqlCommand(checkTableQuery, _Connection)) 
             {
