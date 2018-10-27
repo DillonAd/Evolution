@@ -30,9 +30,29 @@ namespace Evolution.Data.SqlClient
             }
         }
 
-        public string Instance { get; set; }
+        public string Instance
+        {
+            get
+            {
+                return _Builder.InitialCatalog;
+            }
+            set
+            {
+                _Builder.InitialCatalog = value;
+            }
+        }
 
-        public string Server { get; set; }
+        public string Server
+        {
+            get
+            {
+                return _Builder.DataSource;
+            }
+            set
+            {
+                _Builder.DataSource = value;
+            }
+        }
 
         public int Port { get; set; }
 
@@ -45,10 +65,6 @@ namespace Evolution.Data.SqlClient
             _Builder = new SqlConnectionStringBuilder();
         }
 
-        public string CreateConnectionString() 
-        {
-            _Builder.DataSource = $"Server={Server};Database={Instance};User Id={UserName};Password={Password};";
-            return _Builder.ToString();
-        }
+        public string CreateConnectionString() => _Builder.ToString();
     }
 }

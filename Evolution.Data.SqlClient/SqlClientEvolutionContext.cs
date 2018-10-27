@@ -12,45 +12,45 @@ namespace Evolution.Data.SqlClient
 
         public SqlClientEvolutionContext (string connectionString) 
         {
-            _Connection = new SqlConnection (connectionString);
-            _Connection.Open ();
+            _Connection = new SqlConnection(connectionString);
+            _Connection.Open();
 
-            CreateEvolutionTable ();
+            CreateEvolutionTable();
         }
 
-        public void AddEvolution (IEvolution evolution) 
+        public void AddEvolution(IEvolution evolution) 
         {
             const string insertCommand = @"INSERT INTO EVOLUTION (ID, NAME, FILE_NAME, CONTENT, HASH, CHECKPOINT)
                                 VALUES (:ID, :NAME, :FILE_NAME, :CONTENT, :HASH, :CHECKPOINT)";
 
-            using (SqlCommand cmd = new SqlCommand (insertCommand, _Connection)) 
+            using (SqlCommand cmd = new SqlCommand(insertCommand, _Connection)) 
             {
-                cmd.Parameters.Add ("ID", SqlDbType.VarBinary, 16).Value = evolution.Id.ToByteArray ();
+                cmd.Parameters.Add ("ID", SqlDbType.VarBinary, 16).Value = evolution.Id.ToByteArray();
                 cmd.Parameters.Add ("NAME", SqlDbType.VarChar, 100).Value = evolution.Name;
                 cmd.Parameters.Add ("FILE_NAME", SqlDbType.VarChar, 100).Value = evolution.FileName;
                 cmd.Parameters.Add ("CONTENT", SqlDbType.VarChar, -1).Value = evolution.Content;
                 cmd.Parameters.Add ("HASH", SqlDbType.VarBinary, 16).Value = evolution.Hash;
                 cmd.Parameters.Add ("CHECKPOINT", SqlDbType.TinyInt).Value = evolution.CheckPoint;
-                cmd.ExecuteNonQuery ();
+                cmd.ExecuteNonQuery();
             }
         }
 
-        public void ExecuteEvolution (string content) 
+        public void ExecuteEvolution(string content) 
         {
-            foreach (var command in content.Split (new char[] { '/' })) 
+            foreach (var command in content.Split(new char[] { '/' })) 
             {
-                if (!string.IsNullOrWhiteSpace (command)) {
+                if (!string.IsNullOrWhiteSpace(command)) {
                     Console.WriteLine ($"- {command}");
-                    using (SqlCommand cmd = new SqlCommand (command, _Connection)) 
+                    using (SqlCommand cmd = new SqlCommand(command, _Connection)) 
                     {
                         cmd.CommandType = CommandType.Text;
-                        cmd.ExecuteNonQuery ();
+                        cmd.ExecuteNonQuery();
                     }
                 }
             }
         }
 
-        public List<IEvolution> GetEvolutions () 
+        public List<IEvolution> GetEvolutions() 
         {
             const string evolutionQuery = @"SELECT ID, 
                                                    NAME, 
@@ -61,13 +61,13 @@ namespace Evolution.Data.SqlClient
                                                    CHECKPOINT 
                                             FROM EVOLUTION";
 
-            var results = new DataTable ();
-            List<IEvolution> evolutions = new List<IEvolution> ();
+            var results = new DataTable();
+            List<IEvolution> evolutions = new List<IEvolution>();
             IEvolution evolution;
 
-            using (SqlCommand cmd = new SqlCommand (evolutionQuery, _Connection)) 
+            using (SqlCommand cmd = new SqlCommand(evolutionQuery, _Connection)) 
             {
-                using (SqlDataReader r = cmd.ExecuteReader ()) 
+                using (SqlDataReader r = cmd.ExecuteReader()) 
                 {
                     results.Load (r);
                 }
@@ -75,15 +75,15 @@ namespace Evolution.Data.SqlClient
 
             foreach (DataRow row in results.Rows) 
             {
-                evolution = new Entity.Evolution () 
+                evolution = new Entity.Evolution() 
                 {
-                    Id = new Guid ((byte[]) row["ID"]),
-                    Name = row["NAME"].ToString (),
-                    FileName = row["FILE_NAME"].ToString (),
-                    Content = row["CONTENT"].ToString (),
+                    Id = new Guid((byte[]) row["ID"]),
+                    Name = row["NAME"].ToString(),
+                    FileName = row["FILE_NAME"].ToString(),
+                    Content = row["CONTENT"].ToString(),
                     //TODO Implement hash
                     //Hash = row["HASH"], Convert.to
-                    CheckPoint = int.Parse (row["CHECKPOINT"].ToString ())
+                    CheckPoint = int.Parse (row["CHECKPOINT"].ToString())
                 };
 
                 evolutions.Add(evolution);
@@ -92,17 +92,17 @@ namespace Evolution.Data.SqlClient
             return evolutions;
         }
 
-        public void Dispose () 
+        public void Dispose() 
         {
             if (_Connection.State == ConnectionState.Open) 
             {
-                _Connection.Close ();
+                _Connection.Close();
             }
 
-            _Connection.Dispose ();
+            _Connection.Dispose();
         }
 
-        private void CreateEvolutionTable () 
+        private void CreateEvolutionTable() 
         {
             const string createCommand = @"CREATE TABLE EVOLUTION
                                 (
@@ -121,23 +121,23 @@ namespace Evolution.Data.SqlClient
                                             FROM DBA_TABLES
                                             WHERE TABLE_NAME = 'EVOLUTION'";
 
-            using (var cmd = new SqlCommand (checkTableQuery, _Connection)) 
+            using (var cmd = new SqlCommand(checkTableQuery, _Connection)) 
             {
-                using (var r = cmd.ExecuteReader ()) 
+                using (var r = cmd.ExecuteReader()) 
                 {
-                    var result = new DataTable ();
+                    var result = new DataTable();
                     result.Load (r);
 
-                    if (Convert.ToInt32 (result.Rows[0]["CNT"]) > 0) 
+                    if (Convert.ToInt32(result.Rows[0]["CNT"]) > 0) 
                     {
                         return;
                     }
                 }
             }
 
-            using (var cmd = new SqlCommand (createCommand, _Connection)) 
+            using (var cmd = new SqlCommand(createCommand, _Connection)) 
             {
-                cmd.ExecuteNonQuery ();
+                cmd.ExecuteNonQuery();
             }
         }
     }
