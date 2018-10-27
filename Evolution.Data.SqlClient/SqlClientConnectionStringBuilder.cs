@@ -1,23 +1,31 @@
 ﻿using System.Data.SqlClient;
 
-namespace Evolution.Data.SqlClient {
-    public class SqlClientConnectionBuilder : IConnectionStringBuilder {
+namespace Evolution.Data.SqlClient 
+{
+    public class SqlClientConnectionBuilder : IConnectionStringBuilder 
+    {
         #region Properties
 
-        public string UserName {
-            get {
+        public string UserName 
+        {
+            get 
+            {
                 return _Builder.UserID;
             }
-            set {
+            set 
+            {
                 _Builder.UserID = value;
             }
         }
 
-        public string Password {
-            get {
+        public string Password 
+        {
+            get 
+            {
                 return _Builder.Password;
             }
-            set {
+            set 
+            {
                 _Builder.Password = value;
             }
         }
@@ -32,13 +40,15 @@ namespace Evolution.Data.SqlClient {
 
         private readonly SqlConnectionStringBuilder _Builder;
 
-        public SqlClientConnectionBuilder () {
-            _Builder = new SqlConnectionStringBuilder ();
+        public SqlClientConnectionBuilder() 
+        {
+            _Builder = new SqlConnectionStringBuilder();
         }
 
-        public string CreateConnectionString () {
-            _Builder.DataSource = $"Server={Server};Database={Instance};User Id={UserName};Password = {Password}; ";
-            return _Builder.ToString ();
+        public string CreateConnectionString() 
+        {
+            _Builder.DataSource = $"Server={Server};Database={Instance};User Id={UserName};Password={Password};";
+            return _Builder.ToString();
         }
     }
 }
