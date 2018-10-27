@@ -134,10 +134,10 @@ namespace Evolution.Test.Unit.IntegrationTests.SqlClient
     {
         public static Dictionary<string, string> Parameters { get; } = new Dictionary<string, string>()
         {
-            { "MSSqlUser", "c##appUser" },
-            { "MSSqlPassword", "appPassword" },
+            { "MSSqlUser", "appUser" },
+            { "MSSqlPassword", "appPassword1" },
             { "MSSqlServer", "localhost" },
-            { "MSSqlInstance", "MSSQLSERVER" },
+            { "MSSqlInstance", "evolutionDB" },
             { "MSSqlPort", "1433" }
         };
     }
