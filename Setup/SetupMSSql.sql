@@ -8,3 +8,5 @@ USE evolutionDB;
 GO
 CREATE USER appUser FOR LOGIN appUser;
 GO
+EXEC sp_addrolemember 'db_owner', 'appUser'
+go
