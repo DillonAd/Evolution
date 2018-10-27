@@ -4,22 +4,27 @@ using System.Data;
 using System.Data.SqlClient;
 using Evolution.Data.Entity;
 
-namespace Evolution.Data.SqlClient {
-    public sealed class SqlClientEvolutionContext : IEvolutionContext {
+namespace Evolution.Data.SqlClient 
+{
+    public sealed class SqlClientEvolutionContext : IEvolutionContext 
+    {
         private readonly SqlConnection _Connection;
 
-        public SqlClientEvolutionContext (string connectionString) {
+        public SqlClientEvolutionContext (string connectionString) 
+        {
             _Connection = new SqlConnection (connectionString);
             _Connection.Open ();
 
             CreateEvolutionTable ();
         }
 
-        public void AddEvolution (IEvolution evolution) {
+        public void AddEvolution (IEvolution evolution) 
+        {
             const string insertCommand = @"INSERT INTO EVOLUTION (ID, NAME, FILE_NAME, CONTENT, HASH, CHECKPOINT)
                                 VALUES (:ID, :NAME, :FILE_NAME, :CONTENT, :HASH, :CHECKPOINT)";
 
-            using (SqlCommand cmd = new SqlCommand (insertCommand, _Connection)) {
+            using (SqlCommand cmd = new SqlCommand (insertCommand, _Connection)) 
+            {
                 cmd.Parameters.Add ("ID", SqlDbType.VarBinary, 16).Value = evolution.Id.ToByteArray ();
                 cmd.Parameters.Add ("NAME", SqlDbType.VarChar, 100).Value = evolution.Name;
                 cmd.Parameters.Add ("FILE_NAME", SqlDbType.VarChar, 100).Value = evolution.FileName;
@@ -30,11 +35,14 @@ namespace Evolution.Data.SqlClient {
             }
         }
 
-        public void ExecuteEvolution (string content) {
-            foreach (var command in content.Split (new char[] { '/' })) {
+        public void ExecuteEvolution (string content) 
+        {
+            foreach (var command in content.Split (new char[] { '/' })) 
+            {
                 if (!string.IsNullOrWhiteSpace (command)) {
                     Console.WriteLine ($"- {command}");
-                    using (SqlCommand cmd = new SqlCommand (command, _Connection)) {
+                    using (SqlCommand cmd = new SqlCommand (command, _Connection)) 
+                    {
                         cmd.CommandType = CommandType.Text;
                         cmd.ExecuteNonQuery ();
                     }
@@ -42,7 +50,8 @@ namespace Evolution.Data.SqlClient {
             }
         }
 
-        public List<IEvolution> GetEvolutions () {
+        public List<IEvolution> GetEvolutions () 
+        {
             const string evolutionQuery = @"SELECT ID, 
                                                    NAME, 
                                                    FILE_NAME, 
@@ -56,14 +65,18 @@ namespace Evolution.Data.SqlClient {
             List<IEvolution> evolutions = new List<IEvolution> ();
             IEvolution evolution;
 
-            using (SqlCommand cmd = new SqlCommand (evolutionQuery, _Connection)) {
-                using (SqlDataReader r = cmd.ExecuteReader ()) {
+            using (SqlCommand cmd = new SqlCommand (evolutionQuery, _Connection)) 
+            {
+                using (SqlDataReader r = cmd.ExecuteReader ()) 
+                {
                     results.Load (r);
                 }
             }
 
-            foreach (DataRow row in results.Rows) {
-                evolution = new Entity.Evolution () {
+            foreach (DataRow row in results.Rows) 
+            {
+                evolution = new Entity.Evolution () 
+                {
                     Id = new Guid ((byte[]) row["ID"]),
                     Name = row["NAME"].ToString (),
                     FileName = row["FILE_NAME"].ToString (),
@@ -73,21 +86,24 @@ namespace Evolution.Data.SqlClient {
                     CheckPoint = int.Parse (row["CHECKPOINT"].ToString ())
                 };
 
-                evolutions.Add (evolution);
+                evolutions.Add(evolution);
             }
 
             return evolutions;
         }
 
-        public void Dispose () {
-            if (_Connection.State == ConnectionState.Open) {
+        public void Dispose () 
+        {
+            if (_Connection.State == ConnectionState.Open) 
+            {
                 _Connection.Close ();
             }
 
             _Connection.Dispose ();
         }
 
-        private void CreateEvolutionTable () {
+        private void CreateEvolutionTable () 
+        {
             const string createCommand = @"CREATE TABLE EVOLUTION
                                 (
                                     ID              VARBINARY(16),
@@ -105,18 +121,22 @@ namespace Evolution.Data.SqlClient {
                                             FROM DBA_TABLES
                                             WHERE TABLE_NAME = 'EVOLUTION'";
 
-            using (var cmd = new SqlCommand (checkTableQuery, _Connection)) {
-                using (var r = cmd.ExecuteReader ()) {
+            using (var cmd = new SqlCommand (checkTableQuery, _Connection)) 
+            {
+                using (var r = cmd.ExecuteReader ()) 
+                {
                     var result = new DataTable ();
                     result.Load (r);
 
-                    if (Convert.ToInt32 (result.Rows[0]["CNT"]) > 0) {
+                    if (Convert.ToInt32 (result.Rows[0]["CNT"]) > 0) 
+                    {
                         return;
                     }
                 }
             }
 
-            using (var cmd = new SqlCommand (createCommand, _Connection)) {
+            using (var cmd = new SqlCommand (createCommand, _Connection)) 
+            {
                 cmd.ExecuteNonQuery ();
             }
         }
