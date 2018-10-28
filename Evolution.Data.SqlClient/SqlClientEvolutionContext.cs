@@ -21,15 +21,16 @@ namespace Evolution.Data.SqlClient
         public void AddEvolution(IEvolution evolution) 
         {
             const string insertCommand = @"INSERT INTO EVOLUTION (ID, NAME, FILE_NAME, CONTENT, HASH, [CHECKPOINT])
-                                VALUES (:ID, :NAME, :FILE_NAME, :CONTENT, :HASH, :CHECKPOINT)";
+                                VALUES (@ID, @NAME, @FILE_NAME, @CONTENT, @HASH, @CHECKPOINT)";
 
             using (SqlCommand cmd = new SqlCommand(insertCommand, _Connection)) 
             {
-                cmd.Parameters.Add ("ID", SqlDbType.VarBinary, 16).Value = evolution.Id.ToByteArray();
+                cmd.Parameters.Add ("ID", SqlDbType.UniqueIdentifier).Value = evolution.Id;
                 cmd.Parameters.Add ("NAME", SqlDbType.VarChar, 100).Value = evolution.Name;
                 cmd.Parameters.Add ("FILE_NAME", SqlDbType.VarChar, 100).Value = evolution.FileName;
                 cmd.Parameters.Add ("CONTENT", SqlDbType.VarChar, -1).Value = evolution.Content;
-                cmd.Parameters.Add ("HASH", SqlDbType.VarBinary, 16).Value = evolution.Hash;
+                //TODO Implement or discard Hash
+                cmd.Parameters.Add ("HASH", SqlDbType.VarBinary, 16).Value = new byte[0];
                 cmd.Parameters.Add ("CHECKPOINT", SqlDbType.TinyInt).Value = evolution.CheckPoint;
                 cmd.ExecuteNonQuery();
             }
@@ -37,15 +38,14 @@ namespace Evolution.Data.SqlClient
 
         public void ExecuteEvolution(string content) 
         {
-            foreach (var command in content.Split(new char[] { '/' })) 
+            foreach (var command in content.Split(new string[] { "GO" }, StringSplitOptions.RemoveEmptyEntries)) 
             {
-                if (!string.IsNullOrWhiteSpace(command)) {
-                    Console.WriteLine ($"- {command}");
-                    using (SqlCommand cmd = new SqlCommand(command, _Connection)) 
-                    {
-                        cmd.CommandType = CommandType.Text;
-                        cmd.ExecuteNonQuery();
-                    }
+                Console.WriteLine ($"- {command}");
+                
+                using (SqlCommand cmd = new SqlCommand(command, _Connection)) 
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
@@ -77,14 +77,20 @@ namespace Evolution.Data.SqlClient
             {
                 evolution = new Entity.Evolution() 
                 {
-                    Id = new Guid((byte[]) row["ID"]),
+                    Id = (Guid)row["ID"],
                     Name = row["NAME"].ToString(),
                     FileName = row["FILE_NAME"].ToString(),
                     Content = row["CONTENT"].ToString(),
                     //TODO Implement hash
                     //Hash = row["HASH"], Convert.to
-                    CheckPoint = int.Parse (row["CHECKPOINT"].ToString())
                 };
+
+                if(!int.TryParse(row["CHECKPOINT"].ToString(), out var checkpoint))
+                {
+                    checkpoint = 0;
+                }
+
+                evolution.CheckPoint = checkpoint;
 
                 evolutions.Add(evolution);
             }
