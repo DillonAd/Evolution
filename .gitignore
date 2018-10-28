@@ -291,3 +291,5 @@ __pycache__/
 
 # Ignore files created during testing
 *.evo.sql
+
+.vscode
