@@ -30,8 +30,7 @@ For MSSql:
 
 - Change `<YourStrong!Passw0rd>` in `runMSSql.sh` to a valid value (Specify your own strong password that is at least 8 characters and meets the [SQL Server password requirements](https://docs.microsoft.com/en-us/sql/relational-databases/security/password-policy?view=sql-server-2017).)
 - Run `runMSSql.sh` to setup MSSql Docker image
-  - [Image](https://store.docker.com/images/oracle-database-enterprise-edition)
-  - Developers will need to create a Docker account to log in to the Docker store.
+  - [Image](https://hub.docker.com/r/microsoft/mssql-server-linux/)
 
 
 ### Building
@@ -66,11 +65,7 @@ To start the Docker image and create the necessary assets, the statements in the
 
 ```bash
 
-<<<<<<< HEAD
-dotnet test --filter Category=integration & Provider=Oracle
-=======
-dotnet test --filter "Category=integration"
->>>>>>> master
+dotnet test --filter "Category=integration&Provider=Oracle"
 
 ```
 
@@ -82,7 +77,7 @@ To start the Docker image and create the necessary assets, the statements in the
 
 ```bash
 
-dotnet test --filter Category=integration & Provider=MSSql
+dotnet test --filter "Category=integration&Provider=MSSql"
 
 ```
 
