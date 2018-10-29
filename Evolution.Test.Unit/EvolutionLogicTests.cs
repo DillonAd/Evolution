@@ -1,11 +1,11 @@
 ﻿using System;
 using Evolution.Logic;
 using Evolution.Repo;
-using Evolution.Test.Unit.UnitTests.Infrastructure.Options;
+using Evolution.Test.Unit.Infrastructure.Options;
 using Moq;
 using Xunit;
 
-namespace Evolution.Test.Unit.UnitTests
+namespace Evolution.Test.Unit
 {
     public class EvolutionLogicTests
     {

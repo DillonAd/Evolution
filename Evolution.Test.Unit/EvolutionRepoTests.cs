@@ -1,6 +1,6 @@
 ﻿using Evolution.Data.Entity;
 using Evolution.Repo;
-using Evolution.Test.UnitTests.Infrastructure;
+using Evolution.Test.Unit.Infrastructure;
 using System;
 using System.Collections.Generic;
 using Xunit;

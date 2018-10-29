@@ -4,7 +4,7 @@ using Moq;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Evolution.Test.UnitTests.Infrastructure
+namespace Evolution.Test.Unit.Infrastructure
 {
     public class FileContextBuilder
     {

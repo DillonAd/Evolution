@@ -1,6 +1,6 @@
 ﻿using Evolution.Model;
 
-namespace Evolution.Test.Unit.UnitTests.Infrastructure.Options
+namespace Evolution.Test.Unit.Infrastructure.Options
 {
     public class MockTargetable : IEvolutionTargetable
     {
