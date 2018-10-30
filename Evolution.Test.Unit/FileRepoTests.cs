@@ -1,7 +1,7 @@
 ﻿using Evolution.Data.Entity;
 using Evolution.Exceptions;
 using Evolution.Repo;
-using Evolution.Test.UnitTests.Infrastructure;
+using Evolution.Test.Unit.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;

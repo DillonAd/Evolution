@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Evolution.Test.UnitTests.Infrastructure
+namespace Evolution.Test.Unit.Infrastructure
 {
     public class EvolutionContextBuilder
     {

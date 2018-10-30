@@ -7,11 +7,11 @@ using System.Linq;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Evolution.Test.Unit.IntegrationTests.SqlClient
+namespace Evolution.Test.Integration.Oracle
 {
     public sealed class EvolutionTest : IDisposable
     {
-        private const string _FilePath = "./IntegrationTests/TestSql/MSSql/";
+        private const string _FilePath = "./TestSql/Oracle/";
 
         private readonly ITestOutputHelper _outputHelper;
 
@@ -22,7 +22,7 @@ namespace Evolution.Test.Unit.IntegrationTests.SqlClient
 
         [Fact]
         [Trait("Category", "integration")]
-        [Trait("Provider", "MSSql")]
+        [Trait("Provider", "Oracle")]
         public void Evolve_Success()
         {
             var fileList = Directory.GetFiles(_FilePath).OrderBy(file => file);
@@ -47,7 +47,7 @@ namespace Evolution.Test.Unit.IntegrationTests.SqlClient
 
         [Fact]
         [Trait("Category", "integration")]
-        [Trait("Provider", "MSSql")]
+        [Trait("Provider", "Oracle")]
         public void Evolve_Success_With_Config()
         {
             WriteConfig(GetConnectionOptionsString());
@@ -94,13 +94,14 @@ namespace Evolution.Test.Unit.IntegrationTests.SqlClient
 
         private string GetConnectionOptionsString()
         {
-            var connectionParams = $"--user {TestContext.Parameters["MSSqlUser"]} " +
-                $"--password {TestContext.Parameters["MSSqlPassword"]} " +
-                $"--server {TestContext.Parameters["MSSqlServer"]} " +
-                $"--instance {TestContext.Parameters["MSSqlInstance"]} " +
-                $"--port {TestContext.Parameters["MSSqlPort"]} " +
-                $"--type {((int)DatabaseTypes.MSSql).ToString()}";
-            
+            var connectionParams = string.Format("--user {0} --password {1} --server {2} --instance {3} --port {4} --type {5}",
+                TestContext.Parameters["OracleUser"],
+                TestContext.Parameters["OraclePassword"],
+                TestContext.Parameters["OracleServer"],
+                TestContext.Parameters["OracleInstance"],
+                TestContext.Parameters["OraclePort"],
+                ((int)DatabaseTypes.Oracle).ToString());
+
             return connectionParams;
         }
 
@@ -134,11 +135,11 @@ namespace Evolution.Test.Unit.IntegrationTests.SqlClient
     {
         public static Dictionary<string, string> Parameters { get; } = new Dictionary<string, string>()
         {
-            { "MSSqlUser", "appUser" },
-            { "MSSqlPassword", "appPassword1" },
-            { "MSSqlServer", "localhost" },
-            { "MSSqlInstance", "evolutionDB" },
-            { "MSSqlPort", "1433" }
+            { "OracleUser", "c##appUser" },
+            { "OraclePassword", "appPassword" },
+            { "OracleServer", "localhost" },
+            { "OracleInstance", "ORCLCDB.localdomain" },
+            { "OraclePort", "6666" }
         };
     }
 }
