@@ -20,4 +20,9 @@
     <ProjectReference Include="..\Evolution\Evolution.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="./Setup/**/*" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="./TestSql/**/*" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>
