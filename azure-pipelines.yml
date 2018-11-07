@@ -48,8 +48,21 @@ steps:
   # This will fail on PR builds https://go.microsoft.com/fwlink/?linkid=862029
   continueOnError: true
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: source'
+- task: DotNetCoreCLI@2
+  displayName: Pack
   inputs:
-    PathtoPublish: '$(Build.SourcesDirectory)'
-    ArtifactName: source
+    command: pack
+    projects: './Evolution/Evolution.csproj'
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)/NuGet/'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: IntegrationTests'
+  inputs:
+    PathtoPublish: '$(Build.SourcesDirectory)/Evolution.Test.Integration'
+    ArtifactName: IntegrationTests
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: NuGet'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/NuGet'
+    ArtifactName: NuGet
