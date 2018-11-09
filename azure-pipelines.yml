@@ -55,10 +55,17 @@ steps:
     projects: './Evolution/Evolution.csproj'
     arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
 
+- task: DotNetCoreCLI@2
+  displayName: Publish
+  inputs:
+    command: publish
+    projects: './Evolution.Test.Integration/Evolution.Test.Integration.csproj'
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)/Test'
+
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: IntegrationTests'
   inputs:
-    PathtoPublish: '$(Build.SourcesDirectory)/Evolution.Test.Integration'
+    PathtoPublish: '$(Build.SourcesDirectory)/Test'
     ArtifactName: IntegrationTests
 
 - task: PublishBuildArtifacts@1
