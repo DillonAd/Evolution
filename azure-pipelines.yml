@@ -66,7 +66,7 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: IntegrationTests'
   inputs:
-    PathtoPublish: '$(Build.SourcesDirectory)/Test'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/Test'
     ArtifactName: IntegrationTests
 
 - task: PublishBuildArtifacts@1
