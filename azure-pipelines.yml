@@ -53,7 +53,7 @@ steps:
   inputs:
     command: pack
     projects: './Evolution/Evolution.csproj'
-    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)/NuGet'
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)/NuGet/'
 
 - task: DotNetCoreCLI@2
   displayName: Publish
