@@ -10,6 +10,7 @@ namespace Evolution.Test.Integration
         string Server { get; }
         string Instance { get; }
         string Port { get; }
+        string Type { get; }
         bool UseConfig { get; }
     }
 }
