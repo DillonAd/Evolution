@@ -3,7 +3,7 @@ _Logo Artwork By [@richardbmx](https://github.com/richardbmx)_
 
 # Evolution
 
-[![Build Status](https://dev.azure.com/dillon-adams/GitHub/_apis/build/status/Evolution)](https://dev.azure.com/dillon-adams/GitHub/_build/latest?definitionId=4) [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=DillonAd_Evolution&metric=coverage)](https://sonarcloud.io/dashboard?id=DillonAd_Evolution) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![Build Status](https://dev.azure.com/dillon-adams/GitHub/_apis/build/status/Evolution)](https://dev.azure.com/dillon-adams/GitHub/_build/latest?definitionId=4) [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=DillonAd_Evolution&metric=coverage)](https://sonarcloud.io/dashboard?id=DillonAd_Evolution) [![NuGet](https://img.shields.io/nuget/v/FeatureToggle.svg)](https://www.nuget.org/packages/evo) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 Evolution is a command line tool to move code for database applications.
 
