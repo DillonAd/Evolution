@@ -1,3 +1,5 @@
+#!/bin/bash
+
 CONTAINER_NAME=evolution-sql
 CURRENT_DIRECTORY=$(dirname $0)
 

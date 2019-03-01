@@ -1,4 +1,6 @@
-CONTAINER_NAME=evolution-oracle
+#!/bin/bash
+
+AME=evolution-oracle
 CURRENT_DIRECTORY=$(dirname $0)
 
 docker run -d --name $CONTAINER_NAME --rm -p 6666:1521 -p 6667:5500 -e ORACLE_SID=evolution store/oracle/database-enterprise:12.2.0.1
