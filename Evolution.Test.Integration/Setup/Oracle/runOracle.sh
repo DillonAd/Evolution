@@ -15,4 +15,4 @@ docker exec $CONTAINER_NAME /bin/bash -c 'cp tnsnames.ora $ORACLE_HOME/network/a
 sleep 1m
 
 docker cp $CURRENT_DIRECTORY/SetupOracle.sql $CONTAINER_NAME:SetupOracle.sql
-docker exec $CONTAINER_NAME bash -c 'source /home/oracle/.bashrc; sqlplus sys/Oradoc_db1@localhost:1521/ORCLCDB.localdomain as sysdba @SetupOracle.sql; exit $?'
+docker exec $CONTAINER_NAME bash -c 'source /home/oracle/.bashrc; sqlplus sys/Oradoc_db1@localhost:1521/ORCLCDB.localdomain as sysdba @SetupOracle.sql; exit \$?'
