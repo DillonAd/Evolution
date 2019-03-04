@@ -12,7 +12,7 @@ docker cp $CURRENT_DIRECTORY/tnsnames.ora $CONTAINER_NAME:tnsnames.ora
 docker exec $CONTAINER_NAME /bin/bash -c 'cp tnsnames.ora $ORACLE_HOME/network/admin/tnsnames.ora'
 
 # Oracle lied about being healthy
-sleep 1m
+sleep 2m
 
 docker cp $CURRENT_DIRECTORY/SetupOracle.sql $CONTAINER_NAME:SetupOracle.sql
 docker exec $CONTAINER_NAME bash -c 'source /home/oracle/.bashrc; sqlplus sys/Oradoc_db1@localhost:1521/ORCLCDB.localdomain as sysdba @SetupOracle.sql; exit \$?'
