@@ -1,7 +1,10 @@
 ﻿using CommandLine;
 using Evolution.Configuration;
-using Evolution.IoC;
+using Evolution.Data;
+using Evolution.Logic;
+using Evolution.Model;
 using Evolution.Options;
+using Evolution.Repo;
 using System;
 
 namespace Evolution
@@ -15,28 +18,33 @@ namespace Evolution
             _configOptions = new ConfigurationOptionCollection();
         }
 
-        public static int Main(string[] args)
-        {
-            return Parser.Default.ParseArguments<AddOptions, ExecuteOptions>(args).
+        public static int Main(string[] args) =>
+            Parser.Default.ParseArguments<AddOptions, ExecuteOptions>(args).
                 MapResult(
                     (AddOptions opts) => Run(opts),
                     (ExecuteOptions opts) => Run(opts),
                     errors => 1
                 );
-        }
 
         private static int Run(AddOptions options)
         {
             PopulateMissingConfigValues(ref options);
-            var app = DependencyRegistry.GetApplication(options);
-            return app.Run(options);
+            return GetApplication(options).Run(options);
         }
 
         private static int Run(ExecuteOptions options)
         {
             PopulateMissingConfigValues(ref options);
-            var app = DependencyRegistry.GetApplication(options);
-            return app.Run(options);
+            return GetApplication(options).Run(options);
+        }
+
+        private static IEvolutionLogic GetApplication(IDatabaseAuthenticationOptions dbAuthOptions)
+        {
+            var context = DbContextFactory.CreateContext(dbAuthOptions);
+            var repo = new EvolutionRepo(context);
+            var fileSystem = new FileContext();
+            var fileSystemRepo = new FileRepo(fileSystem);
+            return new EvolutionLogic(repo, fileSystemRepo);
         }
 
         private static void PopulateMissingConfigValues<TOption>(ref TOption options)
