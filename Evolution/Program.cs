@@ -26,18 +26,11 @@ namespace Evolution
                     errors => 1
                 );
 
-        private static int Run(AddOptions options)
-        {
-            PopulateMissingConfigValues(ref options);
-            return GetApplication(options).Run(options);
-        }
-
-        private static int Run(ExecuteOptions options)
-        {
-            PopulateMissingConfigValues(ref options);
-            return GetApplication(options).Run(options);
-        }
-
+        private static int Run(AddOptions options) =>
+            GetApplication(options).Run(options);
+        private static int Run(ExecuteOptions options) =>
+            GetApplication(options).Run(options);
+        
         private static IEvolutionLogic GetApplication(IDatabaseAuthenticationOptions dbAuthOptions)
         {
             var context = DbContextFactory.CreateContext(dbAuthOptions);
@@ -45,40 +38,6 @@ namespace Evolution
             var fileSystem = new FileContext();
             var fileSystemRepo = new FileRepo(fileSystem);
             return new EvolutionLogic(repo, fileSystemRepo);
-        }
-
-        private static void PopulateMissingConfigValues<TOption>(ref TOption options)
-            where TOption : class
-        {
-            string configValue;
-            object parseValue;
-
-            foreach(var property in options.GetType().GetProperties())
-            {
-                configValue = _configOptions.GetConfigurationValue(property.Name);
-
-                if(string.IsNullOrWhiteSpace(configValue))
-                {
-                    continue;
-                }
-
-                //Don't override values that are passed in via CLI
-                if(property.GetValue(options)?.ToString() == configValue)
-                {
-                    continue;
-                }
-
-                if(property.PropertyType.IsEnum)
-                {
-                    parseValue = Enum.Parse(property.PropertyType, configValue) as Enum;
-                }
-                else
-                {
-                    parseValue = Convert.ChangeType(configValue, property.PropertyType);
-                }
-
-                property.SetValue(options, parseValue);
-            }
         }
     }
 }
