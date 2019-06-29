@@ -1,3 +1,5 @@
+using Evolution.Exceptions;
+
 namespace Evolution.Configuration
 {
     public class ConfigurationOption
