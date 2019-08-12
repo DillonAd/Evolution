@@ -15,7 +15,7 @@ namespace Evolution.Test.Integration.Oracle
         public string User => "c##appUser";
         public string Password => "appPassword";
         public string Server => "localhost";
-        public string Instance => "ORCLCDB";
+        public string Instance => "ORCLCDB.localdomain";
         public string Port => "6666";
         public string Type => ((int)DatabaseTypes.Oracle).ToString();
         public bool UseConfig { get; }
