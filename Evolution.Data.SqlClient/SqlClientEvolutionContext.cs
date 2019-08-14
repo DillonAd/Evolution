@@ -20,8 +20,8 @@ namespace Evolution.Data.SqlClient
 
         public void AddEvolution(IEvolution evolution) 
         {
-            const string insertCommand = @"INSERT INTO EVOLUTION (ID, NAME, FILE_NAME, CONTENT, HASH, [CHECKPOINT])
-                                VALUES (@ID, @NAME, @FILE_NAME, @CONTENT, @HASH, @CHECKPOINT)";
+            const string insertCommand = @"INSERT INTO EVOLUTION (ID, NAME, FILE_NAME, CONTENT, [CHECKPOINT])
+                                VALUES (@ID, @NAME, @FILE_NAME, @CONTENT, @CHECKPOINT)";
 
             using (SqlCommand cmd = new SqlCommand(insertCommand, _Connection)) 
             {
@@ -29,8 +29,6 @@ namespace Evolution.Data.SqlClient
                 cmd.Parameters.Add ("NAME", SqlDbType.VarChar, 100).Value = evolution.Name;
                 cmd.Parameters.Add ("FILE_NAME", SqlDbType.VarChar, 100).Value = evolution.FileName;
                 cmd.Parameters.Add ("CONTENT", SqlDbType.VarChar, -1).Value = evolution.Content;
-                //TODO Implement or discard Hash
-                cmd.Parameters.Add ("HASH", SqlDbType.VarBinary, 16).Value = new byte[0];
                 cmd.Parameters.Add ("CHECKPOINT", SqlDbType.TinyInt).Value = evolution.CheckPoint;
                 cmd.ExecuteNonQuery();
             }
@@ -56,8 +54,7 @@ namespace Evolution.Data.SqlClient
                                                    NAME, 
                                                    FILE_NAME, 
                                                    CREATED_DATE, 
-                                                   CONTENT, 
-                                                   HASH, 
+                                                   CONTENT,
                                                    [CHECKPOINT] 
                                             FROM EVOLUTION";
 
@@ -81,8 +78,6 @@ namespace Evolution.Data.SqlClient
                     Name = row["NAME"].ToString(),
                     FileName = row["FILE_NAME"].ToString(),
                     Content = row["CONTENT"].ToString(),
-                    //TODO Implement hash
-                    //Hash = row["HASH"], Convert.to
                 };
 
                 if(!int.TryParse(row["CHECKPOINT"].ToString(), out var checkpoint))
@@ -117,7 +112,6 @@ namespace Evolution.Data.SqlClient
                                     FILE_NAME       VARCHAR(100),
                                     CREATED_DATE    DATETIME,
                                     CONTENT         VARCHAR(MAX),
-                                    HASH            VARBINARY(16),
                                     [CHECKPOINT]    BIT,
 
                                     PRIMARY KEY (ID)

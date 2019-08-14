@@ -1,6 +1,6 @@
 using System;
 
-namespace Evolution.Configuration
+namespace Evolution.Exceptions
 {
     public class InvalidConfigurationException : Exception
     {

@@ -20,8 +20,8 @@ namespace Evolution.Data.Oracle
 
         public void AddEvolution(IEvolution evolution)
         {
-            const string insertCommand = @"INSERT INTO EVOLUTION (ID, NAME, FILE_NAME, CONTENT, HASH, CHECKPOINT)
-                                VALUES (:ID, :NAME, :FILE_NAME, :CONTENT, :HASH, :CHECKPOINT)";
+            const string insertCommand = @"INSERT INTO EVOLUTION (ID, NAME, FILE_NAME, CONTENT, CHECKPOINT)
+                                VALUES (:ID, :NAME, :FILE_NAME, :CONTENT, :CHECKPOINT)";
 
             using (OracleCommand cmd = new OracleCommand(insertCommand, _Connection))
             {
@@ -29,7 +29,6 @@ namespace Evolution.Data.Oracle
                 cmd.Parameters.Add("NAME", evolution.Name);
                 cmd.Parameters.Add("FILE_NAME", evolution.FileName);
                 cmd.Parameters.Add("CONTENT", evolution.Content);
-                cmd.Parameters.Add("HASH", evolution.Hash);
                 cmd.Parameters.Add("CHECKPOINT", evolution.CheckPoint);
                 cmd.ExecuteNonQuery();
             }
@@ -58,7 +57,6 @@ namespace Evolution.Data.Oracle
                                                    FILE_NAME, 
                                                    CREATED_DATE, 
                                                    CONTENT, 
-                                                   HASH, 
                                                    CHECKPOINT 
                                             FROM EVOLUTION";
 
@@ -82,8 +80,6 @@ namespace Evolution.Data.Oracle
                     Name = row["NAME"].ToString(),
                     FileName = row["FILE_NAME"].ToString(),
                     Content = row["CONTENT"].ToString(),
-                    //TODO Implement hash
-                    //Hash = row["HASH"], Convert.to
                     CheckPoint = int.Parse(row["CHECKPOINT"].ToString())
                 };
 
@@ -112,7 +108,6 @@ namespace Evolution.Data.Oracle
                                     FILE_NAME       VARCHAR2(100),
                                     CREATED_DATE    DATE,
                                     CONTENT         CLOB,
-                                    HASH            RAW(16),
                                     CHECKPOINT      NUMBER(1),
 
                                     CONSTRAINT EVOLUTION_PK PRIMARY KEY (ID)
