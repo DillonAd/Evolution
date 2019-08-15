@@ -17,8 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Evolution.Exceptions", "Evo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Evolution.Model", "Evolution.Model\Evolution.Model.csproj", "{D1EB34CB-E011-4FA0-B67D-4F68E9348838}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Evolution.IoC", "Evolution.IoC\Evolution.IoC.csproj", "{EE7A1389-F72A-4C3A-A010-6F4B0E0C57E3}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Evolution.Logic", "Evolution.Logic\Evolution.Logic.csproj", "{5665FEA6-F045-4DF3-82A6-12C77BAB14AD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evolution.Data.SqlClient", "Evolution.Data.SqlClient\Evolution.Data.SqlClient.csproj", "{4530BB80-A580-48F2-A4FB-9CFF262D042B}"
