@@ -9,7 +9,6 @@ namespace Evolution.Data
         {
             if (!File.Exists(fileName))
             {
-                //TODO Need to drop .evoconfig file to determine folder structure
                 File.WriteAllText(fileName, contents);
             }
             else

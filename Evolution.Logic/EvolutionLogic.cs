@@ -32,14 +32,8 @@ namespace Evolution.Logic
             }
         }
 
-        //public int Run(CheckPointOptions options)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
         public int Run(IEvolutionTargetable targetedEvolution)
         {
-            //TODO Add logic to run up to a specific evolution
             try
             {
                 var executedEvolutions = _EvolutionRepo.GetExecutedEvolutionFileNames();

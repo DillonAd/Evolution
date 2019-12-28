@@ -33,26 +33,6 @@ namespace Evolution.Test.Unit
             Assert.Equal(evolutions.Count, executedEvolutions.Length);
         }
 
-        //TODO Create Tests for Checkpoints
-        //[Test]
-        //[Category("unit")]
-        //public void GetExecutedEvolutionsSinceCheckPoint()
-        //{
-        //    var evolutions = new List<IProgression>()
-        //    {
-        //        new Progression() { Name = "Evolution1" },
-        //        new Progression() { Name = "Evolution2" },
-        //        new Progression() { Name = "Evolution3" }
-        //    };
-
-        //    var context = SetupEvolutionContext(evolutions);
-
-        //    var repo = new EvolutionRepo(context);
-        //    var executedEvolutions = repo.GetExecutedEvolutions();
-
-        //    Assert.Equal(evolutions.Count, executedEvolutions.Length);
-        //}
-
         [Fact]
         [Trait("Category", "unit")]
         public void ExecuteEvolution_Success()

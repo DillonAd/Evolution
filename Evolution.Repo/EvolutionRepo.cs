@@ -15,17 +15,10 @@ namespace Evolution.Repo
             _Context = context;
         }
 
-        public string[] GetExecutedEvolutionFileNames()
-        {
-            //TODO add logic to get all evolutions from the last checkpoint   
-            return _Context.GetEvolutions().Select(e => e.FileName).ToArray();
-        }
-
-        //TODO Add ability to create checkpoint
-        public void CreateEvolutionCheckPoint(Guid evolutionId)
-        {
-            throw new NotImplementedException();
-        }
+        public string[] GetExecutedEvolutionFileNames() =>
+             _Context.GetEvolutions()
+                     .Select(e => e.FileName)
+                     .ToArray();
 
         public void AddEvolution(Model.Evolution evolution, string content)
         {
