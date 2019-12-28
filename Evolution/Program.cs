@@ -44,7 +44,6 @@ namespace Evolution
         private static void PopulateMissingConfigValues<TOption>(ref TOption options)
             where TOption : class
         {
-            var newOptions = options;
             string configValue;
             object parseValue;
 
