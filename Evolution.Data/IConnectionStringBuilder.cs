@@ -1,6 +1,4 @@
-﻿using System.Data.Common;
-
-namespace Evolution.Data
+﻿namespace Evolution.Data
 {
     public interface IConnectionStringBuilder
     {

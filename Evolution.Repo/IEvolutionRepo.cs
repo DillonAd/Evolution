@@ -1,6 +1,4 @@
-﻿using Evolution.Data.Entity;
-
-namespace Evolution.Repo
+﻿namespace Evolution.Repo
 {
     public interface IEvolutionRepo
     {

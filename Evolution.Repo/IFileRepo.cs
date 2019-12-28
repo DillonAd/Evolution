@@ -1,5 +1,4 @@
-﻿using Evolution.Data.Entity;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Evolution.Repo
 {
